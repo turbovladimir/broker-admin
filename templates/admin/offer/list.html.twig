@@ -1,0 +1,16 @@
+{% extends '@admin/base.html.twig' %}
+
+{% set title = 'Офферы' %}
+{% block card_button_bar %}
+    <a href="{{ path('offer_new') }}" class="btn btn-primary">Добавить</a>
+{% endblock %}
+{% block card_body %}
+    <div class="row p-2">
+        {% for offer in offers %}
+            <div class="offer mt-3">
+                {% include '@admin/offer/offer_card.html.twig' with {'offer': offer} %}
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

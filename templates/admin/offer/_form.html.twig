@@ -1,0 +1,26 @@
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{% if offer is defined and offer.id > 0 %}
+{% set button_label = 'Изменить' %}
+{% endif %}
+<div class="form-group mt-4 btn-group">
+    <button class="btn btn-primary">{{ button_label|default('Сохранить') }}</button>
+</div>
+{{ form_end(form) }}
+<script>
+    {% if offer is defined and offer.id > 0 %}
+    function ResetLogo(){
+        document.getElementById("offer_logotype").classList.remove("collapse");
+        document.getElementById("logo_feed_id").classList.add("collapse");
+        document.getElementById("reset_logo").classList.add("collapse");
+    }
+
+    document.getElementById("offer_logotype").classList.add("collapse");
+    document.getElementById("logo").innerHTML +=
+        `<span id="reset_logo" onclick="ResetLogo()">{% include 'components/minus.html.twig' %}</span>` +
+            `<div class="logo_feed" id="logo_feed_id" style="background-image: url('{{ asset('content/img/logo/' ~ offer.logo) }}')">`
+             + `</div>`;
+
+    ;
+    {% endif %}
+</script>

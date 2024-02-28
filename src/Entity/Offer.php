@@ -30,13 +30,21 @@ class Offer
     private ?int $maxLoanAmount = null;
 
     #[ORM\Column]
-    private ?float $interestRate = null;
-
-    #[ORM\Column]
     private ?int $minLoanPeriodDays = null;
 
     #[ORM\Column]
     private ?int $maxLoanPeriodDays = null;
+
+    #[ORM\Column]
+    private ?float $interestRate = null;
+
+    #[ORM\Column(length: 355)]
+    private ?string $url = null;
+
+    public function __construct()
+    {
+        $this->addedAt = new \DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -103,18 +111,6 @@ class Offer
         return $this;
     }
 
-    public function geInterestRate(): ?float
-    {
-        return $this->interestRate;
-    }
-
-    public function setInterestRate(float $interestRate): static
-    {
-        $this->interestRate = $interestRate;
-
-        return $this;
-    }
-
     public function getMinLoanPeriodDays(): ?int
     {
         return $this->minLoanPeriodDays;
@@ -135,6 +131,30 @@ class Offer
     public function setMaxLoanPeriodDays(int $maxLoanPeriodDays): static
     {
         $this->maxLoanPeriodDays = $maxLoanPeriodDays;
+
+        return $this;
+    }
+
+    public function getInterestRate(): ?float
+    {
+        return $this->interestRate;
+    }
+
+    public function setInterestRate(float $interestRate): static
+    {
+        $this->interestRate = $interestRate;
+
+        return $this;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    public function setUrl(string $url): static
+    {
+        $this->url = $url;
 
         return $this;
     }

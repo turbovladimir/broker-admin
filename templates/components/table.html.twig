@@ -1,0 +1,21 @@
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+        <tr>
+            {% for title, value in table.head %}
+                <th>{{ title }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for row in table.rows %}
+            {{ dump(row) }}
+            <tr>
+                {% for val in row %}
+                    <td>1</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
