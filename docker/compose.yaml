@@ -15,11 +15,14 @@ services:
       XDEBUG_CLIENT_PORT: 55375
       XDEBUG_START_WITH_REQUEST: 'yes'
       PHP_IDE_CONFIG: serverName=xdebug_server
+      WEB_ALIAS_DOMAIN: ${WEB_ALIAS_DOMAIN|-domain}
     ports:
       - '80:80'
       - '443:443'
     volumes:
       - ../:/app
+      - ./nginx/ssl:/opt/docker/etc/nginx/ssl
+      - ./nginx/conf:/opt/docker/etc/nginx/conf.d
     networks:
       default:
         ipv4_address: 172.30.0.2

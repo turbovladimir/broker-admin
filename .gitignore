@@ -17,3 +17,4 @@ docker/compose.override.yaml
 /assets/vendor/
 ###< symfony/asset-mapper ###
 /docker/docker/
+/docker/nginx/ssl/
