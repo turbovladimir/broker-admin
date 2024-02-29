@@ -15,3 +15,4 @@ docker/compose.override.yaml
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
+/docker/docker/
