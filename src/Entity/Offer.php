@@ -20,8 +20,8 @@ class Offer
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $addedAt = null;
 
-    #[ORM\Column]
-    private ?bool $isActive = null;
+    #[ORM\Column(nullable: 0, options: ["default" => 0])]
+    private bool $isActive = false;
 
     #[ORM\Column(length: 255)]
     private ?string $logo = null;

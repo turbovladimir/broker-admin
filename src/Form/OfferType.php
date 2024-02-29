@@ -27,6 +27,7 @@ class OfferType extends AbstractType
             ])
             ->add('isActive',CheckboxType::class, [
         'label' => 'Активность',
+        'required' => false,
         'row_attr' => [
             'class' => 'from-group mb-1'
         ],

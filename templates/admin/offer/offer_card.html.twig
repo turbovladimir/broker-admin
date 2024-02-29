@@ -1,5 +1,5 @@
 <div class="card p-3">
-    <div class="card-body disabled">
+    <div class="card-body">
         <h3 class="card-title">{{ offer.name }} <a href="{{ path('offer_edit', {"offer": offer.id}) }}">{% include 'components/pencil.html.twig' %}</a></h3>
         <div class="logo_feed" style="background-image: url('{{ asset('content/img/logo/' ~ offer.logo) }}')"></div>
         <div class="offer_term">

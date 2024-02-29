@@ -7,7 +7,7 @@
 {% block card_body %}
     <div class="row p-2">
         {% for offer in offers %}
-            <div class="offer mt-3">
+            <div class="offer {{ offer.isActive == false ? 'offer_inactive' : ''}} mt-3">
                 {% include '@admin/offer/offer_card.html.twig' with {'offer': offer} %}
             </div>
         {% endfor %}
