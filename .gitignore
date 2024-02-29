@@ -18,3 +18,4 @@ docker/compose.override.yaml
 ###< symfony/asset-mapper ###
 /docker/docker/
 /docker/nginx/ssl/
+/docker/nginx/log/

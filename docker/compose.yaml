@@ -23,6 +23,7 @@ services:
       - ../:/app
       - ./nginx/ssl:/opt/docker/etc/nginx/ssl
       - ./nginx/conf:/opt/docker/etc/nginx/conf.d
+      - ./nginx/log:/var/log/nginx
     networks:
       default:
         ipv4_address: 172.30.0.2
