@@ -51,8 +51,6 @@ class OfferType extends AbstractType
                 // in the associated entity, so you can use the PHP constraint classes
                 'constraints' => [
                     new Image([
-                        'maxWidth' => 1000,
-                        'maxHeight' => 1000,
                         'mimeTypes' => [
                             'image/*',
                         ],
