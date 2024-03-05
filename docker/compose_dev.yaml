@@ -2,6 +2,7 @@ version: '3.5'
 
 services:
   broker-admin:
+    platform: linux/amd64
     container_name: c-broker-admin
     image: webdevops/php-nginx-dev:8.2
     user: application:application

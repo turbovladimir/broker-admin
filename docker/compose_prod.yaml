@@ -5,6 +5,8 @@ services:
     container_name: c-broker-admin
     image: webdevops/php-nginx:8.2
     restart: always
+    user: application:application
+    working_dir: '/app'
     depends_on:
       - postgrest
     extra_hosts:
