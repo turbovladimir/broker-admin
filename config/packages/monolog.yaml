@@ -77,6 +77,7 @@ when@prod:
                 formatter: monolog.formatter.json
             telegram:
                 type: telegram
+                level: error
                 token: "%env(MONOLOG_TELEGRAM_TOKEN)%"
                 channel: "%env(MONOLOG_TELEGRAM_CHANNEL)%"
                 split_long_messages: true
