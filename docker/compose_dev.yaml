@@ -4,6 +4,8 @@ services:
   broker-admin:
     container_name: c-broker-admin
     image: webdevops/php-nginx-dev:8.2
+    user: application:application
+    working_dir: '/app'
     restart: always
     extra_hosts:
       - host.docker.internal:host-gateway
