@@ -3,7 +3,7 @@ version: '3.5'
 services:
   broker-admin:
     container_name: c-broker-admin
-    build: .
+    image: webdevops/php-nginx:8.2
     restart: always
     depends_on:
       - postgrest
