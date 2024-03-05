@@ -3,10 +3,10 @@ version: '3.5'
 services:
   broker-admin:
     container_name: c-broker-admin
-    image: webdevops/php-nginx:8.2
-    user: application:application
-    working_dir: '/app'
+    build: .
     restart: always
+    depends_on:
+      - postgrest
     extra_hosts:
       - host.docker.internal:host-gateway
     environment:
@@ -25,9 +25,6 @@ services:
       - ./nginx/ssl:/opt/docker/etc/nginx/ssl
       - ./nginx/conf/zaymirubli.conf:/opt/docker/etc/nginx/main.conf
       - ./nginx/log:/var/log/nginx
-    command: >
-      bash -c "su application && cd /app && composer dump-env prod
-      && composer install"
     networks:
       default:
         ipv4_address: 172.30.0.2
