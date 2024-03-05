@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+    {% block body %}
+        <div class="container container_loan">
+            <div class="row mt-5 align-items-center justify-content-between">
+                {% block container %}
+                    <div class="col-4">
+                        <img class="" src="{{ asset('content/img/loan/zaymi.png') }}">
+                    </div>
+                    <div class="col-4">
+                        <img class="" src="{{ asset('content/img/loan/increase.png') }}">
+                    </div>
+                {% endblock %}
+            </div>
+        </div>
+    {% endblock %}

@@ -4,6 +4,7 @@ twig:
         # ...
     paths:
         '%kernel.project_dir%/templates/admin': admin
+        '%kernel.project_dir%/templates/loan': loan
 
 when@test:
     twig:

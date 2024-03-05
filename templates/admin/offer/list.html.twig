@@ -5,9 +5,9 @@
     <a href="{{ path('offer_new') }}" class="btn btn-primary">Добавить</a>
 {% endblock %}
 {% block card_body %}
-    <div class="row p-2">
+    <div class="row mt-2 align-items-center">
         {% for offer in offers %}
-            <div class="offer {{ offer.isActive == false ? 'offer_inactive' : ''}} mt-3">
+            <div class="col {{ offer.isActive == false ? 'offer_inactive' : ''}} mt-3" style="max-width: 350px; max-height: 450px">
                 {% include '@admin/offer/offer_card.html.twig' with {'offer': offer} %}
             </div>
         {% endfor %}
