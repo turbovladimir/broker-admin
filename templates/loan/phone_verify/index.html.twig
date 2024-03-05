@@ -1,0 +1,30 @@
+{% extends '@loan/base.html.twig' %}
+{% set title = 'Введите номер телефона' %}
+{% block container %}
+    {{ parent() }}
+    <div class="container form_container text-center">
+        <div class="row mt-2 align-items-center">
+            <div class="col-10">
+            </div>
+            <div class="col-2">
+                <img src="{{ asset('content/img/loan/step1.svg') }}">
+            </div>
+        </div>
+        <div class="row mt-2 align-items-center">
+            <div class="col-12 mb-2">
+                <h4>Введите номер телефона</h4>
+            </div>
+            <div class="col-12 mb-2">
+                <p>Укажите номер телефона, на который
+                    можно отправить SMS сообщение</p>
+            </div>
+            <div class="col-12 mb-2">
+                <span class="text_semi_bold" style="font-size: 16px; font-family: Inter-600">Авторизация через:</span>
+                <p> {Какие то значки}</p>
+            </div>
+            <div class="col-12">
+                <input type="text" id="phone" name="phone" class="form-control loan_form_input form-control phone_mask" placeholder="+7(  )">
+            </div>
+        </div>
+    </div>
+{% endblock %}

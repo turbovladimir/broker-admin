@@ -1,3 +1,10 @@
+services:
+    App\Monolog\Processor\WebProcessor:
+        arguments:
+            - '@request_stack'
+        tags:
+            - { name: monolog.processor, handler: telegram }
+
 monolog:
     channels:
         - deprecation # Deprecations are logged in the dedicated "deprecation" channel when it exists
@@ -22,6 +29,13 @@ when@dev:
                 type: console
                 process_psr_3_messages: false
                 channels: ["!event", "!doctrine", "!console"]
+            telegram:
+                type: telegram
+                level: error
+                token: "%env(MONOLOG_TELEGRAM_TOKEN)%"
+                channel: "%env(MONOLOG_TELEGRAM_CHANNEL)%"
+                split_long_messages: true
+                delay_between_messages: true
 
 when@test:
     monolog:
@@ -61,3 +75,9 @@ when@prod:
                 channels: [deprecation]
                 path: php://stderr
                 formatter: monolog.formatter.json
+            telegram:
+                type: telegram
+                token: "%env(MONOLOG_TELEGRAM_TOKEN)%"
+                channel: "%env(MONOLOG_TELEGRAM_CHANNEL)%"
+                split_long_messages: true
+                delay_between_messages: true
