@@ -57,14 +57,14 @@ when@prod:
             main:
                 type: fingers_crossed
                 action_level: error
-                handler: nested
-                excluded_http_codes: [404, 405]
+                handler: telegram
+                excluded_http_codes: [403, 404, 405]
                 buffer_size: 50 # How many messages should be saved? Prevent memory leaks
-            nested:
+            rotating_files:
                 max_files: 10
                 type: rotating_file
                 path: "%kernel.logs_dir%/main.log"
-                level: info
+                level: warning
                 channels: [ '!request', '!security', '!export', '!postback', '!console' ]
             console:
                 type: console
@@ -77,7 +77,6 @@ when@prod:
                 formatter: monolog.formatter.json
             telegram:
                 type: telegram
-                level: error
                 token: "%env(MONOLOG_TELEGRAM_TOKEN)%"
                 channel: "%env(MONOLOG_TELEGRAM_CHANNEL)%"
                 split_long_messages: true
