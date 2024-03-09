@@ -1,0 +1,8 @@
+{% extends '@loan/base.html.twig' %}
+{% if title is not defined %}
+    {% set title = 'Что то пошло не так...' %}
+{% endif %}
+{% block container %}
+    {{ parent() }}
+  <h1>{{ title }}</h1>
+{% endblock %}
