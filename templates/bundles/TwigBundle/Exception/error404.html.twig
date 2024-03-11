@@ -1,2 +1,3 @@
-{% extends 'bundles/TwigBundle/Exception/error.html.twig' %}
-{% set title = 'страницы не существует' %}
+{% extends 'bundles/TwigBundle/Exception/base.html.twig' %}
+{% set errorMessage = 'страницы не существует' %}
+{% set code = 404 %}

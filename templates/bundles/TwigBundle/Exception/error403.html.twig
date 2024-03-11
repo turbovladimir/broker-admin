@@ -1,2 +1,3 @@
-{% extends 'bundles/TwigBundle/Exception/error.html.twig' %}
-{% set title = 'У вас недостаточно прав' %}
+{% extends 'bundles/TwigBundle/Exception/base.html.twig' %}
+{% set errorMessage  = 'У вас недостаточно прав' %}
+{% set code  = 403 %}

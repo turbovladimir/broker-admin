@@ -1,0 +1,33 @@
+<div id="form_step_personal_data">
+    <div class="row mt-2 align-items-center">
+        <div class="col">
+            {{ form_row(form.surname) }}
+        </div>
+        <div class="col" id="some-custom-id">
+            {{ form_row(form.name) }}
+        </div>
+    </div>
+    <div class="row mt-2 align-items-center">
+        <div class="col" id="some-custom-id">
+            {{ form_row(form.patron) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.phone) }}
+        </div>
+    </div>
+    <div class="row mt-2 align-items-center">
+        <div class="col" id="some-custom-id">
+            {{ form_row(form.birth) }}
+        </div>
+        <div class="col" id="some-custom-id">
+            {{ form_row(form.email) }}
+        </div>
+    </div>
+    <div class="row mt-4 align-items-center">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <a id="btn_continue" type="button" class="loan-btn loan-btn-green d-block">Продолжить</a>
+        </div>
+        <div class="col-4"></div>
+    </div>
+</div>

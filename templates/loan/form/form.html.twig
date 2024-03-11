@@ -1,0 +1,25 @@
+<div id="form_main" class="collapse">
+    <div class="row mt-2 align-items-center justify-content-between">
+        <div class="col-9">
+            <h3 id="title_fill_form">Для получения займа <br> заполните анкету</h3>
+        </div>
+        <div class="col-3">
+            <a id="step2" type="button" class="loan-btn loan-btn-green">Шаг 2</a>
+        </div>
+    </div>
+<div class="row mt-2">
+    <div class="col-2"></div>
+    <div class="col-8">
+        <div class="row mt-4 align-items-center">
+            {{ form_start(form) }}
+            <div class="form_errors">
+                {{ form_errors(form) }}
+            </div>
+            {% include '@loan/form/personal_data.html.twig' %}
+            {% include '@loan/form/passport.html.twig' %}
+            {{ form_end(form) }}
+        </div>
+    </div>
+    <div class="col-2"></div>
+</div>
+</div>

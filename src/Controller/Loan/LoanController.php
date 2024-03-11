@@ -12,18 +12,6 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/loan', name: 'loan_')]
 class LoanController extends AbstractController
 {
-    #[Route('/thanks', name: 'thanks')]
-    public function thanks()
-    {
-        return $this->render('@loan/thanks/index.html.twig');
-    }
-
-    #[Route('/phone_verify', name: 'phone_verify')]
-    public function phoneVerify()
-    {
-        return $this->render('@loan/phone_verify/index.html.twig');
-    }
-
     #[Route('/form', name: 'form')]
     public function form(Request $request, EntityManagerInterface $entityManager)
     {
