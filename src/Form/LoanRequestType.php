@@ -25,87 +25,95 @@ class LoanRequestType extends AbstractType
         $builder
             ->add('name', TextType::class,  [
                 'row_attr' => [
-                    'class' => 'from-group mb-3'
+                    'class' => 'from-group form-floating mb-3'
                 ],
-                'attr' => ['class' => 'form-control loan_form_input', 'placeholder' => "Имя"],
-                'label' => false
+                'attr' => ['class' => 'form-control loan_form_input kirilik_validation', 'placeholder' => "Имя"],
+                'label' => 'Имя'
             ])
             ->add('surname', TextType::class,  [
                 'row_attr' => [
-                    'class' => 'from-group mb-3'
+                    'class' => 'from-group form-floating mb-3'
                 ],
                 'attr' => ['class' => 'form-control loan_form_input', 'placeholder' => "Фамилия"],
-                'label' => false
+                'label' => 'Фамилия'
             ])
             ->add('patron', TextType::class,  [
                 'row_attr' => [
-                    'class' => 'from-group mb-3'
+                    'class' => 'from-group form-floating mb-3'
                 ],
                 'attr' => ['class' => 'form-control loan_form_input', 'placeholder' => "Отчество"],
-                'label' => false
+                'label' => 'Отчество'
             ])
             ->add('phone', TextType::class,  [
                 'row_attr' => [
-                    'class' => 'from-group mb-3'
+                    'class' => 'from-group form-floating mb-3'
                 ],
                 'attr' => ['class' => 'form-control loan_form_input', 'placeholder' => "Телефон"],
-                'label' => false
+                'label' => 'Телефон'
+            ])
+            ->add('code', TextType::class,  [
+                'mapped' => false,
+                'row_attr' => [
+                    'class' => 'from-group form-floating mb-3'
+                ],
+                'attr' => ['class' => 'form-control loan_form_input', 'placeholder' => "Проверочный код"],
+                'label' => 'Проверочный код'
             ])
             ->add('birth', TextType::class,  [
                 'row_attr' => [
-                    'class' => 'from-group mb-3'
+                    'class' => 'from-group form-floating mb-3'
                 ],
-                'attr' => ['class' => 'form-control loan_form_input', 'placeholder' => "Дата рождения"],
-                'label' => false
+                'attr' => ['class' => 'form-control loan_form_input date_mask birth_validate', 'placeholder' => "01/12/1990 Дата рождения"],
+                'label' => '01/12/1990 Дата рождения'
             ])
             ->add('email', EmailType::class,  [
                 'row_attr' => [
-                    'class' => 'from-group mb-3'
+                    'class' => 'from-group form-floating mb-3'
                 ],
-                'attr' => ['class' => 'form-control loan_form_input', 'placeholder' => "Email"],
-                'label' => false
+                'attr' => ['class' => 'form-control loan_form_input email_mask', 'placeholder' => "Email"],
+                'label' => 'Email'
             ])
             ->add('passportSeries', NumberType::class,  [
                 'row_attr' => [
-                    'class' => 'from-group mb-3'
+                    'class' => 'from-group form-floating mb-3'
                 ],
                 'attr' => ['class' => 'form-control loan_form_input', 'placeholder' => "Серия"],
-                'label' => false
+                'label' => 'Серия'
             ])
             ->add('passportNumber', NumberType::class,  [
                 'row_attr' => [
-                    'class' => 'from-group mb-3'
+                    'class' => 'from-group form-floating mb-3'
                 ],
                 'attr' => ['class' => 'form-control loan_form_input', 'placeholder' => "Номер"],
-                'label' => false
+                'label' => 'Номер'
             ])
             ->add('departmentCode', NumberType::class,  [
                 'row_attr' => [
-                    'class' => 'from-group mb-3'
+                    'class' => 'from-group form-floating mb-3'
                 ],
                 'attr' => ['class' => 'form-control loan_form_input', 'placeholder' => "Код подразделения"],
-                'label' => false
+                'label' => 'Код подразделения'
             ])
-            ->add('issueDate', DateType::class,  [
+            ->add('issueDate', TextType::class,  [
                 'row_attr' => [
-                    'class' => 'from-group mb-3'
+                    'class' => 'from-group form-floating mb-3'
                 ],
-                'attr' => ['class' => 'form-control loan_form_input', 'placeholder' => "Дата выдачи"],
-                'label' => false
+                'attr' => ['class' => 'form-control loan_form_input date_mask', 'placeholder' => "01/12/2000 Дата выдачи"],
+                'label' => 'Дата выдачи'
             ])
             ->add('region', TextType::class,  [
                 'row_attr' => [
-                    'class' => 'from-group mb-3'
+                    'class' => 'from-group form-floating mb-3'
                 ],
                 'attr' => ['class' => 'form-control loan_form_input', 'placeholder' => "Регион"],
-                'label' => false
+                'label' => 'Регион'
             ])
             ->add('city', TextType::class,  [
                 'row_attr' => [
-                    'class' => 'from-group mb-3'
+                    'class' => 'from-group form-floating mb-3'
                 ],
-                'attr' => ['class' => 'form-control loan_form_input', 'placeholder' => "Город"],
-                'label' => false
+                'attr' => ['class' => 'form-control loan_form_input suggest_city', 'placeholder' => "Город"],
+                'label' => 'Город'
             ])
         ;
     }

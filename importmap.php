@@ -32,4 +32,10 @@ return [
     'jquery-mask-plugin' => [
         'version' => '1.14.16',
     ],
+    'jquery-datepicker' => [
+        'version' => '1.12.3',
+    ],
+    'jquery-autocomplete' => [
+        'version' => '1.2.8',
+    ],
 ];

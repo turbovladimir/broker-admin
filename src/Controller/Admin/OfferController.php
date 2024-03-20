@@ -9,6 +9,7 @@ use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -66,7 +67,14 @@ class OfferController extends AbstractController
         $uploadFile = $form->get('logotype')->getData();
 
         if ($uploadFile) {
-            $fileName = $uploader->upload($uploadFile, $this->getParameter('dir_logo'));
+            $dir = $this->getParameter('dir_logo');
+
+            if ($logo = $offer->getLogo()) {
+                $fs = new Filesystem();
+                $fs->remove($dir . '/' . $logo);
+            }
+
+            $fileName = $uploader->upload($uploadFile, $dir);
             $offer->setLogo($fileName);
         }
 

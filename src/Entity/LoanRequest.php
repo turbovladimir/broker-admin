@@ -127,9 +127,9 @@ class LoanRequest
         return $this->birth;
     }
 
-    public function setBirth(\DateTimeInterface $birth): static
+    public function setBirth(string $birth): static
     {
-        $this->birth = $birth;
+        $this->birth = new \DateTime($birth);
 
         return $this;
     }
@@ -175,9 +175,9 @@ class LoanRequest
         return $this->departmentCode;
     }
 
-    public function setDepartmentCode(int $departmentCode): static
+    public function setDepartmentCode($departmentCode): static
     {
-        $this->departmentCode = $departmentCode;
+        $this->departmentCode = (int)str_replace('-', '', $departmentCode);
 
         return $this;
     }
@@ -187,9 +187,9 @@ class LoanRequest
         return $this->issueDate;
     }
 
-    public function setIssueDate(\DateTimeInterface $issueDate): static
+    public function setIssueDate(string $issueDate): static
     {
-        $this->issueDate = $issueDate;
+        $this->issueDate = new \DateTime($issueDate);
 
         return $this;
     }

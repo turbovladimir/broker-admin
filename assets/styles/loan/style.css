@@ -6,6 +6,13 @@ h1 {
     text-shadow: 2px 2px black;
 }
 
+h2 {
+    all: unset;
+    color: #00AD4A;
+    font-family: Inter-900;
+    font-size: 60px;
+}
+
 h3 {
     all: unset;
     font-family: Inter-600;
@@ -18,21 +25,43 @@ h4 {
     font-size: 32px;
 }
 
-a {
+h5 {
+    all: unset;
     font-family: Inter-600;
-    font-size: 20px;
+    font-size: 24px;
+}
+
+a {
     text-decoration: none !important;
 }
 
-p {
-    all: unset;
-    font-family: Inter-300;
+.p-gray {
+    color: #969696;
+    font-family: Inter-400;
     font-size: 20px;
-    drop-shadow(0px 4px 4px);
 }
 
-.container_loan {
+.toast-link {
+    color: wheat;
+}
 
+.footer-link {
+    font-family: Inter-400;
+    font-size: 16px;
+    color: black !important;
+}
+
+.loan-p {
+    all: unset;
+    font-family: Inter-600;
+    font-size: 20px;
+    /*drop-shadow(0px 4px 4px);*/
+}
+
+.form-label {
+    font-family: Inter-400;
+    font-size: 16px;
+    color: #969696;
 }
 
 .loan_form_input {
@@ -68,4 +97,63 @@ p {
 }
 .loan-btn:hover {
     background-position: right center; /* change the direction of the change here */
+}
+
+.error {
+    color: red;
+}
+
+.error_input {
+    border-style: double;
+    border-color: red;
+}
+
+.good_input {
+    border-style: double;
+    border-color: #00AD4A;
+}
+
+.range {
+    background-color: #F6F6F6;
+    padding: 2em;
+    border-radius: 10px;
+}
+
+.range_val {
+    color: #CDCDCD;
+    font-family: Inter-300;
+    font-size: 16px;
+}
+
+.range label {
+    font-family: Inter-600;
+    font-size: 24px;
+    color: black;
+    padding-bottom: 1em;
+}
+
+.range input::-webkit-slider-thumb {
+    background: #00AD4A;
+}
+
+.range input::-moz-range-thumb {
+    background: #00AD4A;
+}
+
+.range_row input::-ms-thumb {
+    background: #00AD4A;
+}
+
+.bg_white {
+    background-color: #F6F6F6;
+}
+
+.advantages div {
+    background-color: white;
+    border-radius: 10px;
+}
+
+.square{
+    width: 270px;
+    height: 270px;
 }
