@@ -13,7 +13,35 @@
  */
 return [
     'app' => [
-        'path' => './assets/app.js',
+        'path' => './assets/script/app.js',
+        'entrypoint' => true,
+    ],
+    'jquery_provider' => [
+        'path' => './assets/script/jquery.js',
+        'entrypoint' => true,
+    ],
+    'loan_form' => [
+        'path' => './assets/script/loan/form.js',
+        'entrypoint' => true,
+    ],
+    'loan_mask' => [
+        'path' => './assets/script/loan/mask.js',
+        'entrypoint' => true,
+    ],
+    'loan_range' => [
+        'path' => './assets/script/loan/range.js',
+        'entrypoint' => true,
+    ],
+    'loan_validate' => [
+        'path' => './assets/script/loan/validate.js',
+        'entrypoint' => true,
+    ],
+    'loan_autocomplete' => [
+        'path' => './assets/script/loan/autocomplete.js',
+        'entrypoint' => true,
+    ],
+    'loan_push' => [
+        'path' => './assets/script/loan/push.js',
         'entrypoint' => true,
     ],
     'bootstrap' => [
@@ -37,5 +65,8 @@ return [
     ],
     'jquery-autocomplete' => [
         'version' => '1.2.8',
+    ],
+    'jquery-ui' => [
+        'version' => '1.13.2',
     ],
 ];

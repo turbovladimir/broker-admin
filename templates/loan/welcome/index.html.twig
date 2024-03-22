@@ -8,4 +8,7 @@
         {% include '@loan/welcome/reviews.html.twig' %}
         {% include '@loan/welcome/footer.html.twig' %}
     </div>
+    {% include 'components/push.html.twig' %}
 {% endblock %}
+
+{% block importmap %}{{ importmap(['jquery_provider', 'app', 'loan_range', 'loan_push']) }}{% endblock %}

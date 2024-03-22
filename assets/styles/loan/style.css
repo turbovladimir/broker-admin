@@ -157,3 +157,21 @@ a {
     width: 270px;
     height: 270px;
 }
+
+.offer_wrap {
+    padding: 2em;
+    border-radius: 10px;
+    background-color: #F6F6F6;
+    --offer_wrap_width: 100%;
+}
+
+.offer_card {
+    border-radius: 10px;
+    padding: 2em;
+    background-color: white;
+    max-height: 450px;
+}
+
+.offer_blank {
+    max-height: 450px;
+}

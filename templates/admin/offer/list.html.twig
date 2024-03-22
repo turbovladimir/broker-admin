@@ -1,14 +1,13 @@
 {% extends '@admin/base.html.twig' %}
-
 {% set title = 'Офферы' %}
 {% block card_button_bar %}
-    <a href="{{ path('offer_new') }}" class="btn btn-primary">Добавить</a>
+    <a href="{{ path('admin_offer_new') }}" class="btn btn-primary">Добавить</a>
 {% endblock %}
 {% block card_body %}
     <div class="row mt-2 align-items-center">
         {% for offer in offers %}
-            <div class="col {{ offer.isActive == false ? 'offer_inactive' : ''}} mt-3" style="max-width: 350px; max-height: 450px">
-                {% include '@admin/offer/offer_card.html.twig' with {'offer': offer} %}
+            <div class="col {{ offer.isActive == false ? 'offer_inactive' : ''}} m-2 mt-1">
+                {% include '@admin/offer/offer_card.html.twig' with { 'offer': offer, 'edit_action': true } %}
             </div>
         {% endfor %}
     </div>

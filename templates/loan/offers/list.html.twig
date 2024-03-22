@@ -1,0 +1,17 @@
+<div class="col-2"></div>
+<div class="col-8 offer_wrap">
+    {% for batch in offers|batch(3, 'blank') %}
+            <div class="row">
+                    {% for offer in batch %}
+                            <div class="col m-2">
+                                {% if offer != 'blank' %}
+                                    {% include '@admin/offer/offer_card.html.twig' with {'offer': offer} %}
+                                    {% else %}
+                                    <div class="offer_blank"></div>
+                                {% endif %}
+                            </div>
+                    {% endfor %}
+            </div>
+    {% endfor %}
+</div>
+<div class="col-2"></div>

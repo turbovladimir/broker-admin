@@ -1,18 +1,23 @@
-<div class="card p-3 text-center">
-    <div class="card-body">
-        <h5 class="card-title">{{ offer.name }} <a href="{{ path('offer_edit', {"offer": offer.id}) }}">{% include 'components/pencil.html.twig' %}</a></h5>
-        <div class="logo_feed mt-2 mb-2" style="background-image: url('{{ asset('content/img/admin/logo/' ~ offer.logo) }}')"></div>
-        <div class="col-12">
-            <p class="term">До {{ offer.maxLoanAmount }} рублей</p>
-        </div>
-        <div class="col-12">
-            <p class="term">От {{ offer.minLoanPeriodDays }} до {{ offer.maxLoanPeriodDays }} дней</p>
-        </div>
-        <div class="col-12">
-            <p class="term">От {{ offer.interestRate }}% в день</p>
-        </div>
-        <div class="col-12 give_money text-center">
-            <a class="btn link default_btn" href="{{ offer.url }}">Получить деньги</a>
-        </div>
+<div class="offer_card text-center">
+    <div class="col-12">
+        <h5>{{ offer.name }}
+            {% if edit_action is defined %}
+                <a href="{{ path('admin_offer_edit', {"offer": offer.id}) }}">{% include 'components/pencil.html.twig' %}</a>
+            {% endif %}
+        </h5>
+        <div class="logo_feed mt-2 mb-2"
+             style="background-image: url('{{ asset('content/img/admin/logo/' ~ offer.logo) }}')"></div>
+    </div>
+    <div class="col-12">
+        <span class="term">До <strong>{{ offer.maxLoanAmount }}</strong> рублей</span>
+    </div>
+    <div class="col-12">
+        <span class="term">От <strong>{{ offer.minLoanPeriodDays }}</strong> до <strong>{{ offer.maxLoanPeriodDays }}</strong> дней</span>
+    </div>
+    <div class="col-12">
+        <span class="term">От <strong>{{ offer.interestRate }}%</strong> в день</span>
+    </div>
+    <div class="col-12 give_money text-center">
+        <a class="btn link default_btn" href="{{ offer.url }}">Получить деньги</a>
     </div>
 </div>

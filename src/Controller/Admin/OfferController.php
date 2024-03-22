@@ -15,11 +15,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/admin/offer', name: 'offer_')]
+#[Route('/admin/offer', name: 'admin_offer_')]
 class OfferController extends AbstractController
 {
     #[Route('/list', name: 'list')]
-    public function list(OfferRepository $repository, LoggerInterface $telegramLogger): Response
+    public function list(OfferRepository $repository): Response
     {
         $offers = $repository->findAll();
 
@@ -33,7 +33,7 @@ class OfferController extends AbstractController
         $form->handleRequest($request);
 
         if ($this->upsertOffer($offer, $form, $entityManager, $uploader)) {
-            return $this->redirectToRoute('offer_list');
+            return $this->redirectToRoute('admin_offer_list');
         }
 
         return $this->render('admin/offer/edit.html.twig', [
@@ -50,7 +50,7 @@ class OfferController extends AbstractController
         $form->handleRequest($request);
 
         if ($this->upsertOffer($offer, $form, $entityManager, $uploader)) {
-            return $this->redirectToRoute('offer_list');
+            return $this->redirectToRoute('admin_offer_list');
         }
 
         return $this->render('admin/offer/new.html.twig', [
