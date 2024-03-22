@@ -35,7 +35,7 @@ class LoanController extends AbstractController
         $entityManager->persist($loanRequest);
         $entityManager->flush();
 
-        return $this->redirectToRoute('loan_thanks');
+        return $this->redirectToRoute('user_offer_list');
     }
 
     #[Route('/verify/request_code', name: 'verify_request_code')]
