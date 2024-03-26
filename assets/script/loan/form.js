@@ -1,3 +1,4 @@
+import {addError} from './validate.js';
 /**
  * form behavior here
  */

@@ -2,7 +2,7 @@
 
 namespace App\Controller\Dadata;
 
-use App\Service\DaData\AddressSuggester;
+use App\Service\DaData\SuggesterAdapter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class SuggestController extends AbstractController
 {
     #[Route('/city', name: 'city')]
-    public function suggestCity(Request $request, AddressSuggester $suggester): Response
+    public function suggestCity(Request $request, SuggesterAdapter $suggester): Response
     {
         $query = $request->query->get('query');
 
@@ -20,7 +20,7 @@ class SuggestController extends AbstractController
     }
 
     #[Route('/address', name: 'address')]
-    public function suggestAddress(Request $request, AddressSuggester $suggester): Response
+    public function suggestAddress(Request $request, SuggesterAdapter $suggester): Response
     {
         $query = $request->query->get('query');
 
@@ -28,7 +28,7 @@ class SuggestController extends AbstractController
     }
 
     #[Route('/department_code', name: 'department_code')]
-    public function suggestDepartmentCode(Request $request, AddressSuggester $suggester): Response
+    public function suggestDepartmentCode(Request $request, SuggesterAdapter $suggester): Response
     {
         $query = $request->query->get('query');
 

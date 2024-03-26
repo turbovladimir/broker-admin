@@ -68,3 +68,5 @@ function subtractYears(date, years) {
 
     return date;
 }
+
+export {addError, addGood, isValid};

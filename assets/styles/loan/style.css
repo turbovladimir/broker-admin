@@ -154,3 +154,15 @@ a {
     width: 270px;
     height: 270px;
 }
+
+.autocomplete-suggestions {
+    background-color: white;
+    opacity: 0.7;
+    border-radius: 10px;
+    padding: 1em;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.autocomplete-suggestions a {
+    color: #2c2c2c;
+}

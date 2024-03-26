@@ -5,7 +5,7 @@ namespace App\Service\DaData;
 use Dadata\DadataClient;
 use Dadata\Settings;
 
-class AddressSuggester
+class SuggesterAdapter
 {
     private DadataClient $suggester;
     public function __construct()
