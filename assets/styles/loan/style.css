@@ -79,17 +79,14 @@ a {
 }
 
 .loan-btn {
-    padding-top: 1em;
-    padding-bottom: 1em;
-    padding-left: 2em;
-    padding-right: 2em;
-    text-align: center;
-    transition: 0.5s;
-    background-size: 200% auto;
     color: white;
-    /* text-shadow: 0px 0px 10px rgba(0,0,0,0.2);*/
     box-shadow: 0 0 20px #eee;
     border-radius: 10px;
+}
+.loan-btn-block {
+    padding: 1em;
+    text-align: center;
+    display: block;
 }
 .loan-btn-green {
     background-image: linear-gradient(to right, #008FD2 0%, #00A02B 51%, #00A02B 100%);
@@ -156,22 +153,4 @@ a {
 .square{
     width: 270px;
     height: 270px;
-}
-
-.offer_wrap {
-    padding: 2em;
-    border-radius: 10px;
-    background-color: #F6F6F6;
-    --offer_wrap_width: 100%;
-}
-
-.offer_card {
-    border-radius: 10px;
-    padding: 2em;
-    background-color: white;
-    max-height: 450px;
-}
-
-.offer_blank {
-    max-height: 450px;
 }

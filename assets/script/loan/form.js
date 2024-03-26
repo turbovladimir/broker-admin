@@ -21,7 +21,6 @@ $(document).ready(function () {
         $('#loan_request_phone').val(phone_val);
         $('#phone_verify').toggle('drop');
         $('#form_main').slideDown('fast');
-        showPush(3000);
     });
     $('#btn_continue').click(function () {
         let hasEmptyInputs = false;
@@ -41,17 +40,52 @@ $(document).ready(function () {
         $('#form_step_passport').slideDown('fast');
         $('#step2').text('Шаг 3');
     });
-    $('#btn_from_sbm').click(function () {
-        $('#form_main').toggle('drop');
-        $('#thanks').slideDown('fast');
+    $('#btn_from_sbm').on('click',function () {
+        $(document).off('ajaxStart');
+        $(document).off('ajaxStop');
 
-        $('form[name="loan_request"]').submit();
-        setInterval(function () {
-            let sec = $('#seconds_left').text();
+        const $form = $('form[name="loan_request"]');
 
-            if (sec > 0) {
-                $('#seconds_left').text(--sec);
+        $.ajax({
+            url: $form.attr('action'),
+            method: 'POST',
+            data: $form.serialize(),
+            beforeSend: function() {
+                    $('#form_main').toggle('drop');
+                    $('#thanks').toggle();
+
+                    setInterval(function () {
+                        let number = $('#seconds_left');
+                        let sec = number.text();
+
+                        if (sec > 0) {
+                            number.text(--sec);
+                        }
+                    }, 1000);
             }
-        }, 1000);
+        })
+            .fail(function( data ) {
+                alert('Что то пошло не так...');
+
+                console.log(data);
+            })
+            .done(function (response) {
+                const thanksDiv = $('#thanks');
+                thanksDiv.toggle('drop');
+
+                const f = function () {
+                    return $('<div id="offer_list" class="row mt-4 p-2">'+ response.offer_list +'</div>').insertAfter(thanksDiv);
+                }
+
+                $.when(f()).done(function () {
+                    $('.offer_wrap').fadeIn('fast');
+
+                    $('.offer_wrap').children().each(function (i) {
+                        $(this)
+                            .fadeIn((i + 1) * 1000);
+                    })
+                })
+            })
+        ;
     });
 })

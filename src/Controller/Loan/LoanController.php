@@ -3,6 +3,7 @@
 namespace App\Controller\Loan;
 
 use App\Entity\LoanRequest;
+use App\Entity\Offer;
 use App\Form\LoanRequestType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,8 +15,20 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/loan', name: 'loan_')]
 class LoanController extends AbstractController
 {
+    #[Route('/test', name: 'test')]
+    public function test()
+    {
+        return $this->render('@loan/test.html.twig');
+    }
+
     #[Route('/welcome', name: 'welcome')]
     public function welcome()
+    {
+        return $this->render('@loan/welcome/index.html.twig');
+    }
+
+    #[Route('/offers', name: 'offers')]
+    public function offers()
     {
         return $this->render('@loan/welcome/index.html.twig');
     }
@@ -35,7 +48,12 @@ class LoanController extends AbstractController
         $entityManager->persist($loanRequest);
         $entityManager->flush();
 
-        return $this->redirectToRoute('user_offer_list');
+        // get offer filter by session cookie
+        $offers = $entityManager->getRepository(Offer::class)->findAll();
+
+        return new JsonResponse([
+            'offer_list' => $this->renderView('@loan/offers/list.html.twig', ['offers' => $offers])
+        ]);
     }
 
     #[Route('/verify/request_code', name: 'verify_request_code')]

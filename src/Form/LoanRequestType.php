@@ -48,7 +48,7 @@ class LoanRequestType extends AbstractType
                 'row_attr' => [
                     'class' => 'from-group form-floating mb-3'
                 ],
-                'attr' => ['class' => 'form-control loan_form_input', 'placeholder' => "Телефон"],
+                'attr' => ['class' => 'form-control loan_form_input phone_mask', 'placeholder' => "Телефон"],
                 'label' => 'Телефон'
             ])
             ->add('code', TextType::class,  [
@@ -56,8 +56,8 @@ class LoanRequestType extends AbstractType
                 'row_attr' => [
                     'class' => 'from-group form-floating mb-3'
                 ],
-                'attr' => ['class' => 'form-control loan_form_input', 'placeholder' => "Проверочный код"],
-                'label' => 'Проверочный код'
+                'attr' => ['class' => 'form-control loan_form_input', 'placeholder' => "Код"],
+                'label' => 'Код'
             ])
             ->add('birth', TextType::class,  [
                 'row_attr' => [
@@ -91,7 +91,7 @@ class LoanRequestType extends AbstractType
                 'row_attr' => [
                     'class' => 'from-group form-floating mb-3'
                 ],
-                'attr' => ['class' => 'form-control loan_form_input', 'placeholder' => "Код подразделения"],
+                'attr' => ['class' => 'form-control loan_form_input suggest_dep_code', 'placeholder' => "Код подразделения"],
                 'label' => 'Код подразделения'
             ])
             ->add('issueDate', TextType::class,  [
@@ -101,19 +101,29 @@ class LoanRequestType extends AbstractType
                 'attr' => ['class' => 'form-control loan_form_input date_mask', 'placeholder' => "01/12/2000 Дата выдачи"],
                 'label' => 'Дата выдачи'
             ])
-            ->add('region', TextType::class,  [
+            ->add('department', TextType::class,  [
                 'row_attr' => [
                     'class' => 'from-group form-floating mb-3'
                 ],
-                'attr' => ['class' => 'form-control loan_form_input', 'placeholder' => "Регион"],
-                'label' => 'Регион'
+                'attr' => ['class' => 'form-control loan_form_input', 'placeholder' => "Кем выдан"],
+                'label' => 'Кем выдан'
             ])
-            ->add('city', TextType::class,  [
+            ->add('birthPlace', TextType::class,  [
                 'row_attr' => [
                     'class' => 'from-group form-floating mb-3'
                 ],
-                'attr' => ['class' => 'form-control loan_form_input suggest_city', 'placeholder' => "Город"],
-                'label' => 'Город'
+                'attr' => ['class' => 'form-control loan_form_input suggest_city', 'placeholder' => "Место рождения"],
+                'label' => 'Место рождения'
+            ])
+            ->add('regPlace', TextType::class,  [
+                'row_attr' => [
+                    'class' => 'from-group mb-3 form-floating'
+                ],
+                'attr' => [
+                    'class' => 'form-control loan_form_input suggest_address',
+                    'placeholder' => "Адрес регистрации"
+                ],
+                'label' => 'Адрес регистрации'
             ])
         ;
     }

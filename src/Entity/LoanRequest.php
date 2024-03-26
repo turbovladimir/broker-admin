@@ -47,11 +47,14 @@ class LoanRequest
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $issueDate = null;
 
-    #[ORM\Column(length: 100)]
-    private ?string $region = null;
+    #[ORM\Column(length: 255)]
+    private ?string $department = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $regPlace = null;
 
     #[ORM\Column(length: 100)]
-    private ?string $city = null;
+    private ?string $birthPlace = null;
 
     public function getId(): ?int
     {
@@ -194,26 +197,38 @@ class LoanRequest
         return $this;
     }
 
-    public function getRegion(): ?string
+    public function getDepartment(): ?string
     {
-        return $this->region;
+        return $this->department;
     }
 
-    public function setRegion(string $region): static
+    public function setDepartment(string $department): static
     {
-        $this->region = $region;
+        $this->department = $department;
 
         return $this;
     }
 
-    public function getCity(): ?string
+    public function getRegPlace(): ?string
     {
-        return $this->city;
+        return $this->regPlace;
     }
 
-    public function setCity(string $city): static
+    public function setRegPlace(string $regPlace): static
     {
-        $this->city = $city;
+        $this->regPlace = $regPlace;
+
+        return $this;
+    }
+
+    public function getBirthPlace(): ?string
+    {
+        return $this->birthPlace;
+    }
+
+    public function setBirthPlace(string $birthPlace): static
+    {
+        $this->birthPlace = $birthPlace;
 
         return $this;
     }

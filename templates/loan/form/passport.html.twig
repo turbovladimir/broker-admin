@@ -17,16 +17,21 @@
     </div>
     <div class="row mt-2 align-items-center">
         <div class="col">
-            {{ form_row(form.region) }}
+            {{ form_row(form.department) }}
         </div>
         <div class="col">
-            {{ form_row(form.city) }}
+            {{ form_row(form.birthPlace) }}
+        </div>
+    </div>
+    <div class="row mt-2 align-items-center">
+        <div class="col">
+            {{ form_row(form.regPlace) }}
         </div>
     </div>
     <div class="row mt-4 align-items-center">
         <div class="col-4"></div>
         <div class="col-4">
-            <a id="btn_from_sbm" type="submit" class="loan-btn loan-btn-green d-block">Получить заем</a>
+            <a id="btn_from_sbm" type="button" class="loan-btn loan-btn-green loan-btn-block">Получить займ</a>
         </div>
         <div class="col-4"></div>
     </div>

@@ -17,12 +17,14 @@
                         <h5><span id="range_amount_value">2000</span>р</h5>
                     </div>
                 </div>
-                <div class="col-12 mt-4 text-center"><a href="{{ path('loan_form') }}" class="loan-btn loan-btn-green d-block m-2" type="button">Получить займ</a></div>
+                <div class="col-12 mt-4 text-center"><a href="{{ path('loan_form') }}" class="loan-btn loan-btn-green d-block m-2 loan-btn-block" type="button">Получить займ</a></div>
                 <div class="col-12 p-4 text-center"><p class="loan-p">Одобрение 99%</p></div>
             </div>
-            <div class="col">
-                <img class="img-fluid" src="{{ asset('content/img/loan/welcome.svg') }}">
-            </div>
+            {% if is_mobile() == false %}
+                <div class="col">
+                    <img class="img-fluid" src="{{ asset('content/img/loan/welcome.svg') }}">
+                </div>
+            {% endif  %}
         </div>
     </div>
     <div class="col-2"></div>

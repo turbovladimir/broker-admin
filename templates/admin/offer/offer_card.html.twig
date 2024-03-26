@@ -1,10 +1,10 @@
 <div class="offer_card text-center">
-    <div class="col-12">
-        <h5>{{ offer.name }}
+    <div class="col-12 mb-2">
+        <span class="offer_name">{{ offer.name }}
             {% if edit_action is defined %}
                 <a href="{{ path('admin_offer_edit', {"offer": offer.id}) }}">{% include 'components/pencil.html.twig' %}</a>
             {% endif %}
-        </h5>
+        </span>
         <div class="logo_feed mt-2 mb-2"
              style="background-image: url('{{ asset('content/img/admin/logo/' ~ offer.logo) }}')"></div>
     </div>
@@ -14,10 +14,10 @@
     <div class="col-12">
         <span class="term">От <strong>{{ offer.minLoanPeriodDays }}</strong> до <strong>{{ offer.maxLoanPeriodDays }}</strong> дней</span>
     </div>
-    <div class="col-12">
+    <div class="col-12 mb-2">
         <span class="term">От <strong>{{ offer.interestRate }}%</strong> в день</span>
     </div>
-    <div class="col-12 give_money text-center">
-        <a class="btn link default_btn" href="{{ offer.url }}">Получить деньги</a>
+    <div class="col-12 text-center">
+        <a class="btn loan-btn loan-btn-green" type="button" href="{{ offer.url }}">Получить деньги</a>
     </div>
 </div>

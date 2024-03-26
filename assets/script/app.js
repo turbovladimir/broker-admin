@@ -11,21 +11,17 @@ import 'bootstrap';
 import '@popperjs/core';
 // import 'jquery-autocomplete';
 import '../styles/app.css';
+import '../styles/offer.css';
 import '../styles/loan/style.css';
 import '../styles/loan/spinner.css';
 import '../styles/admin/style.css';
 
-
-$(document).ajaxSend(function () {
-    $("#overlay").fadeIn(300);
-});
-
 $(document).on({
     ajaxStart: function () {
-        $("#spinner").fadeIn(300);
+        $("#spinner").fadeIn(600);
     },
     ajaxStop: function () {
-        $("#spinner").fadeOut(300);
+        $("#spinner").fadeOut(600);
     }
 });
 

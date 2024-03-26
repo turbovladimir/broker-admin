@@ -44,6 +44,10 @@ return [
         'path' => './assets/script/loan/push.js',
         'entrypoint' => true,
     ],
+    'loan_offers' => [
+        'path' => './assets/script/loan/offers.js',
+        'entrypoint' => true,
+    ],
     'bootstrap' => [
         'version' => '5.3.3',
     ],
@@ -68,5 +72,8 @@ return [
     ],
     'jquery-ui' => [
         'version' => '1.13.2',
+    ],
+    'devbridge-autocomplete' => [
+        'version' => '1.4.11',
     ],
 ];

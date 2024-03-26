@@ -1,9 +1,13 @@
-<div class="col-2"></div>
-<div class="col-8 offer_wrap">
+<div class="col-1"></div>
+<div class="col-10 offer_wrap vh-100" style="display: none;">
+    <div class="row text-center mb-4">
+        <h4>Вот что мы подобрали специально для вас</h4>
+    </div>
+
     {% for batch in offers|batch(3, 'blank') %}
-            <div class="row">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 justify-content-center mb-3 " style="display: none;">
                     {% for offer in batch %}
-                            <div class="col m-2">
+                            <div class="col">
                                 {% if offer != 'blank' %}
                                     {% include '@admin/offer/offer_card.html.twig' with {'offer': offer} %}
                                     {% else %}
@@ -14,4 +18,4 @@
             </div>
     {% endfor %}
 </div>
-<div class="col-2"></div>
+<div class="col-1"></div>

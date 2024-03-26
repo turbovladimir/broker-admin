@@ -1,0 +1,12 @@
+{% extends '@loan/base.html.twig' %}
+{% set title = 'Test' %}
+{% block container %}
+    <div class="row justify-content-center mt-4 p-2">
+        <div class="col-md-auto">
+            <label for="city">City</label>
+            <input id="city" type="text" name="city" class="suggest_city" />
+        </div>
+    </div>
+    {% include 'components/push.html.twig' %}
+{% endblock %}
+{% block importmap %}{{ importmap(['jquery_provider', 'app', 'loan_push', 'loan_form', 'loan_mask', 'loan_validate', 'loan_autocomplete']) }}{% endblock %}
