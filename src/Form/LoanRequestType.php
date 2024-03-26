@@ -87,7 +87,7 @@ class LoanRequestType extends AbstractType
                 'attr' => ['class' => 'form-control loan_form_input', 'placeholder' => "Номер"],
                 'label' => 'Номер'
             ])
-            ->add('departmentCode', NumberType::class,  [
+            ->add('departmentCode', TextType::class,  [
                 'row_attr' => [
                     'class' => 'from-group form-floating mb-3'
                 ],

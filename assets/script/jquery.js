@@ -6,4 +6,3 @@ import jQueryP from 'jquery';
 // autocompleteFactory($);
 window.$ = window.jQuery = jQueryP;
 const jQuery = $;
-console.log(jQuery)

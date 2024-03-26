@@ -28,8 +28,8 @@ final class Version20240320084919 extends AbstractMigration
         $this->addSql('alter table loan_request drop column city;');
         $this->addSql('alter table loan_request drop column region;');
         $this->addSql('alter table loan_request add column department varchar(255);');
-        $this->addSql('alter table loan_request add column birthPlace varchar(100);');
-        $this->addSql('alter table loan_request add column regPlace varchar(255);');
+        $this->addSql('alter table loan_request add column birth_place varchar(100);');
+        $this->addSql('alter table loan_request add column reg_place varchar(255);');
     }
 
     public function down(Schema $schema): void

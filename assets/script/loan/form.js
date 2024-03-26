@@ -88,6 +88,8 @@ $(document).ready(function () {
                 thanksDiv.toggle('drop');
 
                 const f = function () {
+                    console.log(response.offer_list);
+
                     return $('<div id="offer_list" class="row mt-4 p-2">'+ response.offer_list +'</div>').insertAfter(thanksDiv);
                 }
 
