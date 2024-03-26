@@ -11,12 +11,12 @@ $(document).ready(function () {
         /**
          * move to validate.js
          */
-        // if (phone_val === '') {
-        //     phone_input.addClass('error_input');
-        //     $(`<label for="phone" class="error m-2">Введите номер телефона</label>`).insertBefore(phone_input);
-        //
-        //     return;
-        // }
+        if (phone_val === '') {
+            phone_input.addClass('error_input');
+            $(`<label for="phone" class="error m-2">Введите номер телефона</label>`).insertBefore(phone_input);
+
+            return;
+        }
 
         $('#loan_request_phone').val(phone_val);
         $('#phone_verify').toggle('drop');
@@ -25,12 +25,12 @@ $(document).ready(function () {
     $('#btn_continue').click(function () {
         let hasEmptyInputs = false;
 
-        // $('#form_step_personal_data :input').each(function () {
-        //     if ($(this).val() === '') {
-        //         addError($(this), 'Заполните поле');
-        //         hasEmptyInputs = true;
-        //     }
-        // })
+        $('#form_step_personal_data :input').each(function () {
+            if ($(this).val() === '') {
+                addError($(this), 'Заполните поле');
+                hasEmptyInputs = true;
+            }
+        })
 
         if (hasEmptyInputs) {
             return;
@@ -41,6 +41,19 @@ $(document).ready(function () {
         $('#step2').text('Шаг 3');
     });
     $('#btn_from_sbm').on('click',function () {
+        let hasEmptyInputs = false;
+
+        $('#form_step_passport :input').each(function () {
+            if ($(this).val() === '') {
+                addError($(this), 'Заполните поле');
+                hasEmptyInputs = true;
+            }
+        })
+
+        if (hasEmptyInputs) {
+            return;
+        }
+
         $(document).off('ajaxStart');
         $(document).off('ajaxStop');
 
