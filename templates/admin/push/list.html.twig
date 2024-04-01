@@ -1,0 +1,16 @@
+{% extends '@admin/base.html.twig' %}
+{% set title = 'Пуш уведомления' %}
+{% block card_button_bar %}
+    <a href="{{ path('admin_push_upsert') }}" class="btn btn-primary">Добавить</a>
+{% endblock %}
+{% block card_body %}
+    <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-2 mt-2 align-items-center">
+        {% for push in pushes %}
+            <div class="col-md-auto position-relative {{ push.isActive == false ? 'inactive' : ''}} mr-4 mt-1">
+                <a class="position-absolute  end-0" href="{{ path('admin_push_upsert', {"push": push.id}) }}">{% include 'components/pencil.html.twig' %}</a>
+                {% include 'components/push.html.twig' with { 'push': push, 'edit_action': true } %}
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

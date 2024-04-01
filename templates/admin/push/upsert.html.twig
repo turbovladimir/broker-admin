@@ -1,0 +1,9 @@
+{% extends '@admin/base.html.twig' %}
+
+{% set title = push is defined ? 'Редактирование push' : 'Создание push' %}
+{% block card_button_bar %}
+    <a href="{{ path('admin_push_list') }}" class="btn btn-primary">Назад</a>
+{% endblock %}
+{% block card_body %}
+    {{ include('@admin/push/_form.html.twig') }}
+{% endblock %}

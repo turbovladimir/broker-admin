@@ -1,0 +1,13 @@
+{{ form_start(form) }}
+{{ form_row(form.uri, { 'label': 'Urlpath на котором срабатывает пуш' }) }}
+{{ form_row(form.target, { 'label': 'Целевая ссылка пуша' }) }}
+{{ form_row(form.text, { 'label': 'Сообщение пуша' }) }}
+{{ form_row(form.showDelaySecs, { 'label': 'Задержка в секундах после открытия страницы' }) }}
+{{ form_row(form.isActive, { 'label': 'Активность' }) }}
+{% if push is defined %}
+    {% set button_label = 'Изменить' %}
+{% endif %}
+<div class="form-group mt-4 btn-group">
+    <button class="btn btn-primary">{{ button_label|default('Создать') }}</button>
+</div>
+{{ form_end(form) }}

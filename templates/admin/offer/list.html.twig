@@ -4,12 +4,7 @@
     <a href="{{ path('admin_offer_new') }}" class="btn btn-primary">Добавить</a>
 {% endblock %}
 {% block card_body %}
-    <div class="row mt-2 align-items-center">
-        {% for offer in offers %}
-            <div class="col {{ offer.isActive == false ? 'offer_inactive' : ''}} m-2 mt-1">
-                {% include '@admin/offer/offer_card.html.twig' with { 'offer': offer, 'edit_action': true } %}
-            </div>
-        {% endfor %}
+    <div class="row row-cols-1 justify-content-center">
+        {% include '@loan/offers/list.html.twig' with { 'offers': offers, 'edit_action': true } %}
     </div>
-
 {% endblock %}

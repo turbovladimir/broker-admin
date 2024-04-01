@@ -1,16 +1,27 @@
-$(document).ready(function () {
-    showPush(5000);
+$(function () {
+    $.ajax({
+        url: '/push/get',
+        method: 'POST',
+        data: {
+            'path' : window.location.pathname
+        },
+    })
+        .done(function (response) {
+            if (response.push.target !== undefined) {
+                showPush(response.push);
+            }
+        })
 
-    function showPush(duration) {
+    function showPush(push) {
+        console.log('push delay');
 
         setTimeout(function (){
             if ($(".toast").length > 0) {
-                $(".toast").show();
+                console.log('push show');
+                $('#push-text').append(push.text);
+                $('#push-link').attr('href', push.target);
+                $('.toast').slideDown('slow');
             }
-
-            setTimeout(function () {
-                $(".toast").hide();
-            }, duration);
-        }, 3000);
+        }, push.show_delay * 1000);
     }
 })

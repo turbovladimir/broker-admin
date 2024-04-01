@@ -1,4 +1,7 @@
 {% extends 'base.html.twig' %}
+{% set js_modules = [
+    'loan_push',
+] %}
     {% block body %}
         <div id="spinner" class="position-fixed bottom-0 end-0 collapse">
             <div class="cv-spinner">
@@ -19,4 +22,8 @@
         </div>
                 {% block container %}
                 {% endblock %}
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            {% include 'components/push.html.twig' %}
+        </div>
+
     {% endblock %}

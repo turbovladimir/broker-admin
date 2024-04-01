@@ -1,30 +1,30 @@
 <div class="row mb-4">
     <div class="col-2"></div>
     <div class="col-8">
-        <div class="row mt-2 align-items-center justify-content-center">
+        <div class="row row-cols-lg-2 row-cols-md-1 mt-2 align-items-center justify-content-center">
             <div class="col">
-                <div class="col-12"><h3>Взять первый займ</h3></div>
-                <div class="col-12"><h2>БЕЗ ПРОЦЕНТОВ</h2></div>
-                <div class="col-12 range shadow">
-                    <label for="range_amount" class="form-label">Вам нужно</label>
-                    <div style="display: flex; gap: 4px; align-items: center;">
-                        <span class="range_val">2000р</span>
-                        <input type="range" value="2000" min="2000" max="100000" step="2000" class="form-range"
-                               id="range_amount">
-                        <span class="range_val">100000р</span>
+                <div class="row row-cols-1">
+                    <div class="col"><h3>Взять первый займ</h3></div>
+                    <div class="col"><h2>БЕЗ ПРОЦЕНТОВ</h2></div>
+                    <div class="col range shadow">
+                        <label for="range_amount" class="form-label">Вам нужно</label>
+                        <div style="display: flex; gap: 4px; align-items: center;">
+                            <span class="range_val">2000р</span>
+                            <input type="range" value="2000" min="2000" max="100000" step="2000" class="form-range"
+                                   id="range_amount">
+                            <span class="range_val">100000р</span>
+                        </div>
+                        <div class="m-2">
+                            <h5><span id="range_amount_value">2000</span>р</h5>
+                        </div>
                     </div>
-                    <div class="m-2">
-                        <h5><span id="range_amount_value">2000</span>р</h5>
-                    </div>
+                    <div class="col mt-4 text-center"><a href="{{ path('loan_form') }}" class="loan-btn loan-btn-green d-block m-2 loan-btn-block" type="button">Получить займ</a></div>
+                    <div class="col p-4 text-center"><p class="loan-p">Одобрение 99%</p></div>
                 </div>
-                <div class="col-12 mt-4 text-center"><a href="{{ path('loan_form') }}" class="loan-btn loan-btn-green d-block m-2 loan-btn-block" type="button">Получить займ</a></div>
-                <div class="col-12 p-4 text-center"><p class="loan-p">Одобрение 99%</p></div>
             </div>
-            {% if is_mobile() == false %}
-                <div class="col">
-                    <img class="img-fluid" src="{{ asset('content/img/loan/welcome.svg') }}">
-                </div>
-            {% endif  %}
+            <div class="col d-sm-none d-md-none d-lg-block">
+                <img class="img-fluid" src="{{ asset('content/img/loan/welcome.svg') }}">
+            </div>
         </div>
     </div>
     <div class="col-2"></div>

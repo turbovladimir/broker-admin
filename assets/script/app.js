@@ -14,6 +14,7 @@ import '../styles/app.css';
 import '../styles/offer.css';
 import '../styles/loan/style.css';
 import '../styles/loan/spinner.css';
+import '../styles/loan/push.css';
 import '../styles/admin/style.css';
 
 $(document).on({

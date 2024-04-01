@@ -20,5 +20,21 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+
+    app.normalizer.object:
+        class: Symfony\Component\Serializer\Normalizer\ObjectNormalizer
+        arguments:
+            - '@serializer.mapping.class_metadata_factory'
+            - '@serializer.name_converter.camel_case_to_snake_case'
+            - null
+            - '@property_info.reflection_extractor'
+
+    app.serializer:
+        class: Symfony\Component\Serializer\Serializer
+        arguments:
+            - ['@serializer.normalizer.datetime', '@app.normalizer.object']
+            - ['@serializer.encoder.json', '@serializer.encoder.xml']
+
+    Symfony\Component\Serializer\Serializer: '@app.serializer'
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

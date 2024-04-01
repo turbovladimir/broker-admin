@@ -1,21 +1,16 @@
 <div class="col-1"></div>
-<div class="col-10 offer_wrap vh-100" style="display: none;">
+<div class="col-10 offer_wrap vh-100" {% if edit_action is not defined %} style="display: none;" {% endif %}>
     <div class="row text-center mb-4">
         <h4>Вот что мы подобрали специально для вас</h4>
     </div>
-
-    {% for batch in offers|batch(3, 'blank') %}
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 justify-content-center mb-3 " style="display: none;">
-                    {% for offer in batch %}
-                            <div class="col">
-                                {% if offer != 'blank' %}
-                                    {% include '@admin/offer/offer_card.html.twig' with {'offer': offer} %}
-                                    {% else %}
-                                    <div class="offer_blank"></div>
-                                {% endif %}
-                            </div>
-                    {% endfor %}
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 justify-content-left mb-3 "
+            {% if edit_action is not defined %} style="display: none;" {% endif %}
+    >
+        {% for offer in offers %}
+            <div class="col p-2 {{ offer is not null and offer.isActive == false ? 'inactive' : '' }}">
+                {% include '@admin/offer/offer_card.html.twig' with {'offer': offer} %}
             </div>
-    {% endfor %}
+        {% endfor %}
+    </div>
 </div>
 <div class="col-1"></div>

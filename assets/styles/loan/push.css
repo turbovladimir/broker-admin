@@ -1,0 +1,22 @@
+.toast {
+    align-items: center;
+    padding: 1em;
+    background-color: #F6F6F6;
+    opacity: 0.6;
+    border-radius: var(--border-radius);
+}
+
+.toast:hover {
+    opacity: 0.9;
+}
+
+.toast-body span {
+    font-family: Inter-400;
+    font-size: 18px;
+    color: #009f2a;
+    text-align: center;
+}
+
+.toast-body span:hover {
+    color: #0091c0;
+}

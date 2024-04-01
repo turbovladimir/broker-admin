@@ -5,6 +5,10 @@ h1 {
     text-shadow: 2px 2px black;
 }
 
+.inactive{
+    opacity: 0.6 !important;
+}
+
 p {
     font-family: Inter;
     font-size: 20px;

@@ -1,12 +1,14 @@
-<div class="offer_card text-center">
-    <div class="col-12 mb-2">
+<div class="offer_card shadow text-center m-2 p-3">
+    <div class="col-12 mb-2 position-relative">
         <span class="offer_name">{{ offer.name }}
             {% if edit_action is defined %}
-                <a href="{{ path('admin_offer_edit', {"offer": offer.id}) }}">{% include 'components/pencil.html.twig' %}</a>
+                <a class="position-absolute pl-1" href="{{ path('admin_offer_edit', {"offer": offer.id}) }}">{% include 'components/pencil.html.twig' %}</a>
             {% endif %}
         </span>
-        <div class="logo_feed mt-2 mb-2"
-             style="background-image: url('{{ asset('content/img/admin/logo/' ~ offer.logo) }}')"></div>
+        <div class="logo_feed mt-2 mb-2">
+{#             style="background-image: url('{{ asset('content/img/admin/logo/' ~ offer.logo) }}')">#}
+            <img src="{{ asset('content/img/admin/logo/' ~ offer.logo) }}" class="img-fluid">
+        </div>
     </div>
     <div class="col-12">
         <span class="term">До <strong>{{ offer.maxLoanAmount }}</strong> рублей</span>

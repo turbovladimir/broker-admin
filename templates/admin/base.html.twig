@@ -1,3 +1,4 @@
+{% set js_modules = [] %}
 {% block stylesheets %}
     <style>
         body {
@@ -28,6 +29,7 @@
                             </a>x
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="{{ path('admin_offer_list') }}">Офферы</a></li>
+                                <li><a class="dropdown-item" href="{{ path('admin_push_list') }}">Пуш уведомления</a></li>
                             </ul>
                         </li>
                         {#                        <li class="nav-item">#}
