@@ -5,9 +5,8 @@
                 <a class="position-absolute pl-1" href="{{ path('admin_offer_edit', {"offer": offer.id}) }}">{% include 'components/pencil.html.twig' %}</a>
             {% endif %}
         </span>
-        <div class="logo_feed mt-2 mb-2">
-{#             style="background-image: url('{{ asset('content/img/admin/logo/' ~ offer.logo) }}')">#}
-            <img src="{{ asset('content/img/admin/logo/' ~ offer.logo) }}" class="img-fluid">
+        <div class="logo_feed mt-2 mb-2"
+             style="background-image: url('{{ asset('content/img/admin/logo/' ~ offer.logo) }}')">
         </div>
     </div>
     <div class="col-12">
