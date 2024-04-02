@@ -8,14 +8,14 @@
                 <span class="spinner"></span>
             </div>
         </div>
-        <div class="container">
-            <div class="row mt-5 mb-5 align-items-center justify-content-between">
+        <div class="container-fluid">
+            <div class="row row-cols-2 m-3 p-2 pl-4">
                 {% block header %}
-                    <div class="col-4">
-                        <img class="img-fluid" src="{{ asset('content/img/loan/zaymi.png') }}">
+                    <div class="col d-flex justify-content-between">
+                        <img class="img-fluid" src="{{ asset('content/img/loan/zaymi.svg') }}">
                     </div>
-                    <div class="col-4">
-                        <img class="img-fluid" src="{{ asset('content/img/loan/increase.png') }}">
+                    <div class="col d-flex justify-content-end">
+                        <img class="img-fluid" src="{{ asset('content/img/loan/increase.svg') }}">
                     </div>
                 {% endblock %}
             </div>

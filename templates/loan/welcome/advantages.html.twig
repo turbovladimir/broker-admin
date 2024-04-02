@@ -1,15 +1,9 @@
-<div id="advantages" class="row bg_white pb-4">
-    <div class="col-2"></div>
-    <div class="col-8">
-        <div class="col-12 mt-4 mb-4 p-4 text-center"><h3>Преимущества работы с нами</h3></div>
-        <div class="row">
-            <img class="img-fluid" src="{{ asset('content/img/loan/adv.svg') }}">
-        </div>
-        <div class="row mt-4 mb-4 p-4 justify-content-center">
-            <div class="col-md-auto">
-                <a href="{{ path('loan_form') }}" class="loan-btn loan-btn-green m-2 loan-btn-block" type="button">Получить займ</a>
-            </div>
-        </div>
+<div id="advantages" class="bg_white row row-cols-1 justify-content-center p-3">
+    <div class="col mb-2 p-4 text-center"><h3>Преимущества работы с нами</h3></div>
+    <div class="col w-75">
+        <img class="img-fluid" src="{{ asset('content/img/loan/adv.svg') }}">
     </div>
-    <div class="col-2"></div>
+    <div class="col mt-2 mb-2 p-4 text-center">
+        <a href="{{ path('loan_form') }}" class="loan-btn loan-btn-green m-2" type="button">Получить займ</a>
+    </div>
 </div>
