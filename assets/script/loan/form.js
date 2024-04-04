@@ -3,27 +3,8 @@ import {addError} from './validate.js';
  * form behavior here
  */
 
-$(document).ready(function () {
-    $('#btn_send_sms').click(function () {
-        const phone_input = $('#phone');
-        const phone_val = phone_input.val();
-
-
-        /**
-         * move to validate.js
-         */
-        if (phone_val === '') {
-            phone_input.addClass('error_input');
-            $(`<label for="phone" class="error m-2">Введите номер телефона</label>`).insertBefore(phone_input);
-
-            return;
-        }
-
-        $('#loan_request_phone').val(phone_val);
-        $('#phone_verify').toggle('drop');
-        $('#form_main').slideDown('fast');
-    });
-    $('#btn_continue').click(function () {
+$(function () {
+    $('#btn_continue').on('click', function () {
         let hasEmptyInputs = false;
 
         $('#form_step_personal_data :input').each(function () {

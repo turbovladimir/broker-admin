@@ -10,14 +10,14 @@
                         <div style="display: flex; gap: 4px; align-items: center;">
                             <span class="range_val">2000р</span>
                             <input type="range" value="2000" min="2000" max="100000" step="2000" class="form-range"
-                                   id="range_amount">
+                                   id="range_amount" oninput="document.getElementById('range_amount_value').innerHTML = this.value">
                             <span class="range_val">100000р</span>
                         </div>
                         <div class="m-2">
                             <h5><span id="range_amount_value">2000</span>р</h5>
                         </div>
                     </div>
-                    <div class="col mt-4 text-center"><a href="{{ path('loan_form') }}" class="loan-btn loan-btn-green d-block m-2" type="button">Получить займ</a></div>
+                    <div class="col mt-4 text-center"><a href="{{ path('loan_form') }}" class="loan-btn gradient-green d-block m-2" type="button">Получить займ</a></div>
                     <div class="col p-4 text-center"><p class="loan-p">Одобрение 99%</p></div>
                 </div>
             </div>

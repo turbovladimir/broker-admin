@@ -1,13 +1,19 @@
 {% extends '@loan/base.html.twig' %}
+{% set js_modules = [
+    'loan_form',
+    'loan_mask',
+    'loan_validate',
+    'loan_autocomplete',
+    'loan_offers',
+    'loan_push',
+    'loan_phone'
+] %}
 {% set title = 'Получить займ' %}
 {% block container %}
     <div class="row mt-4 p-2">
-        {% include '@loan/form/phone_verify.html.twig' %}
-        {% include '@loan/form/form.html.twig' %}
+        {% include '@loan/form/phone_verify.html.twig' with {'hide' : verified == true } %}
+        {% include '@loan/form/form.html.twig' with {'hide' : verified == false } %}
         {% include '@loan/form/thanks.html.twig' %}
     </div>
 {% endblock %}
-
-{% block importmap %}{{ importmap(['jquery_provider', 'app', 'loan_push', 'loan_form', 'loan_mask', 'loan_validate', 'loan_autocomplete', 'loan_offers']) }}{% endblock %}
-
 

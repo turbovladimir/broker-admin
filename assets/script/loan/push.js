@@ -13,14 +13,17 @@ $(function () {
         })
 
     function showPush(push) {
-        console.log('push delay');
-
         setTimeout(function (){
             if ($(".toast").length > 0) {
-                console.log('push show');
                 $('#push-text').append(push.text);
                 $('#push-link').attr('href', push.target);
                 $('.toast').slideDown('slow');
+                $('.toast').promise().done( function () {
+                    console.log('play time');
+                    const audio = document.getElementById('push_audio');
+                    audio.muted = false;
+                    audio.play();
+                })
             }
         }, push.show_delay * 1000);
     }

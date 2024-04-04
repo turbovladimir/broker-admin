@@ -28,12 +28,12 @@ return [
         'path' => './assets/script/loan/mask.js',
         'entrypoint' => true,
     ],
-    'loan_range' => [
-        'path' => './assets/script/loan/range.js',
-        'entrypoint' => true,
-    ],
     'loan_validate' => [
         'path' => './assets/script/loan/validate.js',
+        'entrypoint' => true,
+    ],
+    'loan_phone' => [
+        'path' => './assets/script/loan/phone.js',
         'entrypoint' => true,
     ],
     'loan_autocomplete' => [
