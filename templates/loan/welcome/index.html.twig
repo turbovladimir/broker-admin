@@ -1,12 +1,14 @@
+{% set js_modules = ['loan_phone'] %}
 {% extends '@loan/base.html.twig' %}
-{% set js_modules = ['loan_range'] %}
 {% set title = 'Взять займ' %}
+{% set modal_phone_verify_id = 'modal_phone_verify' %}
 {% block container %}
-    <div class="row mt-4 p-2 justify-content-center">
+    <div class="row mt-lg-5 mt-sm-3 p-lg-4 p-sm-2 justify-content-center">
         {% include '@loan/welcome/range.html.twig' %}
         {% include '@loan/welcome/advantages.html.twig' %}
         {% include '@loan/welcome/instructions.html.twig' %}
         {% include '@loan/welcome/reviews.html.twig' %}
         {% include '@loan/welcome/footer.html.twig' %}
     </div>
+    {% include '@loan/welcome/modal.html.twig' with {'modal_id': modal_phone_verify_id} %}
 {% endblock %}

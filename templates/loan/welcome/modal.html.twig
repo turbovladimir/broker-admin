@@ -1,0 +1,60 @@
+{% embed 'components/modal.html.twig' with {'modal_id': modal_id } %}
+    {% block body %}
+        <div id="modal_body_phone_verify_request" class="row row-cols-1">
+            <div class="col p-2">
+                <h5>Введите номер телефона</h5>
+
+            </div>
+            <div class="col p-2">
+                <p>Укажите номер телефона, на который можно отправить SMS сообщение</p>
+            </div>
+            <div class="col p-2">
+                <span class="text_semi_bold" style="font-size: 16px; font-family: Inter-600">Авторизация через:</span>
+                <a target="_blank" href="https://vk.me/topbotzaimov"><img style="height: 30px; width: 30px;" class="img-fluid" src="{{ asset('content/img/loan/vk.png') }}"></a>
+            </div>
+            <div class="col p-2">
+                <input type="text" id="phone" name="phone" class="form-control loan_form_input form-control phone_mask" placeholder="+7(  )">
+            </div>
+            <div class="col p-2">
+                <button id="btn_send_sms" data-target="#{{ modal_id }}" type="button" class="loan-btn gradient-green m-2 p-3">Отправить SMS код</button>
+            </div>
+            <div class="col p-2">
+                <p class="mb-0">Заполняя форму связи, Вы соглашаетесь с политикой конфиденциальности</p>
+            </div>
+        </div>
+        <div id="modal_body_code" class="row row-cols-1 d-none">
+            <div class="col pb-2 mb-2">
+                <h5>Введите код из смс, который мы отправили вам на номер <span id="phone_number"></span></h5>
+            </div>
+            <div class="col pl-2 code">
+                <form name="code_verify" method="POST" action="{{ path('phone_code_verify') }}">
+                    {% for i in 1..4 %}
+                        <input type="text" name="code[]" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+                    {% endfor %}
+                    <input type="hidden" name="phone">
+                </form>
+            </div>
+        </div>
+    {% endblock %}
+    {% block style %}
+        {{ parent() }}
+        <style>
+            .code input {
+                --code-primary-color: #c9d1d5;
+                border-radius: var(--border-radius);
+                border: 0;
+                outline: 0;
+                background: var(--code-primary-color);
+                height: 5vw;
+                width: 5vw;
+                text-align: center;
+                font-size: 3vw;
+                color: #616161;
+            }
+
+            .code_success {
+                color: #d1efd8;
+            }
+        </style>
+    {% endblock %}
+{% endembed %}

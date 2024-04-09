@@ -44,21 +44,6 @@ class LoanRequestType extends AbstractType
                 'attr' => ['class' => 'form-control loan_form_input', 'placeholder' => "Отчество"],
                 'label' => 'Отчество'
             ])
-            ->add('phone', TextType::class,  [
-                'row_attr' => [
-                    'class' => 'from-group form-floating mb-3'
-                ],
-                'attr' => ['class' => 'form-control loan_form_input phone_mask', 'placeholder' => "Телефон"],
-                'label' => 'Телефон'
-            ])
-            ->add('code', TextType::class,  [
-                'mapped' => false,
-                'row_attr' => [
-                    'class' => 'from-group form-floating mb-3'
-                ],
-                'attr' => ['class' => 'form-control loan_form_input', 'placeholder' => "Код"],
-                'label' => 'Код'
-            ])
             ->add('birth', TextType::class,  [
                 'row_attr' => [
                     'class' => 'from-group form-floating mb-3'

@@ -1,7 +1,4 @@
 {% extends 'base.html.twig' %}
-{% set js_modules = [
-    'loan_push',
-] %}
     {% block body %}
         <div id="spinner" class="position-fixed bottom-0 end-0 collapse">
             <div class="cv-spinner">
@@ -9,7 +6,7 @@
             </div>
         </div>
         <div class="container-fluid">
-            <div class="row row-cols-2 m-3 p-2 pl-4">
+            <div class="row row-cols-2 m-lg-5 m-sm-3 p-2 pl-4">
                 {% block header %}
                     <div class="col d-flex justify-content-between">
                         <img class="img-fluid" src="{{ asset('content/img/loan/zaymi.svg') }}">

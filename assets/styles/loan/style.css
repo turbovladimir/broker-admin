@@ -1,44 +1,46 @@
 h1 {
     all: unset;
-    color: #00AD4A;
     font-family: Inter-900;
-    font-size: 96px;
+    font-size: 96px !important;
     text-shadow: 2px 2px black;
 }
 
 h2 {
     all: unset;
-    color: #00AD4A;
     font-family: Inter-900;
-    font-size: 60px;
+    font-size: 60px !important;
 }
 
 h3 {
     all: unset;
     font-family: Inter-600;
-    font-size: 48px;
+    font-size: 48px !important;
 }
 
 h4 {
     all: unset;
     font-family: Inter-600;
-    font-size: 32px;
+    font-size: 32px !important;
 }
 
 h5 {
     all: unset;
     font-family: Inter-600;
-    font-size: 35px;
+    font-size: 27px !important;
 }
 
 a {
     text-decoration: none !important;
 }
 
+.text-green {
+    color: var(--green);
+}
+
 .p-gray {
     color: #969696;
     font-family: Inter-400;
-    font-size: 20px;
+    font-size: 20px !important;
 }
 
 .footer-link {
@@ -50,24 +52,24 @@ a {
 .loan-p {
     all: unset;
     font-family: Inter-600;
-    font-size: 30px;
+    font-size: 30px !important;
     /*drop-shadow(0px 4px 4px);*/
 }
 
 .form-label {
     font-family: Inter-400;
-    font-size: 16px;
+    font-size: 16px !important;
     color: #969696;
 }
 
-.loan_form_input {
+.form-control.loan_form_input {
     line-height: 3.5;
     border-radius: var(--border-radius);
     border-style: none;
     background-color: #F6F6F6;
 }
 
-.loan_form_input::placeholder {
+.form-control.loan_form_input::placeholder {
     font-family: Inter-400;
     font-size: 16px;
     color: #969696;
@@ -78,13 +80,14 @@ a {
     color: white;
     box-shadow: 0 0 20px #eee;
     border-radius: var(--border-radius);
-    font-size: 30px;
+    font-size: 3vmin;
     padding: 0.7em;
     padding-left: 1em;
     padding-right: 1em;
     text-align: center;
+    border-style: none;
 }
-.loan-btn-green {
+.gradient-green {
     background-image: linear-gradient(to right, #008FD2 0%, #00A02B 51%, #00A02B 100%);
     /*background-image: linear-gradient(to right, #84fab0 0%, #8fd3f4 51%, #84fab0 100%);*/
 }
@@ -103,7 +106,7 @@ a {
 
 .good_input {
     border-style: double;
-    border-color: #00AD4A;
+    border-color: var(--green);
 }
 
 .range {
@@ -126,15 +129,15 @@ a {
 }
 
 .range input::-webkit-slider-thumb {
-    background: #00AD4A;
+    background: var(--green);
 }
 
 .range input::-moz-range-thumb {
-    background: #00AD4A;
+    background: var(--green);
 }
 
 .range_row input::-ms-thumb {
-    background: #00AD4A;
+    background: var(--green);
 }
 
 .bg_white {
