@@ -28,13 +28,14 @@ class PhoneVerifier
             $job = (new PhoneVerifyJob())
                 ->setAddedAt(new \DateTime())
                 ->setIsActive(true)
+                ->setIsVerified(false)
                 ->setPhone($request->getPhone())
                 ->setCode($this->generateCode())
                 ->setSessionId($request->getSessionId())
             ;
 
             $message = sprintf('Yor code: %d', $job->getCode());
-            $this->smsSender->send(new SendSmsRequest([$job->getPhone()], $message));
+//            $this->smsSender->send(new SendSmsRequest([$job->getPhone()], $message));
             $this->entityManager->persist($job);
             $this->entityManager->flush();
         } catch (\Throwable $e) {

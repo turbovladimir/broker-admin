@@ -4,6 +4,7 @@ namespace App\Controller\Loan;
 
 use App\Entity\LoanRequest;
 use App\Entity\Offer;
+use App\Entity\PhoneVerifyJob;
 use App\Entity\Push;
 use App\Form\LoanRequestType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -43,6 +44,10 @@ class LoanController extends AbstractController
     #[Route('/form', name: 'form')]
     public function form(Request $request, EntityManagerInterface $entityManager) : Response
     {
+        if (!$request->getSession()->get(self::FLAG_PHONE_VERIFIED, false)) {
+            return $this->redirectToRoute('redirect_main');
+        }
+
         $loanRequest = new LoanRequest();
         $loanRequest->setAddedAt(new \DateTime());
         $form = $this->createForm(LoanRequestType::class, $loanRequest);
@@ -55,6 +60,17 @@ class LoanController extends AbstractController
             ]);
         }
 
+        $job = $entityManager->getRepository(PhoneVerifyJob::class)->findOneBy([
+            'isActive' => 1,
+            'isVerified' => 1,
+            'sessionId' => $request->getSession()->getId()
+        ]);
+
+        if (!$job) {
+            throw new \LogicException('Verified phone not found, but form try submit');
+        }
+
+        $loanRequest->setPhone($job->getPhone());
         $entityManager->persist($loanRequest);
         $entityManager->flush();
 

@@ -7,20 +7,13 @@ use Symfony\Component\HttpFoundation\Request;
 
 class VerifyCodeRequest
 {
+    use PhoneFetcherTrait;
+
     const CODE_LENGTH = 4;
 
     private int $code;
-    private int $phone;
     private string $sessionId;
     private \DateTime $time;
-
-    /**
-     * @return int
-     */
-    public function getPhone(): int
-    {
-        return $this->phone;
-    }
 
     /**
      * @return int
@@ -56,9 +49,9 @@ class VerifyCodeRequest
     public static function create(Request $request) : self
     {
         $obj = new self();
-        $code = $request->request->get('code');
+        $code = $request->request->all('code');
         $obj->setCode($code);
-        $obj->phone = '777777777';
+        $obj->fetchPhone($request);
         $obj->sessionId = $request->getSession()->getId();
         $obj->time = new \DateTime();
 
@@ -67,16 +60,20 @@ class VerifyCodeRequest
 
     private function setCode($code): void
     {
-        if (!is_numeric($code)) {
+        if (!is_array($code) || count($code) < self::CODE_LENGTH) {
             throw new InvalidFormatCodeException();
         }
 
-        $length = ceil(log10(abs($code) + 1));
+        $c = '';
 
-        if ($length != self::CODE_LENGTH) {
-            throw new InvalidFormatCodeException();
+        foreach ($code as $d) {
+            if (!is_numeric($d)) {
+                throw new InvalidFormatCodeException();
+            }
+
+            $c .= $d;
         }
 
-        $this->code = $code;
+        $this->code = (int)$c;
     }
 }

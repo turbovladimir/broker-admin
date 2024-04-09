@@ -1,0 +1,41 @@
+<!-- Modal -->
+<div class="modal fade" id="{{ modal_id }}" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content text-center">
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="modal-close">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    {% block body %}{% endblock %}
+                    <div class="p-relative modal-block-error">
+                        <span id="modal-error"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% block style %}
+    <style>
+        #modal-error {
+            color: red;
+            font-family: Inter-600;
+        }
+        .modal-close {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+        .modal-content {
+            border-radius: var(--border-radius);
+            padding: 1.5em;
+
+        }
+        .modal-content p {
+            font-family: Inter-600;
+            font-size: 18px;
+            color: gray;
+        }
+    </style>
+{% endblock %}

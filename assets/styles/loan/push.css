@@ -3,13 +3,14 @@
     margin-left:auto;
     position: sticky;
     bottom: 0;
+    right: 0;
     padding: 3em;
 }
 
 .toast {
     align-items: center;
     padding: 1em;
-    border-radius: var(--border-radius);
+    border-radius: var(--border-radius) !important;
 }
 
 .toast-body span {

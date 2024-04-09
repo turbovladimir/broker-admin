@@ -4,6 +4,7 @@ namespace App\Controller\Loan;
 
 use App\Service\Auth\DTO\SendCodeRequest;
 use App\Service\Auth\DTO\VerifyCodeRequest;
+use App\Service\Auth\Exception\PhoneVerify\ClientErrorAwareInterface;
 use App\Service\Auth\PhoneVerifier;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -19,7 +20,7 @@ class PhoneController extends AbstractController
     {
         $phoneVerifier->sendCode(SendCodeRequest::create($request));
 
-        return new JsonResponse(['status' => 'ok', 'session_id' => $request->getSession()->getId()]);
+        return new JsonResponse(['status' => 'ok']);
     }
 
     #[Route('/verify', name: 'code_verify', methods: 'POST')]
@@ -28,9 +29,9 @@ class PhoneController extends AbstractController
         try {
             $phoneVerifier->verify(VerifyCodeRequest::create($request));
             $request->getSession()->set(LoanController::FLAG_PHONE_VERIFIED, true);
-        } catch (\Throwable $exception) {
+        } catch (ClientErrorAwareInterface $exception) {
             //todo add logs for exceptions
-            return new JsonResponse(['error' => 'Invalid code'], Response::HTTP_BAD_REQUEST);
+            return new JsonResponse(['error' => $exception->getClientMessage()], Response::HTTP_BAD_REQUEST);
         }
 
         return new JsonResponse(['status' => 'ok']);

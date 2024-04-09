@@ -76,4 +76,8 @@ return [
     'devbridge-autocomplete' => [
         'version' => '1.4.11',
     ],
+    'bootstrap-icons/font/bootstrap-icons.min.css' => [
+        'version' => '1.11.3',
+        'type' => 'css',
+    ],
 ];

@@ -6,16 +6,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class SendCodeRequest
 {
-    private int $phone;
+    use PhoneFetcherTrait;
     private string $sessionId;
-
-    /**
-     * @return int
-     */
-    public function getPhone(): int
-    {
-        return $this->phone;
-    }
 
     /**
      * @return string
@@ -28,9 +20,11 @@ class SendCodeRequest
     public static function create(Request $request) : self
     {
         $obj = new self();
-        $obj->phone = '777777777';
+        $obj->fetchPhone($request);
         $obj->sessionId = $request->getSession()->getId();
 
         return $obj;
     }
+
+
 }

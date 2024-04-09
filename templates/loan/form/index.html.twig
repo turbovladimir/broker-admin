@@ -11,7 +11,6 @@
 {% set title = 'Получить займ' %}
 {% block container %}
     <div class="row mt-4 p-2">
-        {% include '@loan/form/phone_verify.html.twig' with {'hide' : verified == true } %}
         {% include '@loan/form/form.html.twig' with {'hide' : verified == false } %}
         {% include '@loan/form/thanks.html.twig' %}
     </div>
