@@ -40,11 +40,10 @@
         {{ parent() }}
         <style>
             .code input {
-                --code-primary-color: #c9d1d5;
                 border-radius: var(--border-radius);
                 border: 0;
                 outline: 0;
-                background: var(--code-primary-color);
+                background: #c9d1d5;
                 height: 5vw;
                 width: 5vw;
                 text-align: center;
@@ -52,8 +51,8 @@
                 color: #616161;
             }
 
-            .code_success {
-                color: #d1efd8;
+            .code.code_success {
+                background: #4ddc4a;
             }
         </style>
     {% endblock %}

@@ -74,11 +74,8 @@ $(function () {
         $(e.target).select();
     }
 
-    code_div.on('keyup', 'input', goToNextInput);
-    code_div.on('keydown', 'input', onKeyDown);
-    code_div.on('click', 'input', onFocus);
-    // code_div.on('click', '#reset_code', Reset);
-    code_div.on('change', 'input', function () {
+    function Verify () {
+        console.log('verify');
         let code = [];
 
         code_div.find('input').each(function () {
@@ -119,12 +116,17 @@ $(function () {
                 console.log(data);
             })
             .done(function (response) {
-                console.log(response);
+                $form.siblings('input').addClass('code_success').attr('disabled', true);
                 $('.modal-close').find('button').trigger('click');
                 window.location.replace('/loan/form');
             })
         ;
-    });
+    }
+
+    code_div.on('keyup', 'input', goToNextInput);
+    code_div.on('keydown', 'input', onKeyDown, Verify);
+    code_div.on('click', 'input', onFocus);
+    // code_div.on('click', '#reset_code', Reset);
 
     $('#btn_send_sms').on('click', function () {
         const button = this;

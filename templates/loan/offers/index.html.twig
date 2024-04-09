@@ -1,5 +1,6 @@
 {% extends '@loan/base.html.twig' %}
 {% set title = 'Подбор предложений' %}
+{% set js_modules = [] %}
 {% block container %}
     <div id="offer_list" class="row mt-4 p-2">
         {% include '@loan/offers/list.html.twig' %}

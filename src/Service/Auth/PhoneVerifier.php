@@ -25,13 +25,22 @@ class PhoneVerifier
     public function sendCode(SendCodeRequest $request) : void
     {
         try {
+            $sId = $request->getSessionId();
+
+            $existJob = $this->entityManager
+                ->getRepository(PhoneVerifyJob::class)->findOneBy(['sessionId' => $sId, 'isActive' => true]);
+
+            if ($existJob) {
+                $this->entityManager->persist($existJob->setIsActive(false));
+            }
+
             $job = (new PhoneVerifyJob())
                 ->setAddedAt(new \DateTime())
                 ->setIsActive(true)
                 ->setIsVerified(false)
                 ->setPhone($request->getPhone())
                 ->setCode($this->generateCode())
-                ->setSessionId($request->getSessionId())
+                ->setSessionId()
             ;
 
             $message = sprintf('Yor code: %d', $job->getCode());

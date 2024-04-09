@@ -71,7 +71,8 @@ function isValid(id, pat) {
 }
 
 function subtractYears(date, years) {
-    const subDate = {...date};
+    const subDate = new Date(date.getTime());
+    console.log(subDate);
     subDate.setFullYear(subDate.getFullYear() - years);
 
     return subDate;
