@@ -40,7 +40,7 @@ class PhoneVerifier
                 ->setIsVerified(false)
                 ->setPhone($request->getPhone())
                 ->setCode($this->generateCode())
-                ->setSessionId()
+                ->setSessionId($sId)
             ;
 
             $message = sprintf('Yor code: %d', $job->getCode());

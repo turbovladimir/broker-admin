@@ -21,7 +21,13 @@ class SendCodeRequest
     {
         $obj = new self();
         $obj->fetchPhone($request);
-        $obj->sessionId = $request->getSession()->getId();
+        $sID = $request->getSession()->getId();
+
+        if (empty($sID)) {
+            $request->getSession()->start();
+            $sID = $request->getSession()->getId();
+        }
+        $obj->sessionId = $sID;
 
         return $obj;
     }
