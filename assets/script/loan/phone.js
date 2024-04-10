@@ -47,14 +47,15 @@ $(function () {
                 if (sec <= 0) {
                     clearInterval(downloadTimer);
                     document.getElementById(container_id).innerHTML = "Повторить";
-                } else {
-                    document.getElementById(container_id).innerHTML =
-                        sec + " секунд до повторной отправки смс.";
-
                     $(`#${container_id}`).on('click', function () {
                         widget.resetCode();
                         widget.requestCode($('#phone').val());
                     });
+
+                    return;
+                } else {
+                    document.getElementById(container_id).innerHTML =
+                        sec + " секунд до повторной отправки смс.";
                 }
                 sec -= 1;
             }, 1000);
@@ -107,9 +108,6 @@ $(function () {
                 PhoneVerifyWidget.inputsCodeNumber
                     .addClass('code_success')
                     .attr('disabled', true);
-                $('.modal-close')
-                    .find('button')
-                    .trigger('click');
                 window.location.replace('/loan/form');
             })
         ;

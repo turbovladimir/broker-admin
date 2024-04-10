@@ -32,6 +32,8 @@ class LoanController extends AbstractController
             return $this->redirectToRoute('loan_form');
         }
 
+        $request->getSession()->set(self::FLAG_PHONE_VERIFIED, false);
+
         return $this->render('@loan/welcome/index.html.twig');
     }
 
@@ -71,6 +73,7 @@ class LoanController extends AbstractController
         }
 
         $loanRequest->setPhone($job->getPhone());
+        $entityManager->persist($job->setIsActive(false));
         $entityManager->persist($loanRequest);
         $entityManager->flush();
 
