@@ -27,7 +27,7 @@ class LoanRequest
     private ?string $patron = null;
 
     #[ORM\Column(length: 20)]
-    private ?int $phone = null;
+    private ?string $phone = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $birth = null;
@@ -113,12 +113,12 @@ class LoanRequest
         return $this;
     }
 
-    public function getPhone(): ?int
+    public function getPhone(): ?string
     {
         return $this->phone;
     }
 
-    public function setPhone(int $phone): static
+    public function setPhone(string $phone): static
     {
         $this->phone = $phone;
 
