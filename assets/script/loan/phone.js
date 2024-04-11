@@ -142,7 +142,7 @@ $(function () {
 
         // console.log(key);
 
-        if (key <= 48 && key >= 57) {
+        if (key >= 48 && key <= 57) {
             sib.trigger('focus');
         }
 
