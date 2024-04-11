@@ -15,9 +15,7 @@ $(function () {
             $('#btn_send_sms').on('click', validatePhoneAndRequestCode);
             this.inputsCodeNumber.each(function () {
                 const $this = $(this);
-                $this.on('keyup', goToNextInput);
-                $this.on('keydown', onKeyDown);
-                $this.on('click', onFocus);
+                 $this.on('keyup', goToNextInput);
             })
 
             this.inputsCodeNumber.last().on('keyup', verifyCode);
@@ -141,34 +139,6 @@ $(function () {
         let key = e.which,
             t = $(e.target),
             sib = t.next('input');
-
-        if (key != 9 && (key < 48 || key > 57)) {
-            e.preventDefault();
-            return false;
-        }
-
-        if (key === 9) {
-            return true;
-        }
-
-        if (!sib || !sib.length) {
-            sib = code_div.find('input').eq(0);
-        }
         sib.select().focus();
-    }
-
-    function onKeyDown(e) {
-        const key = e.which;
-
-        if (key === 9 || (key >= 48 && key <= 57)) {
-            return true;
-        }
-
-        e.preventDefault();
-        return false;
-    }
-
-    function onFocus(e) {
-        $(e.target).select();
     }
 })

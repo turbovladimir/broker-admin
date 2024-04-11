@@ -1,6 +1,23 @@
 body {
-    --border-radius: 20px;
+    --border-radius: 1vw;
     --green : #00AD4A;
+    --range-thumb-size : 2.5vw;
+    --range-thumb-radius : 2em;
+    --range-track-height : 2vw;
+}
+
+
+/*remove arrows from number input*/
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
 }
 
 

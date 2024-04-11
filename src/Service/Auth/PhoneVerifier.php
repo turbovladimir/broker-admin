@@ -75,6 +75,9 @@ class PhoneVerifier
 
     private function generateCode() : int
     {
+        //todo remove stub
+        return 7777;
+
         return random_int(1000, 9999);
     }
 }

@@ -48,8 +48,8 @@ class LoanRequestType extends AbstractType
                 'row_attr' => [
                     'class' => 'from-group form-floating mb-3'
                 ],
-                'attr' => ['class' => 'form-control loan_form_input date_mask birth_validate', 'placeholder' => "01/12/1990 Дата рождения"],
-                'label' => '01/12/1990 Дата рождения'
+                'attr' => ['class' => 'form-control loan_form_input date_mask birth_validate', 'placeholder' => "дд.мм.гггг Дата рождения"],
+                'label' => 'дд.мм.гггг Дата рождения'
             ])
             ->add('email', EmailType::class,  [
                 'row_attr' => [
@@ -83,8 +83,8 @@ class LoanRequestType extends AbstractType
                 'row_attr' => [
                     'class' => 'from-group form-floating mb-3'
                 ],
-                'attr' => ['class' => 'form-control loan_form_input date_mask', 'placeholder' => "01/12/2000 Дата выдачи"],
-                'label' => 'Дата выдачи'
+                'attr' => ['class' => 'form-control loan_form_input date_mask', 'placeholder' => "дд.мм.гггг Дата выдачи"],
+                'label' => 'дд.мм.гггг Дата выдачи'
             ])
             ->add('department', TextType::class,  [
                 'row_attr' => [

@@ -19,7 +19,6 @@ $(function () {
                 $('#push-link').attr('href', push.target);
                 $('.toast').slideDown('slow');
                 $('.toast').promise().done( function () {
-                    console.log('play time');
                     const audio = document.getElementById('push_audio');
                     audio.muted = false;
                     audio.play();

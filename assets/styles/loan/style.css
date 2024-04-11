@@ -109,37 +109,6 @@ a {
     border-color: var(--green);
 }
 
-.range {
-    background-color: #F6F6F6;
-    padding: 2em;
-    border-radius: var(--border-radius);
-}
-
-.range_val {
-    color: #CDCDCD;
-    font-family: Inter-300;
-    font-size: 16px;
-}
-
-.range label {
-    font-family: Inter-600;
-    font-size: 35px;
-    color: black;
-    padding-bottom: 1em;
-}
-
-.range input::-webkit-slider-thumb {
-    background: var(--green);
-}
-
-.range input::-moz-range-thumb {
-    background: var(--green);
-}
-
-.range_row input::-ms-thumb {
-    background: var(--green);
-}
-
 .bg_white {
     background-color: #F6F6F6;
 }

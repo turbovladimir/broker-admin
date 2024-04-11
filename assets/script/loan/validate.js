@@ -18,20 +18,26 @@ $(document).ready(function () {
         const birtMin = subtractYears(date, 18);
         const birtMax = subtractYears(date, 60);
         let inputDate = $(this).val();
-        inputDate = inputDate.replace(/(\d+)\/(\d+)\/(\d+)/g, "$3-$2-$1")
-        const DateBirth = new Date(inputDate)
+        const DateParts = inputDate.split('.');
 
-        if (date <= DateBirth) {
+        const DateBirth = new Date(inputDate);
+        const btn = $('#btn_continue');
+
+        if (DateParts[0] > 31 || DateParts[1] > 12 || DateParts[2] > date.getFullYear()) {
             alert('Введите корректную дату рождения');
-            $('#btn_continue').prop('disabled', true);
+            btn.prop('disabled', true)
+                .addClass('opacity-50')
+            ;
 
             return;
         }
 
         if (DateBirth > birtMin || DateBirth < birtMax) {
             alert('К сожалению, из-за возрастных ограничений, мы не можем принять вашу заявку.');
-            $('#btn_continue').prop('disabled', true);
+            btn.prop('disabled', true);
         }
+
+        btn.removeAttr('disabled').removeClass('opacity-50');
     });
 })
 
@@ -72,7 +78,6 @@ function isValid(id, pat) {
 
 function subtractYears(date, years) {
     const subDate = new Date(date.getTime());
-    console.log(subDate);
     subDate.setFullYear(subDate.getFullYear() - years);
 
     return subDate;
