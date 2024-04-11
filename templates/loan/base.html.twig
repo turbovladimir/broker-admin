@@ -5,8 +5,8 @@
                 <span class="spinner"></span>
             </div>
         </div>
-        <div class="container-fluid">
-            <div class="row row-cols-2 m-lg-5 m-sm-3 p-2 pl-4">
+        <div class="container-lg p-sm-5">
+            <div class="row row-cols-2">
                 {% block header %}
                     <div class="col d-flex justify-content-between">
                         <img class="img-fluid" src="{{ asset('content/img/loan/zaymi.svg') }}">
@@ -16,9 +16,8 @@
                     </div>
                 {% endblock %}
             </div>
+            {% block container %}{% endblock %}
         </div>
-                {% block container %}
-                {% endblock %}
         <div class="toast-container">
             {% include 'components/push.html.twig' %}
         </div>

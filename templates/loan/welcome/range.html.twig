@@ -1,5 +1,5 @@
 <div class="row row-cols-1 justify-content-center p-3">
-    <div class="col w-75">
+    <div class="col">
         <div class="row row-cols-lg-2 row-cols-md-1 mt-2 align-items-center justify-content-center">
             <div class="col">
                 <div class="row row-cols-1">
@@ -28,6 +28,19 @@
     </div>
 </div>
 <style>
+    @media (min-width: 576px) {
+        --range_font-size:  7vw;
+        --range-label-font-size: 4vw;
+    }
+    @media (min-width: 768px) {
+        --range_font-size:  2vw;
+        --range-label-font-size: 2vw;
+    }
+
+    #range_amount_value {
+        font-size: var(--range_font-size);
+    }
+
     .range {
         background-color: #F6F6F6;
         padding: 2em;
@@ -37,12 +50,12 @@
     .range_val {
         color: #CDCDCD;
         font-family: Inter-300;
-        font-size: 16px;
+        font-size: var(--range_font-size);
     }
 
     .range label {
         font-family: Inter-600;
-        font-size: 35px;
+        font-size: var(--range-label-font-size) !important;
         color: black;
         padding-bottom: 1em;
     }

@@ -29,7 +29,7 @@
             <div class="col pl-2 code">
                 <form name="code_verify" method="POST" action="{{ path('phone_code_verify') }}">
                     {% for i in 1..4 %}
-                        <input class="code_primary" type="number" name="code[]" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+                        <input class="code_primary" type="number" name="code[]" maxLength="1" size="1" min="0" max="9" inputmode="numeric" pattern="[0-9]*" />
                     {% endfor %}
                     <input type="hidden" name="phone">
                 </form>

@@ -1,9 +1,42 @@
 <div id="advantages" class="bg_white row row-cols-1 justify-content-center p-3">
     <div class="col mb-2 p-4 text-center"><h3>Преимущества работы с нами</h3></div>
-    <div class="col w-75">
-        <img class="img-fluid" src="{{ asset('content/img/loan/adv.svg') }}">
+    <div class="col">
+        <div class="row row-cols-4 justify-content-evenly d-flex align-items-top">
+            {% for config in [
+                {
+                'img': 'content/img/loan/advantages/checkmark.svg',
+                'text': 'Одобрение 99%'
+                },
+                {
+                    'img': 'content/img/loan/advantages/security.svg',
+                    'text': 'Конфиденциальность данных'
+                },
+                {
+                    'img': 'content/img/loan/advantages/time.svg',
+                    'text': 'Деньги у вас через 10 мин'
+                },
+                {
+                    'img': 'content/img/loan/advantages/money.svg',
+                    'text': 'Зачисление любым способом'
+                },
+            ] %}
+                {% include 'components/advantage.html.twig' with {'img': config.img, 'text': config.text} %}
+            {% endfor %}
+        </div>
     </div>
     <div class="col mt-2 mb-2 p-4 text-center">
         <a href="#" data-bs-toggle="modal" data-bs-target="#{{ modal_phone_verify_id }}" class="loan-btn gradient-green m-2" type="button">Получить займ</a>
     </div>
 </div>
+<style>
+    .advantages {
+        border-radius: var(--border-radius);
+        background-color: white;
+        padding-bottom: 100%;
+        aspect-ratio: 1 / 1;
+    }
+    .advantages span {
+        font-family: Inter-600;
+        font-size: 1vw;
+    }
+</style>

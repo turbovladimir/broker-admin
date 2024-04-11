@@ -139,6 +139,13 @@ $(function () {
         let key = e.which,
             t = $(e.target),
             sib = t.next('input');
-        sib.select().focus();
+
+        // console.log(key);
+
+        if (key !== 8) {
+            sib.trigger('focus');
+        }
+
+        e.preventDefault();
     }
 })
