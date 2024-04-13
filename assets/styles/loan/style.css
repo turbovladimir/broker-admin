@@ -8,25 +8,31 @@ h1 {
 h2 {
     all: unset;
     font-family: Inter-900;
-    font-size: 9vw !important;
+    font-size: var(--h2-size) !important;
 }
 
 h3 {
     all: unset;
     font-family: Inter-600;
-    font-size: 7vw !important;
+    font-size: var(--h3-size) !important;
 }
 
 h4 {
     all: unset;
     font-family: Inter-600;
-    font-size: 6vw !important;
+    font-size: var(--h4-size) !important;
 }
 
 h5 {
     all: unset;
     font-family: Inter-600;
-    font-size: 5vw !important;
+    font-size: var(--h5-size) !important;
+}
+
+p {
+    all: unset;
+    font-family: Inter-600;
+    font-size: var(--p-size) !important;
 }
 
 a {
@@ -37,10 +43,8 @@ a {
     color: var(--green);
 }
 
-.p-gray {
+.gray {
     color: #969696;
-    font-family: Inter-400;
-    font-size: 4vw !important;
 }
 
 .footer-link {
@@ -76,17 +80,33 @@ a {
     padding: 5px;
 }
 
-.loan-btn {
-    color: white;
-    box-shadow: 0 0 20px #eee;
-    border-radius: var(--border-radius);
-    font-size: 3vmin;
-    padding: 0.7em;
-    padding-left: 1em;
-    padding-right: 1em;
-    text-align: center;
-    border-style: none;
+@media (min-width: 576px) {
+    .loan-btn {
+        color: white;
+        box-shadow: 0 0 20px #eee;
+        border-radius: var(--border-radius);
+        font-size: 2vw;
+        padding: 1em;
+        padding-left: 1em;
+        padding-right: 1em;
+        text-align: center;
+        border-style: none;
+    }
 }
+@media (min-width: 768px) {
+    .loan-btn {
+        color: white;
+        box-shadow: 0 0 20px #eee;
+        border-radius: var(--border-radius);
+        font-size: 5vmin;
+        padding: 1vw;
+        padding-left: 1em;
+        padding-right: 1em;
+        text-align: center;
+        border-style: none;
+    }
+}
+
 .gradient-green {
     background-image: linear-gradient(to right, #008FD2 0%, #00A02B 51%, #00A02B 100%);
     /*background-image: linear-gradient(to right, #84fab0 0%, #8fd3f4 51%, #84fab0 100%);*/

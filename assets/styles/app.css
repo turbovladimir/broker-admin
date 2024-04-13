@@ -1,12 +1,3 @@
-body {
-    --border-radius: 1vw;
-    --green: #00AD4A;
-    --range-thumb-size: 2.5vw;
-    --range-thumb-radius: 2em;
-    --range-track-height: 2vw;
-}
-
-
 /*remove arrows from number input*/
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
@@ -15,18 +6,42 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 
+:root {
+    --border-radius: 1vw !important;
+    --green: #00AD4A;
+    --img-block-width: auto;
+    --h2-size: 4vw !important;
+    --h3-size: 3vw !important;
+    --h4-size: 3vw !important;
+    --h5-size: 2vw !important;
+    --p-size: 1vw !important;
+    --label-size: 2vw !important;
+}
+
 /* Firefox */
 input[type=number] {
     -moz-appearance: textfield;
 }
 
-.img-block {
+.img-block-sm {
     height: auto;
-    width: 100%;
+    width: var(--img-block-width);
 }
 
 /* Small devices (landscape phones, 576px and up)*/
 @media (min-width: 576px) {
+    :root {
+        --border-radius: 1vw !important;
+        --green: #00AD4A;
+        --img-block-width: 100%;
+        --h2-size: 8vw !important;
+        --h3-size: 7vw !important;
+        --h4-size: 7vw !important;
+        --h5-size: 6vw !important;
+        --p-size: 3vw !important;
+        --label-size: 5vw !important;
+    }
+
     .w-sm-100 {
         width: 100% !important;
     }
@@ -97,6 +112,18 @@ input[type=number] {
 
 /* Large devices (desktops, 992px and up)*/
 @media (min-width: 992px) {
+    :root {
+        --border-radius: 1vw !important;
+        --green: #00AD4A;
+        --img-block-width: auto;
+        --h2-size: 4vw !important;
+        --h3-size: 3vw !important;
+        --h4-size: 3vw !important;
+        --h5-size: 2vw !important;
+        --p-size: 1vw !important;
+        --label-size: 3vw !important;
+    }
+
     .w-lg-100 {
         width: 100% !important;
     }
