@@ -9,7 +9,7 @@
                 <p>Укажите номер телефона, на который можно отправить SMS сообщение</p>
             </div>
             <div class="col p-2">
-                <span class="text_semi_bold" style="font-size: 16px; font-family: Inter-600">Авторизация через:</span>
+                <span class="small-text">Авторизация через:</span>
                 <a target="_blank" href="https://vk.me/topbotzaimov"><img style="height: 30px; width: 30px;" class="img-fluid" src="{{ asset('content/img/loan/vk.png') }}"></a>
             </div>
             <div class="col p-2">
@@ -22,16 +22,20 @@
                 <p class="mb-0">Заполняя форму связи, Вы соглашаетесь с политикой конфиденциальности</p>
             </div>
         </div>
-        <div id="modal_body_code" class="row row-cols-1 d-none">
+        <div id="modal_body_code" class="row row-cols-1 d-none justify-content-center g-3">
             <div class="col pb-2 mb-2">
                 <h5>Введите код из смс, который мы отправили вам на номер <span id="phone_number"></span></h5>
             </div>
-            <div class="col pl-2 code">
+            <div class="col-auto">
                 <form name="code_verify" method="POST" action="{{ path('phone_code_verify') }}">
-                    {% for i in 1..4 %}
-                        <input class="code_primary" type="number" name="code[]" maxLength="1" size="1" min="0" max="9" inputmode="numeric" pattern="[0-9]*" />
-                    {% endfor %}
-                    <input type="hidden" name="phone">
+                    <div class="row row-cols-4 g-2">
+                        {% for i in 1..4 %}
+                            <div class="col">
+                                <input class="code code_primary" type="number" name="code[]" maxLength="1" size="1" min="0" max="9" inputmode="numeric" pattern="[0-9]*" />
+                            </div>
+                        {% endfor %}
+                        <input type="hidden" name="phone">
+                    </div>
                 </form>
             </div>
         </div>
@@ -39,14 +43,18 @@
     {% block style %}
         {{ parent() }}
         <style>
-            .code input {
+            .small-text {
+                font-family: Inter-600;
+                font-size: 2vw;
+            }
+            .code {
                 border-radius: var(--border-radius);
                 border: 0;
                 outline: 0;
-                height: 5vw;
-                width: 5vw;
+                height: 8vw;
+                width: 8vw;
                 text-align: center;
-                font-size: 3vw;
+                font-size: 5vw;
                 color: #616161;
             }
 
@@ -55,7 +63,7 @@
             }
 
             .code_success {
-                background: #4ddc4a;
+                background: #00A02B;
             }
         </style>
     {% endblock %}

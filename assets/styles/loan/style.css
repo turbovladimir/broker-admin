@@ -8,25 +8,25 @@ h1 {
 h2 {
     all: unset;
     font-family: Inter-900;
-    font-size: 60px !important;
+    font-size: 9vw !important;
 }
 
 h3 {
     all: unset;
     font-family: Inter-600;
-    font-size: 48px !important;
+    font-size: 7vw !important;
 }
 
 h4 {
     all: unset;
     font-family: Inter-600;
-    font-size: 32px !important;
+    font-size: 6vw !important;
 }
 
 h5 {
     all: unset;
     font-family: Inter-600;
-    font-size: 27px !important;
+    font-size: 5vw !important;
 }
 
 a {
@@ -40,7 +40,7 @@ a {
 .p-gray {
     color: #969696;
     font-family: Inter-400;
-    font-size: 20px !important;
+    font-size: 4vw !important;
 }
 
 .footer-link {

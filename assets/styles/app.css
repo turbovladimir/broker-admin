@@ -20,6 +20,11 @@ input[type=number] {
     -moz-appearance: textfield;
 }
 
+.img-block {
+    height: auto;
+    width: 100%;
+}
+
 /* Small devices (landscape phones, 576px and up)*/
 @media (min-width: 576px) {
     .w-sm-100 {

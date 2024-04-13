@@ -7,16 +7,13 @@ $(function () {
         inputPhone : null,
         init: function () {
             this.form = $('form[name="code_verify"]');
-            this.inputsCodeNumber = this.form.find('input[name="code\[]\"]');
+            this.inputsCodeNumber = this.form.find('.code');
             this.inputPhone = this.form.find('input[name="phone"]');
             this.addListeners();
         },
         addListeners: function () {
             $('#btn_send_sms').on('click', validatePhoneAndRequestCode);
-            this.inputsCodeNumber.each(function () {
-                const $this = $(this);
-                 $this.on('keyup', goToNextInput);
-            })
+            $('.code').on('keyup', HandleCodeEvent);
 
             this.inputsCodeNumber.last().on('keyup', verifyCode);
         },
@@ -103,7 +100,7 @@ $(function () {
                 }
             })
             .done(function (response) {
-                PhoneVerifyWidget.inputsCodeNumber
+                $('.code')
                     .addClass('code_success')
                     .attr('disabled', true);
                 window.location.replace('/loan/form');
@@ -135,17 +132,17 @@ $(function () {
     }
 
 
-    function goToNextInput(e) {
+    function HandleCodeEvent(e) {
         let key = e.which,
-            t = $(e.target),
-            sib = t.next('input');
-
-        // console.log(key);
+            t = $(e.target);
 
         if (key >= 48 && key <= 57) {
-            sib.trigger('focus');
+            t.parent().next().children().trigger('focus');
+        } else if(key === 8) {
+            t.val();
+            t.parent().prev().children().trigger('focus');
+        } else {
+            e.preventDefault();
         }
-
-        e.preventDefault();
     }
 })
