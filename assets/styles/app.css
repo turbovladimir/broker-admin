@@ -16,6 +16,8 @@ input::-webkit-inner-spin-button {
     --h5-size: 2vw !important;
     --p-size: 1vw !important;
     --label-size: 2vw !important;
+    --bs-btn-hover-bg: var(--green) !important;
+    --bs-btn-hover-border-color: var(--green) !important;
 }
 
 /* Firefox */
@@ -31,13 +33,13 @@ input[type=number] {
 /* Small devices (landscape phones, 576px and up)*/
 @media (min-width: 576px) {
     :root {
-        --border-radius: 1vw !important;
+        --border-radius: 2vw !important;
         --green: #00AD4A;
         --img-block-width: 100%;
         --h2-size: 8vw !important;
         --h3-size: 7vw !important;
         --h4-size: 7vw !important;
-        --h5-size: 6vw !important;
+        --h5-size: 5vw !important;
         --p-size: 3vw !important;
         --label-size: 5vw !important;
     }

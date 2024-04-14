@@ -98,7 +98,7 @@ a {
         color: white;
         box-shadow: 0 0 20px #eee;
         border-radius: var(--border-radius);
-        font-size: 5vmin;
+        font-size: 4vw;
         padding: 1vw;
         padding-left: 1em;
         padding-right: 1em;
@@ -115,8 +115,10 @@ a {
     background-position: right center; /* change the direction of the change here */
 }
 
-.error {
+.error-text {
     color: red;
+    font-family: Inter-600;
+    font-style: var(--p-size);
 }
 
 .error_input {

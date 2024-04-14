@@ -70,14 +70,17 @@ return [
     'jquery-autocomplete' => [
         'version' => '1.2.8',
     ],
-    'jquery-ui' => [
-        'version' => '1.13.2',
-    ],
     'devbridge-autocomplete' => [
         'version' => '1.4.11',
     ],
     'bootstrap-icons/font/bootstrap-icons.min.css' => [
         'version' => '1.11.3',
         'type' => 'css',
+    ],
+    'jquery-ui' => [
+        'version' => '1.13.2',
+    ],
+    'jquery-ui/dist/jquery-ui.min.js' => [
+        'version' => '1.13.2',
     ],
 ];

@@ -8,8 +8,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     {% block body %}{% endblock %}
-                    <div class="p-relative modal-block-error">
-                        <span id="modal-error"></span>
+                    <div id="modal-block-error" class="p-relative mt-3">
                     </div>
                 </div>
             </div>
@@ -18,10 +17,6 @@
 </div>
 {% block style %}
     <style>
-        #modal-error {
-            color: red;
-            font-family: Inter-600;
-        }
         .modal-close {
             position: absolute;
             top: 0;
