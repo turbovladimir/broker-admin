@@ -1,36 +1,16 @@
 .offer_wrap {
     padding: 2em;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     background-color: #F6F6F6;
-    --offer_wrap_width: 100%;
 }
 
 .offer_card {
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     background-color: white;
-    /*height: 276px;*/
 }
 
 .offer_blank {
     max-height: 450px;
-}
-
-.offer_card .title {
-    color: #636a73;
-    font-size: 20px;
-    font-weight: 400;
-    line-height: normal;
-    margin-top: 0;
-    margin-bottom: 20px;
-}
-.offer_card .term {
-    margin: 0 0 20px;
-    color: #636a73;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: normal;
-    text-transform: lowercase;
-    text-align: right;
 }
 .offer_card .term span {
     color: #262a30;
@@ -60,9 +40,4 @@
     background: no-repeat center center;
     background-size: contain;
     min-width: 190px;
-}
-
-.offer_name {
-    font-family: Inter-600;
-    font-size: 18px;
 }

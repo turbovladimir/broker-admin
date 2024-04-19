@@ -31,7 +31,7 @@ h5 {
 
 p {
     all: unset;
-    font-family: Inter-600;
+    font-family: var(--p-family);
     font-size: var(--p-size) !important;
 }
 
@@ -56,26 +56,25 @@ a {
 .loan-p {
     all: unset;
     font-family: Inter-600;
-    font-size: 30px !important;
+    font-size: var(--p-size) !important;
     /*drop-shadow(0px 4px 4px);*/
 }
 
 .form-label {
-    font-family: Inter-400;
-    font-size: 16px !important;
+    font-family: Inter-400 !important;
+    /*font-size: var(--label-size) !important;*/
     color: #969696;
 }
 
-.form-control.loan_form_input {
-    line-height: 3.5;
+.loan_form_input {
+    line-height: 5.5vw !important;
     border-radius: var(--border-radius);
     border-style: none;
     background-color: #F6F6F6;
 }
 
-.form-control.loan_form_input::placeholder {
+.loan_form_input::placeholder {
     font-family: Inter-400;
-    font-size: 16px;
     color: #969696;
     padding: 5px;
 }
@@ -98,10 +97,10 @@ a {
         color: white;
         box-shadow: 0 0 20px #eee;
         border-radius: var(--border-radius);
-        font-size: 4vw;
-        padding: 1vw;
-        padding-left: 1em;
-        padding-right: 1em;
+        font-size: 5vw;
+        padding: 3vw;
+        padding-left: 4.5vw;
+        padding-right: 4.5vw;
         text-align: center;
         border-style: none;
     }
@@ -122,8 +121,7 @@ a {
 }
 
 .error_input {
-    border-style: double;
-    border-color: red;
+    border: solid red .5vw !important;
 }
 
 .good_input {
@@ -146,11 +144,12 @@ a {
 }
 
 .autocomplete-suggestions {
-    background-color: white;
-    opacity: 0.7;
+    background-color: #dfdfdf;
     border-radius: var(--border-radius);
     padding: 1em;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    font-size: var(--p-size);
+    max-height: 100% !important;
 }
 
 .autocomplete-suggestions a {

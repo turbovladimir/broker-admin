@@ -2,17 +2,90 @@
 {% set js_modules = [
     'loan_form',
     'loan_mask',
-    'loan_validate',
     'loan_autocomplete',
     'loan_offers',
     'loan_push',
     'loan_phone'
 ] %}
 {% set title = 'Получить займ' %}
+{% set input_row_style = 'row row-cols-lg-2 row-cols-sm-1 mt-2 align-items-center' %}
+{% set input_style = 'col mb-sm-4' %}
 {% block container %}
-    <div class="row mt-4 p-2">
-        {% include '@loan/form/form.html.twig' with {'hide' : verified == false } %}
-        {% include '@loan/form/thanks.html.twig' %}
-    </div>
+    {% embed '@loan/form/wrap.html.twig' with {'hide' : verified == false } %}
+        {% block header %}
+            <div class="col order-sm-2 m-sm-4 text-start">
+                <h3>Для получения займа <br> заполните анкету</h3>
+            </div>
+            <div class="col order-sm-1 mb-sm-3 text-end">
+                <button id="btn_step" type="button" class="loan-btn gradient-green">Шаг <span>1</span></button>
+            </div>
+        {% endblock %}
+        {% block body %}
+            {% embed '@loan/form/step.html.twig' with {
+                'button': {'id': 'btn_continue', 'text': 'Продолжить'},
+                'step': {'id': 'form_step_personal_data'},
+            } %}
+                {% block content %}
+                    <div class="{{ input_row_style }}">
+                        <div class="{{ input_style }}">
+                            {{ form_row(form.surname) }}
+                        </div>
+                        <div class="{{ input_style }}">
+                            {{ form_row(form.name) }}
+                        </div>
+                    </div>
+                    <div class="{{ input_row_style }}">
+                        <div class="{{ input_style }}">
+                            {{ form_row(form.patron) }}
+                        </div>
+                        <div class="{{ input_style }}">
+                            {{ form_row(form.birthPlace) }}
+                        </div>
+                    </div>
+                    <div class="{{ input_row_style }}">
+                        <div class="{{ input_style }}">
+                            {{ form_row(form.birth) }}
+                        </div>
+                        <div class="{{ input_style }}">
+                            {{ form_row(form.email) }}
+                        </div>
+                    </div>
+                {% endblock %}
+            {% endembed %}
+            {% embed '@loan/form/step.html.twig' with {
+                'button': {'id': 'btn_from_sbm', 'text': 'Получить займ'},
+                'step': {'id': 'form_step_passport', 'is_hidden': true},
+            } %}
+                {% block content %}
+                    <div class="{{ input_row_style }}">
+                        <div class="{{ input_style }}">
+                            {{ form_row(form.passportSeries) }}
+                        </div>
+                        <div class="{{ input_style }}">
+                            {{ form_row(form.passportNumber) }}
+                        </div>
+                    </div>
+                    <div class="{{ input_row_style }}">
+                        <div class="{{ input_style }}">
+                            {{ form_row(form.departmentCode) }}
+                        </div>
+                        <div class="{{ input_style }}">
+                            {{ form_row(form.issueDate) }}
+                        </div>
+                    </div>
+                    <div class="{{ input_row_style }}">
+                        <div class="{{ input_style }}">
+                            {{ form_row(form.department) }}
+                        </div>
+                        <div class="{{ input_style }}">
+                            {{ form_row(form.regPlace) }}
+                        </div>
+                    </div>
+                {% endblock %}
+            {% endembed %}
+        {% endblock %}
+    {% endembed %}
+    {% include '@loan/form/thanks.html.twig' with {'hidden': true }%}
+    <div id="offer_list" class="row row-cols-1 mt-4 p-2"></div>
 {% endblock %}
 

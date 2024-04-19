@@ -1,12 +1,19 @@
 {% extends '@loan/base.html.twig' %}
-{% set title = 'Test' %}
+{% set js_modules = [
+    'loan_form',
+    'loan_mask',
+    'loan_autocomplete',
+    'loan_offers',
+    'loan_push',
+    'loan_phone'
+] %}
+{% set title = 'Получить займ' %}
+{% set input_row_style = 'row row-cols-lg-2 row-cols-sm-1 mt-2 align-items-center' %}
+{% set input_style = 'col mb-sm-4' %}
 {% block container %}
-    <div class="row justify-content-center mt-4 p-2">
-        <div class="col-md-auto">
-            <label for="city">City</label>
-            <input id="city" type="text" name="city" class="suggest_city" />
-        </div>
+    <div class="">
+        <button id="btn_show_offer" class="btn btn-primary" type="button">Show</button>
     </div>
-    {% include 'components/push.html.twig' %}
+    <div id="offer_list" class="row row-cols-1 mt-4 p-2"></div>
 {% endblock %}
-{% block importmap %}{{ importmap(['jquery_provider', 'app', 'loan_push', 'loan_form', 'loan_mask', 'loan_validate', 'loan_autocomplete']) }}{% endblock %}
+

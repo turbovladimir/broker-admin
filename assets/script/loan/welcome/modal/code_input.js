@@ -7,9 +7,20 @@ const
 
 const CodeInputHandler = {
     Handle: function () {
-        inputs.on('keyup', event => {
-            this.handleInputs(event);
-            this.verifyCode();
+        inputs.on({
+            'keyup': event => {
+                this.handleInputs(event);
+                this.verifyCode();
+                },
+            'keydown': event => {
+                let key = event.which,
+                    t = $(event.target);
+
+                //prevent input more than one number in cell
+                if (t.val() !== '' && key >= 48 && key <= 57) {
+                    event.preventDefault();
+                }
+            }
         });
     },
     handleInputs: function (e) {

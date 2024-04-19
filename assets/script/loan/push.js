@@ -1,4 +1,10 @@
+import '../utils/detect_mobile.js'
+
 $(function () {
+    if ($.browser.mobile) {
+        return;
+    }
+
     $.ajax({
         url: '/push/get',
         method: 'POST',

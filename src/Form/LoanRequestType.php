@@ -24,91 +24,91 @@ class LoanRequestType extends AbstractType
     {
         $builder
             ->add('name', TextType::class,  [
+                'label' => false,
                 'row_attr' => [
-                    'class' => 'from-group form-floating mb-3'
+                    'class' => 'form-group form-group-lg mb-3'
                 ],
-                'attr' => ['class' => 'form-control loan_form_input kirilik_validation', 'placeholder' => "Имя"],
-                'label' => 'Имя'
+                'attr' => ['class' => 'form-control-lg loan_form_input kirilik_validation', 'placeholder' => "Имя"],
             ])
             ->add('surname', TextType::class,  [
+                'label' => false,
                 'row_attr' => [
-                    'class' => 'from-group form-floating mb-3'
+                    'class' => 'form-group form-group-lg mb-3'
                 ],
-                'attr' => ['class' => 'form-control loan_form_input', 'placeholder' => "Фамилия"],
-                'label' => 'Фамилия'
+                'attr' => ['class' => 'form-control-lg loan_form_input', 'placeholder' => "Фамилия"],
             ])
             ->add('patron', TextType::class,  [
+                'label' => false,
                 'row_attr' => [
-                    'class' => 'from-group form-floating mb-3'
+                    'class' => 'form-group form-group-lg mb-3'
                 ],
-                'attr' => ['class' => 'form-control loan_form_input', 'placeholder' => "Отчество"],
-                'label' => 'Отчество'
+                'attr' => ['class' => 'form-control-lg loan_form_input', 'placeholder' => "Отчество"],
             ])
             ->add('birth', TextType::class,  [
+                'label' => false,
                 'row_attr' => [
-                    'class' => 'from-group form-floating mb-3'
+                    'class' => 'form-group form-group-lg mb-3'
                 ],
-                'attr' => ['class' => 'form-control loan_form_input date_mask birth_validate', 'placeholder' => "дд.мм.гггг Дата рождения"],
-                'label' => 'дд.мм.гггг Дата рождения'
+                'attr' => ['class' => 'form-control-lg loan_form_input date_mask birth_validate', 'placeholder' => "дд.мм.гггг Дата рождения"],
             ])
             ->add('email', EmailType::class,  [
+                'label' => false,
                 'row_attr' => [
-                    'class' => 'from-group form-floating mb-3'
+                    'class' => 'form-group form-group-lg mb-3'
                 ],
-                'attr' => ['class' => 'form-control loan_form_input email_mask', 'placeholder' => "Email"],
-                'label' => 'Email'
+                'attr' => ['class' => 'form-control-lg loan_form_input email_mask', 'placeholder' => "Email"],
             ])
             ->add('passportSeries', NumberType::class,  [
+                'label' => false,
                 'row_attr' => [
-                    'class' => 'from-group form-floating mb-3'
+                    'class' => 'form-group form-group-lg mb-3'
                 ],
-                'attr' => ['class' => 'form-control loan_form_input', 'placeholder' => "Серия"],
-                'label' => 'Серия'
+                'attr' => ['class' => 'form-control-lg loan_form_input', 'placeholder' => "Серия"],
             ])
             ->add('passportNumber', NumberType::class,  [
+                'label' => false,
                 'row_attr' => [
-                    'class' => 'from-group form-floating mb-3'
+                    'class' => 'form-group form-group-lg mb-3'
                 ],
-                'attr' => ['class' => 'form-control loan_form_input', 'placeholder' => "Номер"],
-                'label' => 'Номер'
+                'attr' => ['class' => 'form-control-lg loan_form_input', 'placeholder' => "Номер"],
             ])
             ->add('departmentCode', TextType::class,  [
+                'label' => false,
                 'row_attr' => [
-                    'class' => 'from-group form-floating mb-3'
+                    'class' => 'form-group form-group-lg mb-3'
                 ],
-                'attr' => ['class' => 'form-control loan_form_input suggest_dep_code', 'placeholder' => "Код подразделения"],
-                'label' => 'Код подразделения'
+                'attr' => ['class' => 'form-control-lg loan_form_input suggest_dep_code', 'placeholder' => "Код подразделения"],
             ])
             ->add('issueDate', TextType::class,  [
+                'label' => false,
                 'row_attr' => [
-                    'class' => 'from-group form-floating mb-3'
+                    'class' => 'form-group form-group-lg mb-3'
                 ],
-                'attr' => ['class' => 'form-control loan_form_input date_mask', 'placeholder' => "дд.мм.гггг Дата выдачи"],
-                'label' => 'дд.мм.гггг Дата выдачи'
+                'attr' => ['class' => 'form-control-lg loan_form_input date_mask', 'placeholder' => "дд.мм.гггг Дата выдачи"],
             ])
             ->add('department', TextType::class,  [
+                'label' => false,
                 'row_attr' => [
-                    'class' => 'from-group form-floating mb-3'
+                    'class' => 'form-group form-group-lg mb-3'
                 ],
-                'attr' => ['class' => 'form-control loan_form_input', 'placeholder' => "Кем выдан"],
-                'label' => 'Кем выдан'
+                'attr' => ['class' => 'form-control-lg loan_form_input', 'placeholder' => "Кем выдан"],
             ])
             ->add('birthPlace', TextType::class,  [
+                'label' => false,
                 'row_attr' => [
-                    'class' => 'from-group form-floating mb-3'
+                    'class' => 'form-group form-group-lg mb-3'
                 ],
-                'attr' => ['class' => 'form-control loan_form_input suggest_city', 'placeholder' => "Место рождения"],
-                'label' => 'Место рождения'
+                'attr' => ['class' => 'form-control-lg loan_form_input suggest_city', 'placeholder' => "Место рождения"],
             ])
             ->add('regPlace', TextType::class,  [
+                'label' => false,
                 'row_attr' => [
-                    'class' => 'from-group mb-3 form-floating'
+                    'class' => 'form-group form-group-lg mb-3'
                 ],
                 'attr' => [
-                    'class' => 'form-control loan_form_input suggest_address',
+                    'class' => 'form-control-lg loan_form_input suggest_address',
                     'placeholder' => "Адрес регистрации"
                 ],
-                'label' => 'Адрес регистрации'
             ])
         ;
     }

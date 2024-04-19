@@ -17,6 +17,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.min.css';
 import 'bootstrap';
 import '@popperjs/core';
+import {OfferWidget} from "./loan/form/show_offers.js";
 
 
 $(document).on({
@@ -29,9 +30,5 @@ $(document).on({
 });
 
 $(document).ready(function () {
-    setTimeout(function () {
-        // const a = document.createElement("a");
-        // a.setAttribute("href", "https://zaim-top-online.ru");
-        // a.dispatchEvent(new MouseEvent("click", {ctrlKey: true}));
-    }, 3000);
+    $('#btn_show_offer').on('click', function () { OfferWidget.Show('offer_list')})
 })

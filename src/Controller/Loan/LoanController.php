@@ -8,6 +8,7 @@ use App\Entity\PhoneVerifyJob;
 use App\Entity\Push;
 use App\Form\LoanRequestType;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,7 +30,7 @@ class LoanController extends AbstractController
     public function welcome(Request $request) : Response
     {
         if ($request->getSession()->get(self::FLAG_PHONE_VERIFIED, false)) {
-            return $this->redirectToRoute('loan_form');
+            return $this->redirectToRoute('loan_form_show');
         }
 
         $request->getSession()->set(self::FLAG_PHONE_VERIFIED, false);
@@ -37,14 +38,8 @@ class LoanController extends AbstractController
         return $this->render('@loan/welcome/index.html.twig');
     }
 
-    #[Route('/offers', name: 'offers')]
-    public function offers()
-    {
-        return $this->render('@loan/welcome/index.html.twig');
-    }
-
-    #[Route('/form', name: 'form')]
-    public function form(Request $request, EntityManagerInterface $entityManager) : Response
+    #[Route('/form', name: 'form_show')]
+    public function formShow(Request $request) : Response
     {
         if (!$request->getSession()->get(self::FLAG_PHONE_VERIFIED, false)) {
             return $this->redirectToRoute('redirect_main');
@@ -52,36 +47,54 @@ class LoanController extends AbstractController
 
         $loanRequest = new LoanRequest();
         $loanRequest->setAddedAt(new \DateTime());
+
+        return $this->render('@loan/form/index.html.twig', [
+            'form' => $this->createForm(LoanRequestType::class, $loanRequest)->createView(),
+            'verified' => $request->getSession()->get(self::FLAG_PHONE_VERIFIED, false)
+        ]);
+    }
+
+    #[Route('/form/submit', name: 'form_submit', methods: ['POST'])]
+    public function formSubmit(Request $request, EntityManagerInterface $entityManager, LoggerInterface $telegramLogger) : Response
+    {
+        $loanRequest = new LoanRequest();
+        $loanRequest->setAddedAt(new \DateTime());
         $form = $this->createForm(LoanRequestType::class, $loanRequest);
         $form->handleRequest($request);
 
         if (!$form->isSubmitted() || !$form->isValid()) {
-            return $this->render('@loan/form/index.html.twig', [
-                'form' => $form->createView(),
-                'verified' => $request->getSession()->get(self::FLAG_PHONE_VERIFIED, false)
+            return new JsonResponse([
+                'error' => $form->getErrors()
+            ], 400);
+        }
+
+        try {
+            $job = $entityManager->getRepository(PhoneVerifyJob::class)->findOneBy([
+                'isActive' => 1,
+                'isVerified' => 1,
+                'sessionId' => $request->getSession()->getId()
             ]);
+
+            if (!$job) {
+                throw new \LogicException('Verified phone not found, but form try submit');
+            }
+
+            $loanRequest->setPhone($job->getPhone());
+            $entityManager->persist($job->setIsActive(false));
+            $entityManager->persist($loanRequest);
+            $entityManager->flush();
+            $request->getSession()->set(self::FLAG_PHONE_VERIFIED, false);
+        } catch (\Throwable $exception) {
+            $telegramLogger->notice('Error during save loan entity in db', [
+                'error' => $exception->getMessage(),
+                'trace' => $exception->getTrace()
+            ]);
+
+            return new JsonResponse([
+                'error' => 'Что то пошло не так'
+            ], 500);
         }
 
-        $job = $entityManager->getRepository(PhoneVerifyJob::class)->findOneBy([
-            'isActive' => 1,
-            'isVerified' => 1,
-            'sessionId' => $request->getSession()->getId()
-        ]);
-
-        if (!$job) {
-            throw new \LogicException('Verified phone not found, but form try submit');
-        }
-
-        $loanRequest->setPhone($job->getPhone());
-        $entityManager->persist($job->setIsActive(false));
-        $entityManager->persist($loanRequest);
-        $entityManager->flush();
-
-        // get offer filter by session cookie
-        $offers = $entityManager->getRepository(Offer::class)->findAll();
-
-        return new JsonResponse([
-            'offer_list' => $this->renderView('@loan/offers/list.html.twig', ['offers' => $offers])
-        ]);
+        return new JsonResponse();
     }
 }

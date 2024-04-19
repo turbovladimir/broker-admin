@@ -1,18 +1,4 @@
 $(document).ready(function () {
-    $('#loan_request_code').on('focusout', function () {
-        const elem = $(this);
-        const code = elem.val();
-
-        $.get("/loan/verify/" + code)
-            .done(function () {
-                addGood(elem);
-                elem.prop('disabled', true);
-            })
-            .fail(function () {
-                addError(elem, "Недействительный проверочный код.");
-            })
-        ;
-    });
     $('.birth_validate').on('focusout', function () {
         const date = new Date();
         const birtMin = subtractYears(date, 18);
@@ -48,12 +34,12 @@ function addError(input, message) {
 
     input.addClass('error_input');
     const label = $('label[for="' + input.attr('id') + '"]');
-    label.addClass('error');
+    label.addClass('error-text');
     label.text(message);
 
     input.on('focus', function () {
         input.removeClass('error_input');
-        label.removeClass('error');
+        label.removeClass('error-text');
         label.text(input.attr('placeholder'));
     });
 }
