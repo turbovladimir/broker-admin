@@ -1,11 +1,11 @@
-<div id="advantages" class="bg_white row row-cols-1 justify-content-center p-3">
-    <div class="col mb-2 p-4 text-center"><h3>Преимущества работы с нами</h3></div>
-    <div class="col">
+<div id="advantages" class="bg_white block row row-cols-1 justify-content-center p-3">
+    <div class="col p-4 text-center"><h3>Преимущества работы с нами</h3></div>
+    <div class="col m-lg-3">
         <div class="row row-cols-lg-4 row-cols-sm-1 justify-content-evenly d-flex align-items-top m-sm-2 p-sm-2">
             {% for config in [
                 {
-                'img': 'content/img/loan/advantages/checkmark.svg',
-                'text': 'Одобрение 99%'
+                    'img': 'content/img/loan/advantages/checkmark.svg',
+                    'text': 'Одобрение 99%'
                 },
                 {
                     'img': 'content/img/loan/advantages/security.svg',
@@ -25,7 +25,9 @@
         </div>
     </div>
     <div class="col mt-2 mb-2 p-4 text-center">
-        <button data-bs-toggle="modal" data-bs-target="#{{ modal_phone_verify_id }}" class="loan-btn w-75 gradient-green m-2" type="button">Получить займ</button>
+        <button data-bs-toggle="modal" data-bs-target="#{{ modal_phone_verify_id }}"
+                class="loan-btn w-75 gradient-green" type="button">Получить займ
+        </button>
     </div>
 </div>
 <style>

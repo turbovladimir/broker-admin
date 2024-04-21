@@ -43,6 +43,10 @@ a {
     color: var(--green);
 }
 
+.text-black {
+    color: var(--black);
+}
+
 .gray {
     color: #969696;
 }
@@ -67,7 +71,7 @@ a {
 }
 
 .loan_form_input {
-    line-height: 5.5vw !important;
+    line-height: var(--line-height) !important;
     border-radius: var(--border-radius);
     border-style: none;
     background-color: #F6F6F6;
@@ -79,37 +83,29 @@ a {
     padding: 5px;
 }
 
-@media (min-width: 576px) {
-    .loan-btn {
-        color: white;
-        box-shadow: 0 0 20px #eee;
-        border-radius: var(--border-radius);
-        font-size: 2vw;
-        padding: 1em;
-        padding-left: 1em;
-        padding-right: 1em;
-        text-align: center;
-        border-style: none;
-    }
-}
-@media (min-width: 768px) {
-    .loan-btn {
-        color: white;
-        box-shadow: 0 0 20px #eee;
-        border-radius: var(--border-radius);
-        font-size: 5vw;
-        padding: 3vw;
-        padding-left: 4.5vw;
-        padding-right: 4.5vw;
-        text-align: center;
-        border-style: none;
-    }
-}
-
 .gradient-green {
     background-image: linear-gradient(to right, #008FD2 0%, #00A02B 51%, #00A02B 100%);
     /*background-image: linear-gradient(to right, #84fab0 0%, #8fd3f4 51%, #84fab0 100%);*/
 }
+
+.loan-btn {
+    color: white;
+    box-shadow: 0 0 20px #eee;
+    border-radius: var(--border-radius);
+    font-size: var(--h5-size) !important;
+    margin: 0;
+    text-align: center;
+    padding: 3% 6% 3% 6% !important;
+    border-style: none;
+    line-height: calc(var(--h5-size) + 1vw) !important;
+    white-space: nowrap;
+}
+
+.loan-btn-sm {
+    font-size: calc(var(--h5-size) - 1vw) !important;
+    line-height: var(--h5-size) !important;
+}
+
 .loan-btn:hover {
     background-position: right center; /* change the direction of the change here */
 }
@@ -154,4 +150,18 @@ a {
 
 .autocomplete-suggestions a {
     color: #2c2c2c;
+}
+
+.form-control-lg {
+    min-height: calc(3.5em + 1rem + calc(var(--bs-border-width)* 2)) !important;
+    padding: .5rem 2rem !important;
+    font-size: var(--p-size) !important;
+}
+
+.block {
+    margin: 1% 5% 5% 5% !important;
+}
+
+.block-sm {
+    margin: 3% 3% 3% 3% !important;
 }

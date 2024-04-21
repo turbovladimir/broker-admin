@@ -3,11 +3,13 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content text-center">
             <div class="modal-body">
-                <div class="container-fluid">
+                <div class="container-fluid position-relative">
                     <div class="modal-close">
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    {% block body %}{% endblock %}
+                    <div class="pt-3">
+                        {% block body %}{% endblock %}
+                    </div>
                     <div id="modal-block-error" class="p-relative mt-3">
                     </div>
                 </div>
@@ -17,6 +19,22 @@
 </div>
 {% block style %}
     <style>
+        /* Small devices (landscape phones, 576px and up)*/
+        @media (min-width: 576px) {
+            .modal {
+                --bs-modal-width: 800px !important;
+                --bs-modal-padding: 3vw !important;
+            }
+        }
+        /* Large devices (desktops, 992px and up)*/
+        @media (min-width: 992px) {
+
+            .modal {
+                --bs-modal-width: 500px !important;
+                --bs-modal-padding: 1vw !important;
+            }
+        }
+
         .modal-close {
             position: absolute;
             top: 0;
@@ -24,8 +42,6 @@
         }
         .modal-content {
             border-radius: var(--border-radius);
-            padding: 1.5em;
-
         }
         .modal-content p {
             font-family: Inter-600;

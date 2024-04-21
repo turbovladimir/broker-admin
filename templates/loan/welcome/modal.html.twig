@@ -8,23 +8,30 @@
             <div class="col p-2">
                 <p>Укажите номер телефона, на который можно отправить SMS сообщение</p>
             </div>
-            <div class="col p-2">
-                <span class="small-text">Авторизация через:</span>
-                <a target="_blank" href="https://vk.me/topbotzaimov"><img style="height: 30px; width: 30px;" class="img-fluid" src="{{ asset('content/img/loan/vk.png') }}"></a>
+            <div class="col p-2 row row-cols-2 g-0 justify-content-center">
+                <div class="col-auto">
+                    <p class="text-black">Авторизация через:</p>
+                </div>
+                <div class="col-auto">
+                    <a target="_blank" href="https://vk.me/topbotzaimov"><img style="height: 30px; width: 30px;" class="img-fluid" src="{{ asset('content/img/loan/vk.png') }}"></a>
+                </div>
             </div>
             <div class="col p-2">
-                <input type="text" id="phone" name="phone" class="form-control loan_form_input form-control phone_mask" placeholder="+7(  )">
+                <input type="text" id="phone" name="phone" class="form-control-lg loan_form_input w-75 phone_mask" placeholder="+7(  )">
             </div>
             <div class="col p-2">
-                <button id="btn_send_sms" data-target="#{{ modal_id }}" type="button" class="loan-btn gradient-green m-2 p-3">Отправить SMS код</button>
+                <button id="btn_send_sms" data-target="#{{ modal_id }}" type="button" class="loan-btn gradient-green m-2">Отправить SMS код</button>
             </div>
             <div class="col p-2">
                 <p class="mb-0">Заполняя форму связи, Вы соглашаетесь с политикой конфиденциальности</p>
             </div>
         </div>
         <div id="modal_body_code" class="row row-cols-1 d-none justify-content-center g-3">
-            <div class="col pb-2 mb-2">
-                <p>Введите код из смс, который мы отправили вам на номер <span id="phone_number"></span></p>
+            <div class="col">
+                <p class="text-black">Введите код из смс, который мы отправили вам на номер:</p>
+            </div>
+            <div class="col">
+                <p id="phone_number"></p>
             </div>
             <div class="col-auto">
                 <form name="code_verify" method="POST" action="{{ path('phone_code_verify') }}">
@@ -51,10 +58,10 @@
                 border-radius: var(--border-radius);
                 border: 0;
                 outline: 0;
-                height: 8vw;
-                width: 8vw;
+                height: calc(var(--h5-size) + 3vw);
+                width: calc(var(--h5-size) + 3vw);
                 text-align: center;
-                font-size: 5vw;
+                font-size: var(--h5-size);
                 color: #616161;
             }
 

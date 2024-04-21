@@ -1,4 +1,4 @@
-<div class="offer_card shadow text-center m-sm-5 p-3 g-sm-3 row row-cols-1 show_async">
+<div class="offer_card shadow text-center show_async">
     <div class="col mb-2 position-relative">
         <h5>{{ offer.name }}
             {% if edit_action is defined %}
@@ -6,8 +6,8 @@
             {% endif %}
         </h5>
     </div>
-    <div class="col logo_feed mt-2 mb-2">
-        <img  class="img-fluid" src="{{ asset('content/img/admin/logo/' ~ offer.logo) }}">
+    <div class="col mt-2 mb-2">
+        <img class="logo_feed" src="{{ asset('content/img/admin/logo/' ~ offer.logo) }}">
     </div>
     <div class="col">
         <p>До <strong>{{ offer.maxLoanAmount }}</strong> рублей</p>
@@ -18,8 +18,8 @@
     <div class="col mb-2">
         <p>От <strong>{{ offer.interestRate }}%</strong> в день</p>
     </div>
-    <div class="col text-center p-2 mb-sm-5">
-        <a class="loan-btn gradient-green"
+    <div class="col text-center mb-sm-5">
+        <a class="loan-btn loan-btn-sm gradient-green"
            type="button"
            href="{{ offer.url }}"
         >Получить деньги</a>

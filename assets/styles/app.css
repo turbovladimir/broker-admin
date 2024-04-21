@@ -9,16 +9,19 @@ input::-webkit-inner-spin-button {
 :root {
     --border-radius: 1vw !important;
     --green: #00AD4A;
+    --black: black;
     --img-block-width: auto;
     --h2-size: 4vw !important;
     --h3-size: 3vw !important;
     --h4-size: 3vw !important;
     --h5-size: 2vw !important;
     --p-size: 1vw !important;
-    --p-family: Inter-400 !important;
+    --p-family: Inter-300 !important;
     --label-size: 2vw !important;
     --bs-btn-hover-bg: var(--green) !important;
     --bs-btn-hover-border-color: var(--green) !important;
+    --paddding: 2vw !important;
+    --line-height: inherit
 }
 
 /* Firefox */
@@ -43,6 +46,7 @@ input[type=number] {
         --h5-size: 5vw !important;
         --p-size: 4vw !important;
         --label-size: 5vw !important;
+        --paddding: 4vw !important;
     }
 
     .w-sm-100 {
@@ -119,12 +123,14 @@ input[type=number] {
         --border-radius: 1vw !important;
         --green: #00AD4A;
         --img-block-width: auto;
-        --h2-size: 4vw !important;
-        --h3-size: 3vw !important;
-        --h4-size: 3vw !important;
+        --h1-size: 4vw !important;
+        --h2-size: 3vw !important;
+        --h3-size: 2vw !important;
+        --h4-size: 2vw !important;
         --h5-size: 2vw !important;
         --p-size: 1vw !important;
-        --label-size: 3vw !important;
+        --label-size: 2vw !important;
+        --paddding: 2vw !important;
     }
 
     .w-lg-100 {

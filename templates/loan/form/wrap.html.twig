@@ -1,15 +1,15 @@
-<div id="form_main" class="{{ hide ? 'd-none' : '' }}">
-    <div class="row row-cols-lg-2 row-cols-sm-1 mt-2">
+<div id="form_main" class="block {{ hide ? 'd-none' : '' }}">
+    <div class="block-sm row row-cols-lg-2 row-cols-sm-1 mt-2">
         {% block header %}{% endblock %}
     </div>
-<div class="row row-cols-1 mt-2">
-    {{ form_start(form, {'action': path('loan_form_submit'), 'method': 'POST'}) }}
-    <div class="form_errors">
-        {{ form_errors(form) }}
+    <div class="row row-cols-1 mt-2">
+        {{ form_start(form, {'action': path('loan_form_submit'), 'method': 'POST'}) }}
+        <div class="form_errors">
+            {{ form_errors(form) }}
+        </div>
+        {% block body %}{% endblock %}
+        {{ form_end(form) }}
     </div>
-    {% block body %}{% endblock %}
-    {{ form_end(form) }}
-</div>
 </div>
 <style>
     #form_main input {
@@ -18,12 +18,8 @@
         border-radius: var(--border-radius);
 
     }
+
     #form_main input::placeholder {
         color: #969696;
-    }
-    .form-control-lg {
-        min-height: calc(3.5em + 1rem + calc(var(--bs-border-width)* 2));
-        padding: .5rem 2rem;
-        font-size: var(--label-size);
     }
 </style>
