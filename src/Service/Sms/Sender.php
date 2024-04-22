@@ -46,7 +46,7 @@ class Sender
         $body = (string)$response->getBody();
 
         if (str_contains($body, 'errors')) {
-            throw new BadResponseException('Body ciontains errors', new Request('','', []), $response);
+            throw new BadResponseException('Body contains errors', new Request('POST','http://example', []), $response);
         }
     }
 }
