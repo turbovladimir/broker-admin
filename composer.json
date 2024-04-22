@@ -11,6 +11,7 @@
         "doctrine/doctrine-bundle": "^2.11",
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^3.0",
+        "guzzlehttp/guzzle": "^7.0",
         "hflabs/dadata": "^22.3",
         "mobiledetect/mobiledetectlib": "^4.8",
         "symfony/asset": "7.0.*",

@@ -17,7 +17,8 @@ class PhoneVerifier
     public function __construct(
         private Sender $smsSender,
         private EntityManagerInterface $entityManager,
-        private LoggerInterface $phoneVerifyLogger
+        private LoggerInterface $phoneVerifyLogger,
+        private string $env
     )
     {
     }
@@ -43,8 +44,11 @@ class PhoneVerifier
                 ->setSessionId($sId)
             ;
 
-            $message = sprintf('Yor code: %d', $job->getCode());
-//            $this->smsSender->send(new SendSmsRequest([$job->getPhone()], $message));
+            if ($this->env === 'prod') {
+                $message = sprintf('Ваш проверочный код: %d', $job->getCode());
+                $this->smsSender->send(new SendSmsRequest([$job->getPhone()], $message));
+            }
+
             $this->entityManager->persist($job);
             $this->entityManager->flush();
         } catch (\Throwable $e) {
@@ -75,9 +79,10 @@ class PhoneVerifier
 
     private function generateCode() : int
     {
-        //todo remove stub
-        return 7777;
+        if ($this->env === 'prod') {
+            return random_int(1000, 9999);
+        }
 
-        return random_int(1000, 9999);
+        return 7777;
     }
 }

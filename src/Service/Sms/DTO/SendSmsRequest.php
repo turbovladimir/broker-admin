@@ -26,4 +26,24 @@ class SendSmsRequest
     {
         return $this->phoneNumbers;
     }
+
+    public function getMethod() : string
+    {
+        return 'POST';
+    }
+
+    public function getUrl() : string
+    {
+        return 'https://a2p-sms-https.beeline.ru/proto/http';
+    }
+
+    public function __toString(): string
+    {
+        return json_encode([
+            'url' => $this->getUrl(),
+            'method' => $this->getMethod(),
+            'phones' => $this->getPhoneNumbers(),
+            'message' => $this->getMessage()
+        ], JSON_PRETTY_PRINT);
+    }
 }

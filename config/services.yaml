@@ -8,6 +8,8 @@ parameters:
 services:
     # default configuration for services in *this* file
     _defaults:
+        bind:
+            $env: '%kernel.environment%'
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
@@ -38,3 +40,11 @@ services:
     Symfony\Component\Serializer\Serializer: '@app.serializer'
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    app.http_client:
+        class: GuzzleHttp\Client
+
+    App\Service\Sms\Sender:
+        arguments:
+            $client: '@app.http_client'
+            $credentals: {user: '%env(SMS_BEELINE_USER)%', password: '%env(SMS_BEELINE_PASSWORD)%'}
