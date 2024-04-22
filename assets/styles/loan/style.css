@@ -125,8 +125,8 @@ a {
     padding: 1% 3% 1% 3% !important;
     border-style: none;
     white-space: nowrap;
-    font-size: var(--h5-size) !important;
-    line-height: calc(var(--h5-size) + 1vw) !important;
+    font-size: var(--p-size) !important;
+    line-height: 2 !important;
 }
 
 .loan-btn:hover {
@@ -140,7 +140,7 @@ a {
 }
 
 .error_input {
-    border: solid red .5vw !important;
+    border: solid red 2px !important;
 }
 
 .good_input {
