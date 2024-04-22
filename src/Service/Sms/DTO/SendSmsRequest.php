@@ -24,7 +24,7 @@ class SendSmsRequest
      */
     public function getPhoneNumbers(): array
     {
-        return $this->phoneNumbers;
+        return array_map(fn($phone) => '+7' . $phone, $this->phoneNumbers);
     }
 
     public function getMethod() : string
@@ -44,6 +44,6 @@ class SendSmsRequest
             'method' => $this->getMethod(),
             'phones' => $this->getPhoneNumbers(),
             'message' => $this->getMessage()
-        ], JSON_PRETTY_PRINT);
+        ], JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE);
     }
 }
