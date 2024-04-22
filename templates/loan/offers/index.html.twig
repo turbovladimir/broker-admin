@@ -2,8 +2,6 @@
 {% set title = 'Подбор предложений' %}
 {% set js_modules = [] %}
 {% block container %}
-    <div id="offer_list" class="row mt-4 p-2">
-        {% include '@loan/offers/list.html.twig' %}
-    </div>
+    {% include '@loan/offers/list.html.twig' %}
 {% endblock %}
 {% block importmap %}{{ importmap(['jquery_provider', 'app', 'loan_offers']) }}{% endblock %}

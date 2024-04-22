@@ -1,5 +1,5 @@
 <div class="offer_card shadow text-center show_async">
-    <div class="col mb-2 position-relative">
+    <div class="col mt-2">
         <h5>{{ offer.name }}
             {% if edit_action is defined %}
                 <a class="position-absolute pl-1" href="{{ path('admin_offer_edit', {"offer": offer.id}) }}">{% include 'components/pencil.html.twig' %}</a>

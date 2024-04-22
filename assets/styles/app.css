@@ -11,10 +11,11 @@ input::-webkit-inner-spin-button {
     --green: #00AD4A;
     --black: black;
     --img-block-width: auto;
+    --h1-size: 5vw !important;
     --h2-size: 4vw !important;
     --h3-size: 3vw !important;
     --h4-size: 3vw !important;
-    --h5-size: 2vw !important;
+    --h5-size: 1.5vw !important;
     --p-size: 1vw !important;
     --p-family: Inter-300 !important;
     --label-size: 2vw !important;
@@ -34,19 +35,29 @@ input[type=number] {
     width: var(--img-block-width);
 }
 
+.block-sm {
+    padding: 1% 1% 1% 1% !important;
+}
+
+
 /* Small devices (landscape phones, 576px and up)*/
 @media (min-width: 576px) {
     :root {
         --border-radius: 2vw !important;
         --green: #00AD4A;
         --img-block-width: 100%;
-        --h2-size: 8vw !important;
-        --h3-size: 7vw !important;
+        --h1-size: 20vw !important;
+        --h2-size: 10vw !important;
+        --h3-size: 8vw !important;
         --h4-size: 7vw !important;
-        --h5-size: 5vw !important;
-        --p-size: 4vw !important;
+        --h5-size: 6vw !important;
+        --p-size: 3vw !important;
         --label-size: 5vw !important;
         --paddding: 4vw !important;
+    }
+
+    .block {
+        padding: 5% 5% 5% 5% !important;
     }
 
     .w-sm-100 {
@@ -123,15 +134,19 @@ input[type=number] {
         --border-radius: 1vw !important;
         --green: #00AD4A;
         --img-block-width: auto;
-        --h1-size: 4vw !important;
+        --h1-size: 6vw !important;
         --h2-size: 3vw !important;
         --h3-size: 2vw !important;
         --h4-size: 2vw !important;
-        --h5-size: 2vw !important;
+        --h5-size: 1.5vw !important;
         --p-size: 1vw !important;
         --label-size: 2vw !important;
         --paddding: 2vw !important;
     }
+
+    /*.block {*/
+    /*    padding: 1% 5% 5% 5% !important;*/
+    /*}*/
 
     .w-lg-100 {
         width: 100% !important;

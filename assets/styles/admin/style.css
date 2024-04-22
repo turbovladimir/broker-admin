@@ -1,18 +1,7 @@
-h1 {
-    color: #00AD4A;
-    font-family: Inter-900;
-    font-size: 96px;
-    text-shadow: 2px 2px black;
-}
-
 .inactive{
     opacity: 0.6 !important;
 }
 
 .btn-primary {
     background-color: #2c75e3 !important;
-}
-
-.col {
-    border-color: #2b2f32;
 }

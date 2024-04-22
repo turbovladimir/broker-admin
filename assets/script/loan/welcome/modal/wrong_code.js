@@ -15,7 +15,7 @@ const WrongCodeHandler = {
         elemShouldShake.effect('shake');
 
         if ($('#code_more_try').length === 0) {
-            $(`<div class="row row-cols-1">
+            $(`<div class="row row-cols-1 g-3">
                         <div id="code-error-message" class="col error-text"><span></span></div>
                         <div id="code_more_try" class="col"><span></span></div>
                         </div>`).appendTo('#modal-block-error');
