@@ -9,3 +9,9 @@ redirect_main:
     controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
     defaults:
         route: 'loan_welcome'
+
+redirect_admin:
+    path: /admin
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        route: 'admin_offer_list'

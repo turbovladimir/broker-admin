@@ -3,7 +3,6 @@
 namespace App\Service\Auth;
 
 use App\Entity\PhoneVerifyJob;
-use App\Service\Auth\DTO\SendCodeRequest;
 use App\Service\Auth\DTO\VerifyCodeRequest;
 use App\Service\Auth\Exception\PhoneVerify\ExpiredCodeException;
 use App\Service\Auth\Exception\PhoneVerify\NotFoundCodeException;
@@ -23,13 +22,11 @@ class PhoneVerifier
     {
     }
 
-    public function sendCode(SendCodeRequest $request) : void
+    public function sendCode(string $sessionId, string $phone) : void
     {
         try {
-            $sId = $request->getSessionId();
-
             $existJob = $this->entityManager
-                ->getRepository(PhoneVerifyJob::class)->findOneBy(['sessionId' => $sId, 'isActive' => true]);
+                ->getRepository(PhoneVerifyJob::class)->findOneBy(['sessionId' => $sessionId, 'isActive' => true]);
 
             if ($existJob) {
                 $this->entityManager->persist($existJob->setIsActive(false));
@@ -39,14 +36,15 @@ class PhoneVerifier
                 ->setAddedAt(new \DateTime())
                 ->setIsActive(true)
                 ->setIsVerified(false)
-                ->setPhone($request->getPhone())
+                ->setPhone($phone)
                 ->setCode($this->generateCode())
-                ->setSessionId($sId)
+                ->setSessionId($sessionId)
             ;
 
             if ($this->env === 'prod') {
+                $phones = array_map(fn($phone) => '+7' . $phone, [$job->getPhone()]) ;
                 $message = sprintf('Ваш проверочный код: %d', $job->getCode());
-                $this->smsSender->send(new SendSmsRequest([$job->getPhone()], $message));
+                $this->smsSender->send($phones, $message);
             }
 
             $this->entityManager->persist($job);
@@ -61,7 +59,11 @@ class PhoneVerifier
     public function verify(VerifyCodeRequest $request) : bool
     {
         /** @var PhoneVerifyJob $job */
-        $job = $this->entityManager->getRepository(PhoneVerifyJob::class)->findActiveJob($request);
+        $job = $this->entityManager->getRepository(PhoneVerifyJob::class)->findActiveJob(
+            $request->getSessionId(),
+            $request->getCode(),
+            $request->getPhone()
+        );
 
         if (!$job) {
             throw new NotFoundCodeException();

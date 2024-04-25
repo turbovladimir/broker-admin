@@ -17,7 +17,7 @@ class PhoneVerifyJob
     #[ORM\Column(length: 50)]
     private ?string $sessionId = null;
 
-    #[ORM\Column]
+    #[ORM\Column(length: 10)]
     private ?string $phone = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]

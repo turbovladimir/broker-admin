@@ -1,0 +1,11 @@
+{{ form_start(form) }}
+{{ form_row(form.checker, { 'label': 'Чеккер' }) }}
+{{ form_row(form.externalOfferId, { 'label': 'ID из чеккера' }) }}
+{{ form_row(form.offer, { 'label': 'Оффер' }) }}
+{% if relation is defined %}
+    {% set button_label = 'Изменить' %}
+{% endif %}
+<div class="form-group mt-4 btn-group">
+    <button class="btn btn-primary">{{ button_label|default('Создать') }}</button>
+</div>
+{{ form_end(form) }}

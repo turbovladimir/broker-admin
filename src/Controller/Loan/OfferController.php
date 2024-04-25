@@ -19,11 +19,13 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/loan/offer', name: 'user_offer_')]
 class OfferController extends AbstractController
 {
+    const SESSION_EXCLUDE_OFFER_IDS = 'exclude_offer_ids';
+
     #[Route('/show', name: 'show')]
     public function showList(OfferRepository $repository, Request $request): Response
     {
-        $sId = $request->getSession()->getId();
-        $offers = $repository->findBy(['isActive' => 1]);
+        $excludeOfferIds = $request->getSession()->get(self::SESSION_EXCLUDE_OFFER_IDS);
+        $offers = $repository->findOffersForUser($excludeOfferIds ?? []);
 
         return new JsonResponse([
             'offer_list' => $this->renderView('@loan/offers/list.html.twig', ['offers' => $offers])

@@ -22,7 +22,7 @@ class PhoneVerifyJobRepository extends ServiceEntityRepository
         parent::__construct($registry, PhoneVerifyJob::class);
     }
 
-    public function findActiveJob(VerifyCodeRequest $request) : ?PhoneVerifyJob
+    public function findActiveJob(string $sessionId, string $code, string $phone) : ?PhoneVerifyJob
     {
         $qb = $this->createQueryBuilder('phone_verify_job');
 
@@ -32,9 +32,9 @@ class PhoneVerifyJobRepository extends ServiceEntityRepository
             ->andWhere('phone_verify_job.code = :code')
             ->andWhere('phone_verify_job.phone = :phone')
             ->setParameter('is_active', true)
-            ->setParameter('session_id', $request->getSessionId())
-            ->setParameter('code', $request->getCode())
-            ->setParameter('phone', $request->getPhone())
+            ->setParameter('session_id', $sessionId)
+            ->setParameter('code', $code)
+            ->setParameter('phone', $phone)
             ;
 
         return $qb->getQuery()->getOneOrNullResult();

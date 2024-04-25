@@ -7,6 +7,7 @@ services:
 
 monolog:
     channels:
+        - rest
         - deprecation # Deprecations are logged in the dedicated "deprecation" channel when it exists
 
 when@dev:
@@ -17,6 +18,11 @@ when@dev:
                 path: "%kernel.logs_dir%/%kernel.environment%.log"
                 level: debug
                 channels: ["!event"]
+            rest:
+                type: rotating_file
+                max_files: 4
+                path: "%kernel.logs_dir%/rest/rest.log"
+                channels: [ 'rest' ]
             # uncomment to get logging in your browser
             # you may have to allow bigger header sizes in your Web server configuration
             #firephp:

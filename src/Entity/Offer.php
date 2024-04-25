@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\OfferRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -41,9 +43,13 @@ class Offer
     #[ORM\Column(length: 355)]
     private ?string $url = null;
 
+    #[ORM\OneToMany(targetEntity: OfferCheckerRelation::class, mappedBy: 'offer')]
+    private Collection $offerCheckerRelations;
+
     public function __construct()
     {
         $this->addedAt = new \DateTime();
+        $this->offerCheckerRelations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -155,6 +161,36 @@ class Offer
     public function setUrl(string $url): static
     {
         $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, OfferCheckerRelation>
+     */
+    public function getOfferCheckerRelations(): Collection
+    {
+        return $this->offerCheckerRelations;
+    }
+
+    public function addOfferCheckerRelation(OfferCheckerRelation $offerCheckerRelation): static
+    {
+        if (!$this->offerCheckerRelations->contains($offerCheckerRelation)) {
+            $this->offerCheckerRelations->add($offerCheckerRelation);
+            $offerCheckerRelation->setOffer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOfferCheckerRelation(OfferCheckerRelation $offerCheckerRelation): static
+    {
+        if ($this->offerCheckerRelations->removeElement($offerCheckerRelation)) {
+            // set the owning side to null (unless already changed)
+            if ($offerCheckerRelation->getOffer() === $this) {
+                $offerCheckerRelation->setOffer(null);
+            }
+        }
 
         return $this;
     }

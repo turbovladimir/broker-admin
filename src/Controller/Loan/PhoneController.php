@@ -2,10 +2,11 @@
 
 namespace App\Controller\Loan;
 
-use App\Service\Auth\DTO\SendCodeRequest;
+use App\Event\UserRequestVerifyPhoneEvent;
 use App\Service\Auth\DTO\VerifyCodeRequest;
 use App\Service\Auth\Exception\PhoneVerify\ClientErrorAwareInterface;
 use App\Service\Auth\PhoneVerifier;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,9 +17,9 @@ use Symfony\Component\Routing\Attribute\Route;
 class PhoneController extends AbstractController
 {
     #[Route('/verify/request', name: 'request_verify')]
-    public function requestVerify(Request $request, PhoneVerifier $phoneVerifier) : JsonResponse
+    public function requestVerify(Request $request, EventDispatcherInterface $dispatcher) : JsonResponse
     {
-        $phoneVerifier->sendCode(SendCodeRequest::create($request));
+        $dispatcher->dispatch(new UserRequestVerifyPhoneEvent($request));
 
         return new JsonResponse(['status' => 'ok']);
     }

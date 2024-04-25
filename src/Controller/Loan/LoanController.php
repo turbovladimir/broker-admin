@@ -7,6 +7,7 @@ use App\Entity\Offer;
 use App\Entity\PhoneVerifyJob;
 use App\Entity\Push;
 use App\Form\LoanRequestType;
+use App\Service\Checker\Service;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,9 +22,10 @@ class LoanController extends AbstractController
     const FLAG_PHONE_VERIFIED = 'verified';
 
     #[Route('/test', name: 'test')]
-    public function test()
+    public function test(Service $service)
     {
-        return $this->render('@loan/test.html.twig');
+//        return $this->render('@loan/test.html.twig');
+        return new JsonResponse($service->checkPhone('+79992029702')->getExcludeOfferIds());
     }
 
     #[Route('/welcome', name: 'welcome')]
