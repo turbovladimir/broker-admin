@@ -1,0 +1,82 @@
+<?php
+
+namespace App\Service\Checker\LeadSu;
+
+use App\Entity\OfferCheckerRelation;
+use App\Repository\OfferCheckerRelationRepository;
+use App\Service\Checker\CheckerInterface;
+use App\Service\Checker\DTO\CheckerResult;
+use App\Service\Rest\Client;
+use GuzzleHttp\RequestOptions;
+use Psr\Http\Message\ResponseInterface;
+
+class Checker implements CheckerInterface
+{
+    const TOKEN = '2bc7ec73206ee767b15bd69230c29b5c';
+
+    public function __construct(
+        private Client $client,
+        private  OfferCheckerRelationRepository $checkerRelationRepository
+    ){}
+
+    public function check(string $phone, CheckerResult $result) : void
+    {
+        $relations = $this->checkerRelationRepository->findBy(['checker' => OfferCheckerRelation::CHECKER_LEAD_SU]);
+
+        if (empty($relations)) {
+            return;
+        }
+
+        $relationsWithExternalIdsKey = [];
+
+        foreach ($relations as $relation) {
+            $relationsWithExternalIdsKey[$relation->getExternalOfferId()] = $relation;
+        }
+
+        $ids = [];
+
+        foreach ($this->getReport($phone, array_keys($relationsWithExternalIdsKey)) as $item) {
+            if ($item['is_repeat'] === 1) {
+                foreach ($item['offers'] as $externalOfferId) {
+                    if (!empty($relationsWithExternalIdsKey[$externalOfferId])) {
+                        $ids[] = $relationsWithExternalIdsKey[$externalOfferId]->getOffer()->getId();
+                    }
+                }
+            }
+        }
+
+        $result->add($ids);
+    }
+
+    private function getReport(string $phone, array $externalOfferIds) : array
+    {
+        $reportId = $this->createRequest($phone, $externalOfferIds);
+        $url = sprintf('https://api.leads.su/webmaster/checker/getReport?id=%d&token=%s', $reportId, self::TOKEN);
+        $res = $this->client->get($url);
+
+        $report = $this->parseResponse($res);
+
+        return $report['data'];
+    }
+
+    private function parseResponse(ResponseInterface $response) : array
+    {
+        $report = json_decode((string)$response->getBody(), true);
+
+        return $report;
+    }
+
+    private function createRequest(string $phone, array $externalOfferIds) : int
+    {
+        $res = $this->client->post(sprintf('https://api.leads.su/webmaster/checker/checkPhones?token=%s', self::TOKEN), [
+            RequestOptions::JSON => [
+                'name' => 'string',
+                'phones' => [$phone],
+                'offers' => $externalOfferIds
+            ]
+        ]);
+
+
+        return $this->parseResponse($res)['report_id'];
+    }
+}

@@ -2,31 +2,48 @@
 
 namespace App\Service\Checker;
 
-use App\Entity\OfferCheckerRelation;
-use App\Repository\OfferCheckerRelationRepository;
 use App\Service\Checker\DTO\CheckerResult;
+use App\Service\Checker\LeadGid\Checker as LeadGidChecker;
+use App\Service\Checker\LeadSu\Checker as LeadSuChecker;
+use App\Service\Rest\Exception\InvalidResponseBodyException;
+use GuzzleHttp\Exception\BadResponseException;
+use Psr\Log\LoggerInterface;
 
 class Service
 {
-    public function __construct(private Adapter $adapter, private OfferCheckerRelationRepository $repository)
-    {
-    }
+    public function __construct(
+        private LeadGidChecker $leadGidC,
+        private LeadSuChecker $leadSuC,
+        private LoggerInterface $checkerLogger
+    ){}
 
     public function checkPhone(string $phone) : CheckerResult
     {
-        $report = $this->adapter->getReport($phone);
+        $result = new CheckerResult();
 
-        $relations = $this->repository->findBy(['checker' => OfferCheckerRelation::CHECKER_LEAD_GID]);
-        $externalIdsShouldExclude = [];
-
-        foreach ($report as $item) {
-            if ($item['NotExists'] === 'false') {
-                $externalIdsShouldExclude = array_merge($externalIdsShouldExclude, $item['Offers']);
+        /** @var CheckerInterface $checker */
+        foreach ([$this->leadGidC, $this->leadSuC] as $checker) {
+            try {
+                $checker->check($phone, $result);
+            } catch (InvalidResponseBodyException $exception) {
+                $this->checkerLogger->error('Fail parse body', [
+                    'checker' => $checker::class,
+                    'error' => $exception->getMessage(),
+                    'body' => $exception->getBodySubstr()
+                ]);
+            } catch (BadResponseException $exception) {
+                $this->checkerLogger->error('Bad response', [
+                    'checker' => $checker::class,
+                    'error' => $exception->getMessage(),
+                ]);
+            } catch (\Throwable $exception) {
+                $this->checkerLogger->error('Unexpected exception', [
+                    'checker' => $checker::class,
+                    'error' => $exception->getMessage(),
+                ]);
             }
         }
 
-        $relations = array_filter($relations, fn(OfferCheckerRelation $relation) => in_array($relation->getExternalOfferId(), $externalIdsShouldExclude));
-
-        return new CheckerResult($relations);
+        return  $result;
     }
 }

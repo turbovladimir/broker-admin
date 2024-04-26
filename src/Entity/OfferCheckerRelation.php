@@ -9,7 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: OfferCheckerRelationRepository::class)]
 class OfferCheckerRelation
 {
-    const CHECKER_LEAD_GID = 'lead gid';
+    const CHECKER_LEAD_GID = 'lead_gid';
+    const CHECKER_LEAD_SU = 'lead_su';
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

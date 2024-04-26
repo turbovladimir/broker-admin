@@ -3,9 +3,7 @@
 namespace App\Service\Sms;
 
 use App\Service\Rest\Client;
-use App\Service\Rest\DTO\RequestData;
-use App\Service\Sms\DTO\ResponseHandler as SmsSenderResponseHandler;
-use App\Service\Sms\DTO\ResponseValidator;
+use App\Service\Rest\Exception\InvalidResponseBodyException;
 use GuzzleHttp\RequestOptions;
 
 class Sender
@@ -17,8 +15,7 @@ class Sender
 
     public function send(array $phones, string $message): void
     {
-        $requestData = new RequestData('POST', 'https://a2p-sms-https.beeline.ru/proto/http',
-            [RequestOptions::FORM_PARAMS => [
+       $response = $this->client->post('https://a2p-sms-https.beeline.ru/proto/http', [RequestOptions::FORM_PARAMS => [
             'action' => 'post_sms',
             'message' => $message,
             'target' => implode(',', $phones),
@@ -26,8 +23,10 @@ class Sender
             'pass' => $this->credentals['password']
         ]]);
 
+        $body = (string)$response->getBody();
 
-        $responseHandler = new SmsSenderResponseHandler(new ResponseValidator());
-        $this->client->makeAsyncRequest($requestData, $responseHandler);
+        if (str_contains($body, 'errors')) {
+            throw new InvalidResponseBodyException($body);
+        }
     }
 }

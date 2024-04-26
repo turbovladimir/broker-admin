@@ -2,19 +2,19 @@
 
 namespace App\Service\Checker\DTO;
 
-use App\Entity\OfferCheckerRelation;
-
 class CheckerResult
 {
     private array $excludedOfferIds = [];
+
     /**
      * @param []OfferCheckerRelation $relations
      */
-    public function __construct(array $relations)
+    public function add(array $excludeIds)
     {
-        /** @var OfferCheckerRelation $relation */
-        foreach ($relations as $relation) {
-            $this->excludedOfferIds[] = $relation->getOffer()->getId();
+        foreach ($excludeIds as $excludeId) {
+            if (!in_array($excludeId, $this->excludedOfferIds)) {
+                $this->excludedOfferIds[] = $excludeId;
+            }
         }
     }
 

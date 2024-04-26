@@ -8,6 +8,7 @@ services:
 monolog:
     channels:
         - rest
+        - checker
         - deprecation # Deprecations are logged in the dedicated "deprecation" channel when it exists
 
 when@dev:
@@ -23,6 +24,11 @@ when@dev:
                 max_files: 4
                 path: "%kernel.logs_dir%/rest/rest.log"
                 channels: [ 'rest' ]
+            checker:
+                type: rotating_file
+                max_files: 4
+                path: "%kernel.logs_dir%/checker/checker.log"
+                channels: [ 'checker' ]
             # uncomment to get logging in your browser
             # you may have to allow bigger header sizes in your Web server configuration
             #firephp:
@@ -101,3 +107,13 @@ when@prod:
                 channel: "%env(MONOLOG_TELEGRAM_CHANNEL)%"
                 split_long_messages: true
                 delay_between_messages: true
+            rest:
+                type: rotating_file
+                max_files: 4
+                path: "%kernel.logs_dir%/rest/rest.log"
+                channels: [ 'rest' ]
+            checker:
+                type: rotating_file
+                max_files: 4
+                path: "%kernel.logs_dir%/checker/checker.log"
+                channels: [ 'checker' ]

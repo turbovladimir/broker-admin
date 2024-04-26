@@ -20,6 +20,7 @@ class OfferCheckerRelationType extends AbstractType
                 'required' => true,
                 'choices' => [
                     'ЛидГид' => OfferCheckerRelation::CHECKER_LEAD_GID,
+                    'Лид.su' => OfferCheckerRelation::CHECKER_LEAD_SU,
                 ],
                 'attr' => [
                     'class' => 'form-control mb-1'

@@ -2,10 +2,8 @@
 
 namespace App\Service\Rest;
 
-use App\Service\Rest\DTO\RequestData;
-use App\Service\Rest\DTO\ResponseHandler;
-use App\Service\Rest\Exception\InvalidResponseBodyException;
-use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Exception\BadResponseException;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
 class Client extends \GuzzleHttp\Client
@@ -15,37 +13,29 @@ class Client extends \GuzzleHttp\Client
         parent::__construct([]);
     }
 
-    public function makeAsyncRequest(RequestData $requestData, ResponseHandler $responseHandler)
+    public function request(string $method, $uri = '', array $options = []): ResponseInterface
     {
-        $this->restLogger->info('Make http request', [
-            'request' => [
-                'time' =>  $requestTime = $requestData->getTimestamp(),
-                'method' => $requestData->getMethod(),
-                'url' => $requestData->getUrl(),
-                'options' => $requestData->getOptions(),
-            ]
+        $this->restLogger->info('Send request',[
+            'method' => $method,
+            'uri' => $uri,
+            'options' => $options
         ]);
 
         try {
-            $promise = $this->requestAsync($requestData->getMethod(), $requestData->getUrl(), $requestData->getOptions());
-            $promise->then(
-                $responseHandler,
-                function (RequestException $exception) use($requestTime) {
-                    $this->restLogger->error('Request fail. Request exception occurrence.', [
-                        'error' => $exception->getMessage(),
-                        'code' => $exception->getCode(),
-                        'request_time' => $requestTime
-                    ]);
+            $resp = parent::request($method, $uri, $options);
 
-                    throw $exception;
-                }
-            );
-            $promise->wait();
-        } catch (InvalidResponseBodyException $exception) {
-            $this->restLogger->error('Request fail. Body contain errors.', [
-                'error' => $exception->getMessage(),
-                'body' => $exception->getBodySubstr(),
-                'request_time' => $requestTime
+            $this->restLogger->info('Get response',[
+                'code' => $resp->getStatusCode(),
+                'body' => substr((string)$resp->getBody(), 0, 30)
+            ]);
+
+            return $resp;
+        } catch (BadResponseException $exception) {
+            $resp = $exception->getResponse();
+
+            $this->restLogger->error('Get bad response error.',[
+                'code' => $resp->getStatusCode(),
+                'body' => substr((string)$resp->getBody(), 0, 30)
             ]);
 
             throw $exception;
