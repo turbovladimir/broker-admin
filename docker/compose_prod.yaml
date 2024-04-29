@@ -10,6 +10,7 @@ services:
     restart: always
     extra_hosts:
       - host.docker.internal:host-gateway
+      - postgres_host:postgres_host
     ports:
       - '8883:80'
     environment:
