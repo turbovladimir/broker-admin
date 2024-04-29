@@ -2,53 +2,27 @@ version: '3.5'
 
 services:
   broker-beta:
+    platform: linux/amd64
     container_name: c-broker-beta
-    image: webdevops/php-nginx:8.2
+    image: 'app_beta'
+    build:
+      context: ../
+      target: app_beta
     restart: always
-    user: application:application
-    working_dir: '/app'
-    depends_on:
-      - postgrest-beta
     extra_hosts:
       - host.docker.internal:host-gateway
+    ports:
+      - '8880:80'
     environment:
       WEB_DOCUMENT_ROOT: /app/public
-      PHP_DISPLAY_ERRORS: 1
-    ports:
-      - '82:80'
-      - '444:443'
     volumes:
-      - ../:/app
-      - ./nginx/ssl:/opt/docker/etc/nginx/ssl
-      - ./nginx/conf/zaymirubli_beta.conf:/opt/docker/etc/nginx/main.conf
-      - ./nginx/log/beta:/var/log/nginx
+      - "app_beta:/app"
     networks:
       default:
-        ipv4_address: 172.30.0.4
-
-  postgrest-beta:
-    container_name: c-postgres-beta
-    image: postgres:${POSTGRES_VERSION:-16}-alpine
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB:-broker}
-      # You should definitely change the password in production
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-1234}
-      POSTGRES_USER: ${POSTGRES_USER:-app}
-    volumes:
-       - ./docker/db/psql_beta/data:/var/lib/postgresql/data:rw
-    ports:
-      - '5433:5432'
-    networks:
-      default:
-        ipv4_address: 172.30.0.5
-###< doctrine/doctrine-bundle ###
-
-networks:
-  default:
-    external:
-      name: postgres
+        ipv4_address: 172.30.0.3
 
 volumes:
+  app_beta:
 ###> doctrine/doctrine-bundle ###
   database_data:
 ###< doctrine/doctrine-bundle ###

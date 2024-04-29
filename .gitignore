@@ -4,13 +4,14 @@
 /.env.local.php
 .env.*
 /.env.*.local
-docker/compose.override.yaml
+docker/nginx/docker-compose.override.yml
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
 /public/assets
 /var/
 /vendor/
 .idea
+log/*
 ###< symfony/framework-bundle ###
 
 ###> symfony/asset-mapper ###
@@ -21,3 +22,7 @@ docker/compose.override.yaml
 /docker/nginx/ssl/
 /docker/nginx/log/
 /assets/content/img/admin/logo/
+
+### file extentions
+*.override.yaml
+*.log

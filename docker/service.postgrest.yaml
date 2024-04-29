@@ -1,0 +1,24 @@
+version: '3.5'
+
+services:
+  postgrest:
+    container_name: c-postgres
+    image: postgres:${POSTGRES_VERSION:-16}-alpine
+    environment:
+      POSTGRES_DB: broker
+      # You should definitely change the password in production
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_USER: app
+    volumes:
+      - ./db/psql/data:/var/lib/postgresql/data:rw
+    ports:
+      - '5437:5432'
+    networks:
+      default:
+        ipv4_address: 172.30.0.4
+  ###< doctrine/doctrine-bundle ###
+
+networks:
+  default:
+    external:
+      name: broker_network

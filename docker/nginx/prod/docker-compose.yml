@@ -1,0 +1,32 @@
+version: '3.5'
+
+services:
+  broker-nginx:
+    container_name: c-broker-nginx
+    image: nginx:alpine
+    restart: always
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - app_prod:/var/www/broker/prod
+      - app_beta:/var/www/broker/beta
+      - ./nginx/ssl:/opt/docker/etc/nginx/ssl
+      - ./nginx/conf/zaymirubli.conf:/opt/docker/etc/nginx/main.conf
+      - ./nginx/log:/var/log/nginx
+    networks:
+      default:
+        ipv4_address: 172.30.0.1
+
+volumes:
+  app_beta:
+    external: true
+    name: app_beta
+  app_prod:
+    external: true
+    name: app_prod
+
+networks:
+  default:
+    external:
+      name: broker_network

@@ -1,15 +1,18 @@
 version: '3.5'
 
 services:
-  broker-admin:
+  broker-dev:
     platform: linux/amd64
-    container_name: c-broker-admin
-    image: webdevops/php-nginx-dev:8.2
-    user: application:application
-    working_dir: '/app'
+    container_name: c-broker-dev
+    image: 'app_dev'
+    build:
+      context: ../
+      target: app_dev
     restart: always
     extra_hosts:
       - host.docker.internal:host-gateway
+    ports:
+      - '8881:80'
     environment:
       WEB_DOCUMENT_ROOT: /app/public
 #      php.short_open_tag: 'On'
@@ -18,38 +21,19 @@ services:
       XDEBUG_CLIENT_PORT: 55375
       XDEBUG_START_WITH_REQUEST: 'yes'
       PHP_IDE_CONFIG: serverName=xdebug_server
-    ports:
-      - '80:80'
-      - '443:443'
     volumes:
-      - ../:/app
+      - "app_dev:/app"
     networks:
       default:
-        ipv4_address: 172.30.0.2
-
-  postgrest:
-    container_name: c-postgres
-    image: postgres:${POSTGRES_VERSION:-16}-alpine
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB:-broker}
-      # You should definitely change the password in production
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-1234}
-      POSTGRES_USER: ${POSTGRES_USER:-app}
-    volumes:
-       - ./docker/db/psql/data:/var/lib/postgresql/data:rw
-    ports:
-      - '5432:5432'
-    networks:
-      default:
-        ipv4_address: 172.30.0.3
-###< doctrine/doctrine-bundle ###
+        ipv4_address: 172.30.0.5
 
 networks:
   default:
     external:
-      name: postgres
+      name: broker_network
 
 volumes:
+  app_dev:
 ###> doctrine/doctrine-bundle ###
   database_data:
 ###< doctrine/doctrine-bundle ###

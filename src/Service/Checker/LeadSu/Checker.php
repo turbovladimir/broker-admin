@@ -9,6 +9,7 @@ use App\Service\Checker\DTO\CheckerResult;
 use App\Service\Rest\Client;
 use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Log\LoggerInterface;
 
 class Checker implements CheckerInterface
 {
@@ -16,7 +17,8 @@ class Checker implements CheckerInterface
 
     public function __construct(
         private Client $client,
-        private  OfferCheckerRelationRepository $checkerRelationRepository
+        private  OfferCheckerRelationRepository $checkerRelationRepository,
+        private LoggerInterface $checkerLogger
     ){}
 
     public function check(string $phone, CheckerResult $result) : void
@@ -24,6 +26,8 @@ class Checker implements CheckerInterface
         $relations = $this->checkerRelationRepository->findBy(['checker' => OfferCheckerRelation::CHECKER_LEAD_SU]);
 
         if (empty($relations)) {
+            $this->checkerLogger->warning('Checker has not configured yet.');
+
             return;
         }
 

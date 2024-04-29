@@ -1,0 +1,4 @@
+/var/*
+/docker
+/public/assets
+.env.local.php
