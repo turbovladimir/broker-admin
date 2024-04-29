@@ -13,6 +13,7 @@ services:
     ports:
       - '8883:80'
     environment:
+      ENV_FILE_NAME: .env.prod
       WEB_DOCUMENT_ROOT: /app/public
     volumes:
       - app_prod:/app
