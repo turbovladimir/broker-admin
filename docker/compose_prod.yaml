@@ -6,14 +6,14 @@ services:
     image: 'app_prod'
     build:
       context: ../
+      args:
+        APP_ENV_FILE: .env.prod
     restart: always
     extra_hosts:
       - host.docker.internal:host-gateway
-      - postgres_host:postgres_host
     ports:
       - '8883:80'
     environment:
-      ENV_FILE_NAME: .env.prod
       WEB_DOCUMENT_ROOT: /app/public
     volumes:
       - app_prod:/app
