@@ -6,7 +6,6 @@ services:
     image: 'app_prod'
     build:
       context: ../
-      target: app_prod
     restart: always
     extra_hosts:
       - host.docker.internal:host-gateway
