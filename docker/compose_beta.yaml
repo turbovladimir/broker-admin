@@ -7,19 +7,25 @@ services:
     image: 'app_beta'
     build:
       context: ../
-      target: app_beta
+      args:
+        APP_ENV_FILE: .env.beta
     restart: always
     extra_hosts:
       - host.docker.internal:host-gateway
     ports:
-      - '8880:80'
+      - '8884:80'
     environment:
       WEB_DOCUMENT_ROOT: /app/public
     volumes:
-      - "app_beta:/app"
+      - app_beta:/app
     networks:
       default:
         ipv4_address: 172.30.0.3
+
+networks:
+  default:
+    external:
+      name: broker_network
 
 volumes:
   app_beta:
