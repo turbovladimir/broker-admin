@@ -1,3 +1,5 @@
 /var/*
 /docker
 /public/assets
+.git
+.idea
