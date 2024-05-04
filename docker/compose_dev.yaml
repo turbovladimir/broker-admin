@@ -4,15 +4,14 @@ services:
   broker-dev:
     platform: linux/amd64
     container_name: c-broker-dev
-    image: 'app_dev'
-    build:
-      context: ../
-      target: app_dev
+    image: webdevops/php-nginx-dev:8.2
+    user: application
+    working_dir: /app
     restart: always
     extra_hosts:
       - host.docker.internal:host-gateway
     ports:
-      - '8881:80'
+      - '80:80'
     environment:
       WEB_DOCUMENT_ROOT: /app/public
 #      php.short_open_tag: 'On'
@@ -22,7 +21,7 @@ services:
       XDEBUG_START_WITH_REQUEST: 'yes'
       PHP_IDE_CONFIG: serverName=xdebug_server
     volumes:
-      - "app_dev:/app"
+      - ../:/app
     networks:
       default:
         ipv4_address: 172.30.0.5
@@ -32,8 +31,6 @@ networks:
     external:
       name: broker_network
 
-volumes:
-  app_dev:
 ###> doctrine/doctrine-bundle ###
   database_data:
 ###< doctrine/doctrine-bundle ###

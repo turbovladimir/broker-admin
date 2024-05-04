@@ -7,7 +7,6 @@ use App\Form\OfferType;
 use App\Repository\OfferRepository;
 use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
-use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\FormInterface;
