@@ -4,15 +4,17 @@ crete_network:
 build_prod:
 	docker-compose \
 		-f docker/compose_prod.yaml \
-	down
+	down --rmi all -v
 	docker-compose \
 		-f docker/compose_prod.yaml \
 	up -d
+	docker exec -it c-broker-prod composer install
 
 build_beta:
 	docker-compose \
 		-f docker/compose_beta.yaml \
-	down
+	down --rmi all -v
 	docker-compose \
 		-f docker/compose_beta.yaml \
 	up -d
+	docker exec -it c-broker-beta composer install

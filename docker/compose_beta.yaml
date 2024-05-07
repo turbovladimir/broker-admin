@@ -29,6 +29,3 @@ networks:
 
 volumes:
   app_beta:
-###> doctrine/doctrine-bundle ###
-  database_data:
-###< doctrine/doctrine-bundle ###

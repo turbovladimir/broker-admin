@@ -30,7 +30,3 @@ networks:
   default:
     external:
       name: broker_network
-
-###> doctrine/doctrine-bundle ###
-  database_data:
-###< doctrine/doctrine-bundle ###
