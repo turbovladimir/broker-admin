@@ -18,10 +18,12 @@ $(function () {
         $(`#${step1Id}`).hide('drop');
         $(`#${step2Id}`).show('drop');
         $('#btn_step').children('span').text('2');
+        $('#btn_continue').trigger('frm_step_1_success');
 
         StepHandler.Handle(btnSbmId, step2Id, () => {
             $(document).off('ajaxStart');
             $(document).off('ajaxStop');
+            $('#btn_from_sbm').trigger('frm_step_2_success');
 
             const $form = $('form[name="loan_request"]');
 

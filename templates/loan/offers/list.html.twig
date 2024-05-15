@@ -6,7 +6,7 @@
         <div class="container-fluid row row-cols-sm-1 row-cols-lg-4 mb-3 g-5 g-lg-3 me-5 ms-5">
             {% for offer in offers %}
                 <div class="col-auto {{ offer is not null and offer.isActive == false ? 'inactive' : '' }}">
-                    {% include '@admin/offer/offer_card.html.twig' with {'offer': offer} %}
+                    {% include '@admin/offer/offer_card.html.twig' with {'offer': offer, 'ym_counter_tag': ym_counter_tag } %}
                 </div>
             {% endfor %}
         </div>

@@ -6,7 +6,6 @@ use App\Entity\PhoneVerifyJob;
 use App\Service\Auth\DTO\VerifyCodeRequest;
 use App\Service\Auth\Exception\PhoneVerify\ExpiredCodeException;
 use App\Service\Auth\Exception\PhoneVerify\NotFoundCodeException;
-use App\Service\Sms\DTO\SendSmsRequest;
 use App\Service\Sms\Sender;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;

@@ -10,6 +10,11 @@
             {% set js_modules = [] %}
         {% endif %}
 
+        <script>
+            window.env = "{{ app.environment }}";
+            window.counter_id = 97288748;
+        </script>
+
         {% block javascripts %}
             {% block importmap %}{{ importmap(['jquery_provider','app']|merge(js_modules)) }}{% endblock %}
         {% endblock %}

@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(function () {
     $('.birth_validate').on('focusout', function () {
         const date = new Date();
         const birtMin = subtractYears(date, 18);

@@ -62,6 +62,7 @@ const WrongCodeHandler = {
         this.showError(params.errorMessage, params.elemShouldShake);
         this.resetCode();
         this.createTimer(params.resetDelayTimeSec);
+        $('.code').trigger('input_code_fail');
     }
 }
 

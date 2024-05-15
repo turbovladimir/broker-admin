@@ -19,7 +19,7 @@
         <p>От <strong>{{ offer.interestRate }}%</strong> в день</p>
     </div>
     <div class="col text-center mb-sm-5">
-        <a class="loan-btn loan-btn-sm gradient-green"
+        <a class="loan-btn loan-btn-sm gradient-green {{ ym_counter_tag ? 'lnk-offer-rdr' : ''}}"
            type="button"
            href="{{ offer.url }}"
         >Получить деньги</a>
