@@ -5,6 +5,7 @@
         <title>{{ title }}</title>
         <link rel="icon" type="image/x-icon" href="{{ asset('content/img/favicon.ico') }}">
         {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('styles/loan/fonts.css') }}">
         {% endblock %}
         {% if js_modules is not defined %}
             {% set js_modules = [] %}

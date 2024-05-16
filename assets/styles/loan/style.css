@@ -149,7 +149,7 @@ a {
 }
 
 .bg_white {
-    background-color: #F6F6F6;
+    background-color: var(--wrap-color);
 }
 
 .advantages div {
@@ -170,7 +170,7 @@ a {
 }
 
 .footer div {
-    color: #9698A1;
+    color: var(--wrap-color);
     font-family: Inter-300;
     font-size: var(--p-size) !important;
 }

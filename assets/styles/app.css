@@ -8,6 +8,7 @@ input::-webkit-inner-spin-button {
 
 :root {
     --border-radius: 1vw !important;
+    --wrap-color: #F6F6F6;
     --green: #00AD4A;
     --black: black;
     --img-block-width: auto;

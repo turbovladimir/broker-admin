@@ -4,25 +4,24 @@ namespace App\Event;
 
 use App\Service\Auth\DTO\PhoneFetcherTrait;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Contracts\EventDispatcher\Event;
 
 class UserRequestVerifyPhoneEvent extends Event
 {
     use PhoneFetcherTrait;
-    private SessionInterface $session;
+    private Request $request;
 
     public function __construct(Request $request)
     {
         $this->fetchPhone($request);
-        $this->session = $request->getSession();
+        $this->request = $request;
     }
 
     /**
-     * @return SessionInterface
+     * @return Request
      */
-    public function getSession(): SessionInterface
+    public function getRequest(): Request
     {
-        return $this->session;
+        return $this->request;
     }
 }

@@ -4,7 +4,6 @@
 * This file will be included onto the page via the importmap() Twig function,
 * which should already be in your base.html.twig.
 */
-import '../styles/loan/fonts.css';
 import '../styles/app.css';
 import '../styles/offer.css';
 import '../styles/loan/style.css';
@@ -53,9 +52,6 @@ const App = {
             })
             $('#lnk-vk-bot').on('click', function () {
                 ym(window.counter_id, 'reachGoal', 'lnk-vk-bot');
-            })
-            $('#btn_send_sms').on('click', function () {
-                ym(window.counter_id, 'reachGoal', 'btn_send_sms');
             })
             $('#btn_send_sms').on('click', function () {
                 ym(window.counter_id, 'reachGoal', 'btn_send_sms');

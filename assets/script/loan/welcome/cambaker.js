@@ -1,4 +1,8 @@
 const Cambacker = ($) => {
+    if (window.env !== 'prod') {
+        return;
+    }
+
     const has_popup_query = new URL(window.location.href).searchParams.has('popup_show');
     const btn_get_loan = $('.btn-get-loan');
 
@@ -19,7 +23,7 @@ const Cambacker = ($) => {
             cambacker.appendTo(document.body);
             cambacker[0].click();
 
-            setTimeout(() => window.location.replace('https://zaim-top-online.ru/'), 1000);
+            setTimeout(() => window.location.replace('§/'), 1000);
         }
     });
 }
