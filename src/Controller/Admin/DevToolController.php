@@ -26,7 +26,8 @@ class DevToolController extends AbstractController
     public function checkIpStack(Request $request): Response
     {
         return new JsonResponse([
-            'request' => $request,
+            'headers' => $request->headers->all(),
+            'forwarder' => $request->headers->get('x-forwarded-for'),
             'ips' => $request->getClientIps()
         ]);
     }
