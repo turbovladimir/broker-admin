@@ -60,7 +60,7 @@ a {
 }
 
 .footer-link {
-    font-family: Inter-400;
+    font-family: Inter-600;
     font-size: 20px;
     color: black !important;
 }
@@ -73,7 +73,7 @@ a {
 }
 
 .form-label {
-    font-family: Inter-400 !important;
+    font-family: Inter-600 !important;
     /*font-size: var(--label-size) !important;*/
     color: #969696;
 }
@@ -86,7 +86,7 @@ a {
 }
 
 .loan_form_input::placeholder {
-    font-family: Inter-400;
+    font-family: Inter-600;
     color: #969696;
     padding: 5px;
 }
@@ -170,7 +170,7 @@ a {
 }
 
 .footer div {
-    color: var(--wrap-color);
+    color: var(--footer-text-color);
     font-family: Inter-300;
     font-size: var(--p-size) !important;
 }

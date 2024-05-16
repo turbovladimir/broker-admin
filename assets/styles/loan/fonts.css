@@ -1,56 +1,46 @@
-/* inter-300 - cyrillic_latin */
+/********************************************
+Сгенерированно в Quick Site Upgrade
+https://quick-site-upgrade.com/tools/web-font-optimizer
+********************************************/
 @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: 'Inter-300';
-    font-style: normal;
-    font-weight: 300;
-    src: url('../../content/fonts/inter-v13-cyrillic_latin-300.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-}
-/* inter-regular - cyrillic_latin */
-@font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: 'Inter-400';
+    font-family: 'montserrat-v26-cyrillic_latin-regular';
     font-style: normal;
     font-weight: 400;
-    src: url('../../content/fonts/inter-v13-cyrillic_latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+    src: url('../../content/fonts/montserrat-v26-cyrillic_latin-regular-russian.woff2') format('woff2');
+    unicode-range: U+21-23,U+25-40,U+5B-5F,U+7B-7E,U+AB,U+BB,U+401,U+410-44F,U+451,U+2013,U+2014,U+2018,U+2019,U+201C-201E,U+2026,U+20BD;
 }
-/* inter-600 - cyrillic_latin */
 @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: 'Inter-600';
+    font-family: 'montserrat-v26-cyrillic_latin-300';
     font-style: normal;
-    font-weight: 600;
-    src: url('../../content/fonts/inter-v13-cyrillic_latin-600.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+    font-weight: 400;
+    src: url('../../content/fonts/montserrat-v26-cyrillic_latin-300-russian.woff2') format('woff2');
+    unicode-range: U+21-23,U+25-40,U+5B-5F,U+7B-7E,U+AB,U+BB,U+401,U+410-44F,U+451,U+2013,U+2014,U+2018,U+2019,U+201C-201E,U+2026,U+20BD;
 }
-/* inter-700 - cyrillic_latin */
 @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: 'Inter-700';
+    font-family: 'inter-v13-cyrillic_latin-regular';
     font-style: normal;
-    font-weight: 700;
-    src: url('../../content/fonts/inter-v13-cyrillic_latin-700.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+    font-weight: 400;
+    src: url('../../content/fonts/inter-v13-cyrillic_latin-regular-russian.woff2') format('woff2');
+    unicode-range: U+21-23,U+25-40,U+5B-5F,U+7B-7E,U+AB,U+BB,U+401,U+410-44F,U+451,U+2013,U+2014,U+2018,U+2019,U+201C-201E,U+2026,U+20BD;
 }
-/* inter-900 - cyrillic_latin */
 @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
     font-family: 'Inter-900';
     font-style: normal;
-    font-weight: 900;
-    src: url('../../content/fonts/inter-v13-cyrillic_latin-900.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+    font-weight: 400;
+    src: url('../../content/fonts/inter-v13-cyrillic_latin-900-russian.woff2') format('woff2');
+    unicode-range: U+21-23,U+25-40,U+5B-5F,U+7B-7E,U+AB,U+BB,U+401,U+410-44F,U+451,U+2013,U+2014,U+2018,U+2019,U+201C-201E,U+2026,U+20BD;
 }
-/* montserrat-300 - cyrillic_latin */
 @font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 300;
-    src: url('../../content/fonts/montserrat-v26-cyrillic_latin-300.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-}
-/* montserrat-regular - cyrillic_latin */
-@font-face {
-    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-    font-family: 'Montserrat';
+    font-family: 'Inter-600';
     font-style: normal;
     font-weight: 400;
-    src: url('../../content/fonts/montserrat-v26-cyrillic_latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+    src: url('../../content/fonts/inter-v13-cyrillic_latin-600-russian.woff2') format('woff2');
+    unicode-range: U+21-23,U+25-40,U+5B-5F,U+7B-7E,U+AB,U+BB,U+401,U+410-44F,U+451,U+2013,U+2014,U+2018,U+2019,U+201C-201E,U+2026,U+20BD;
+}
+@font-face {
+    font-family: 'Inter-300';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../../content/fonts/inter-v13-cyrillic_latin-300-russian.woff2') format('woff2');
+    unicode-range: U+21-23,U+25-40,U+5B-5F,U+7B-7E,U+AB,U+BB,U+401,U+410-44F,U+451,U+2013,U+2014,U+2018,U+2019,U+201C-201E,U+2026,U+20BD;
 }
