@@ -23,7 +23,7 @@ const Cambacker = ($) => {
             cambacker.appendTo(document.body);
             cambacker[0].click();
 
-            setTimeout(() => window.location.replace('§/'), 1000);
+            setTimeout(() => window.location.replace('https://zaim-top-online.ru'), 1000);
         }
     });
 }

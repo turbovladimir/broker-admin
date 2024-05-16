@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -19,5 +20,14 @@ class DevToolController extends AbstractController
         }
 
         return $this->redirectToRoute('redirect_main');
+    }
+
+    #[Route('/request/info', name: 'request_info')]
+    public function checkIpStack(Request $request): Response
+    {
+        return new JsonResponse([
+            'request' => $request,
+            'ips' => $request->getClientIps()
+        ]);
     }
 }
