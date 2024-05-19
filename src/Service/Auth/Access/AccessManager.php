@@ -21,7 +21,7 @@ class AccessManager
 
     private function fetchLimit(Request $request) : ?UserAccess
     {
-        $ip = $request->headers->get('x-forwarded-for');
+        $ip = $request->headers->get('x-forwarded-for') ?? $request->getClientIp();
         $r = $this->entityManager->getRepository(UserAccess::class);
         $this->logger->info('Try to find existing limit', ['ip' => $ip]);
 
