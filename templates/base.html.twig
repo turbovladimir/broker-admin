@@ -5,6 +5,11 @@
         <title>{{ title }}</title>
         <link rel="icon" type="image/x-icon" href="{{ asset('content/img/favicon.ico') }}">
         {% block stylesheets %}
+            <link rel="preload" href="{{ asset('content/fonts/Inter-Light.woff2') }}" as="font" type="font/woff2" crossorigin>
+            <link rel="preload" href="{{ asset('content/fonts/Inter-Regular.woff2') }}" as="font" type="font/woff2" crossorigin>
+            <link rel="preload" href="{{ asset('content/fonts/Inter-Black.woff2') }}" as="font" type="font/woff2" crossorigin>
+            <link rel="preload" href="{{ asset('content/fonts/Inter-SemiBold.woff2') }}" as="font" type="font/woff2" crossorigin>
+
         {% endblock %}
         {% if js_modules is not defined %}
             {% set js_modules = [] %}

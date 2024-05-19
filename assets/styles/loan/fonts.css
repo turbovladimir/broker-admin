@@ -1,46 +1,31 @@
-/********************************************
-Сгенерированно в Quick Site Upgrade
-https://quick-site-upgrade.com/tools/web-font-optimizer
-********************************************/
-@font-face {
-    font-family: 'montserrat-v26-cyrillic_latin-regular';
-    font-style: normal;
-    font-weight: 400;
-    src: url('../../content/fonts/montserrat-v26-cyrillic_latin-regular-russian.woff2') format('woff2');
-    font-display: swap;
-}
-@font-face {
-    font-family: 'montserrat-v26-cyrillic_latin-300';
-    font-style: normal;
-    font-weight: 400;
-    src: url('../../content/fonts/montserrat-v26-cyrillic_latin-300-russian.woff2') format('woff2');
-    font-display: swap;
-}
-@font-face {
-    font-family: 'inter-v13-cyrillic_latin-regular';
-    font-style: normal;
-    font-weight: 400;
-    src: url('../../content/fonts/inter-v13-cyrillic_latin-regular-russian.woff2') format('woff2');
-    font-display: swap;
-}
-@font-face {
-    font-family: 'Inter-900';
-    font-style: normal;
-    font-weight: 400;
-    src: url('../../content/fonts/inter-v13-cyrillic_latin-900-russian.woff2') format('woff2');
-    font-display: swap;
-}
-@font-face {
-    font-family: 'Inter-600';
-    font-style: normal;
-    font-weight: 400;
-    src: url('../../content/fonts/inter-v13-cyrillic_latin-600-russian.woff2') format('woff2');
-    font-display: swap;
-}
 @font-face {
     font-family: 'Inter-300';
+    src: url('../../content/fonts/Inter-Light.woff2') format('woff2');
+    font-weight: 300;
     font-style: normal;
-    font-weight: 400;
-    src: url('../../content/fonts/inter-v13-cyrillic_latin-300-russian.woff2') format('woff2');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Inter-900';
+    src: url('../../content/fonts/Inter-Black.woff2') format('woff2');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('../../content/fonts/Inter-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Inter-600';
+    src: url('../../content/fonts/Inter-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
     font-display: swap;
 }
