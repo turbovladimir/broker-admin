@@ -18,7 +18,7 @@ input::-webkit-inner-spin-button {
     --h3-size: 3vw !important;
     --h4-size: 3vw !important;
     --h5-size: 1.5vw !important;
-    --p-size: 1vw !important;
+    --p-size: 20px !important;
     --p-family: Inter-300 !important;
     --label-size: 2vw !important;
     --bs-btn-hover-bg: var(--green) !important;
@@ -53,7 +53,7 @@ input[type=number] {
         --h3-size: 8vw !important;
         --h4-size: 7vw !important;
         --h5-size: 6vw !important;
-        --p-size: 3vw !important;
+        --p-size: 40px !important;
         --label-size: 5vw !important;
         --paddding: 4vw !important;
     }

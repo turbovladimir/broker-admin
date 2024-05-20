@@ -7,10 +7,13 @@ const
 
 const CodeInputHandler = {
     Handle: function () {
+        this.autocompleteFromSms();
         inputs.on({
+            'verify' : event => {
+                this.verifyCode();
+                },
             'keyup': event => {
                 this.handleInputs(event);
-                this.verifyCode();
                 },
             'keydown': event => {
                 let key = event.which,
@@ -23,12 +26,30 @@ const CodeInputHandler = {
             }
         });
     },
+    autocompleteFromSms: () => {
+        $('#one-time-code').on('input', (e) => {
+
+            const code = $(e.target).val();
+            if (code.length === 4) {
+                $('.code').each(function (index, element) {
+                    $(element).val(code.charAt(index));
+                })
+
+                inputs.first().trigger('verify');
+            }
+        })
+    },
     handleInputs: function (e) {
         let key = e.which,
             t = $(e.target);
 
         if (key >= 48 && key <= 57) {
-            t.parent().next().children().trigger('focus');
+
+            if (inputs.filter(function() { return $(this).val() !== ""; }).length === 4) {
+                inputs.first().trigger('verify');
+            } else  {
+                t.parent().next().children().trigger('focus');
+            }
         } else if (key === 8) {
             t.val();
             t.parent().prev().children().trigger('focus');
@@ -37,22 +58,6 @@ const CodeInputHandler = {
         }
     },
     verifyCode: function () {
-        let code = [];
-
-        inputs.each(function () {
-            let val = $(this).val();
-
-            if (val === '') {
-                return;
-            }
-
-            code.push(val);
-        })
-
-        if (code.length < 4) {
-            return;
-        }
-
         inputPhone.val($('#phone').val());
         form
             .siblings('input')

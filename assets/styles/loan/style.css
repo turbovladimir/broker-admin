@@ -198,5 +198,5 @@ a {
 .form-control-lg {
     min-height: calc(3.5em + 1rem + calc(var(--bs-border-width)* 2)) !important;
     padding: .5rem 2rem !important;
-    font-size: var(--p-size) !important;
+    font-size: var(--label-size) !important;
 }

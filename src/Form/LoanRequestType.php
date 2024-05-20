@@ -56,7 +56,7 @@ class LoanRequestType extends AbstractType
                 'row_attr' => [
                     'class' => 'form-group form-group-lg mb-3'
                 ],
-                'attr' => ['class' => 'form-control-lg loan_form_input email_mask', 'placeholder' => "Email"],
+                'attr' => ['class' => 'form-control-lg loan_form_input email_mask', 'placeholder' => "Электронная почта"],
             ])
             ->add('passportSeries', NumberType::class,  [
                 'label' => false,
