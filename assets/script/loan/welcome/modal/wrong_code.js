@@ -21,7 +21,6 @@ const WrongCodeHandler = {
                         </div>`).appendTo('#modal-block-error');
         }
         $('#code-error-message').children('p').text(errorMessage);
-        $('#modal-block-error').show();
     },
     resetCode: function () {
         $('.code').val(undefined)

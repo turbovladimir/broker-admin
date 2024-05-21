@@ -19,7 +19,11 @@ class PhoneController extends AbstractController
     #[Route('/verify/request', name: 'request_verify')]
     public function requestVerify(Request $request, EventDispatcherInterface $dispatcher) : JsonResponse
     {
-        $dispatcher->dispatch(new UserRequestVerifyPhoneEvent($request));
+        try {
+            $dispatcher->dispatch(new UserRequestVerifyPhoneEvent($request));
+        } catch (ClientErrorAwareInterface $exception) {
+            return new JsonResponse(['error' => $exception->getClientMessage()], Response::HTTP_BAD_REQUEST);
+        }
 
         return new JsonResponse(['status' => 'ok']);
     }

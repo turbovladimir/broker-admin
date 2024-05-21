@@ -19,9 +19,14 @@ class AccessManager
     ){
     }
 
+    private function fetchIp(Request $request) : string
+    {
+        return $request->headers->get('x-forwarded-for') ?? $request->getClientIp();
+    }
+
     private function fetchLimit(Request $request) : ?UserAccess
     {
-        $ip = $request->headers->get('x-forwarded-for') ?? $request->getClientIp();
+        $ip = $this->fetchIp($request);
         $r = $this->entityManager->getRepository(UserAccess::class);
         $this->logger->info('Try to find existing limit', ['ip' => $ip]);
 
@@ -46,7 +51,7 @@ class AccessManager
             $this->logger->info('Limit not existed. Creating.');
             $limit = (new UserAccess())
                 ->setAddedAt(new \DateTime())
-                ->setIp($request->getClientIp());
+                ->setIp($this->fetchIp($request));
         }
 
         $limit->inc();

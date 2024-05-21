@@ -134,7 +134,7 @@ a {
 }
 
 .error-text {
-    color: red;
+    color: red !important;
     font-family: Inter-600;
     font-style: var(--p-size);
 }
@@ -196,7 +196,7 @@ a {
 }
 
 .form-control-lg {
-    min-height: calc(3.5em + 1rem + calc(var(--bs-border-width)* 2)) !important;
+    min-height: calc(var(--label-size) + 2rem + calc(var(--bs-border-width)* 2)) !important;
     padding: .5rem 2rem !important;
     font-size: var(--label-size) !important;
 }
