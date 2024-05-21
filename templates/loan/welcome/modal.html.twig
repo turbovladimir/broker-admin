@@ -3,7 +3,6 @@
         <div id="modal_body_phone_verify_request" class="row row-cols-1">
             <div class="col p-2">
                 <h5>Введите номер телефона</h5>
-
             </div>
             <div class="col p-2">
                 <p>Укажите номер телефона, на который можно отправить SMS сообщение</p>
@@ -27,8 +26,12 @@
             </div>
         </div>
         <div id="modal_body_code" class="row row-cols-1 d-none justify-content-center g-3">
-            <div class="col text-start">
-                <p class="text-black">Введите код из смс, который мы отправили вам на номер: <span id="phone_number"></span></p>
+            <div class="col p-2">
+                <h5>Введите код из смс</h5>
+            </div>
+            <div class="col">
+                <p>Который мы отправили вам на номер:</p><br>
+                <p class="text-black" id="phone_number"></p>
             </div>
             <div class="col-auto">
                 <form name="code_verify" method="POST" action="{{ path('phone_code_verify') }}">
