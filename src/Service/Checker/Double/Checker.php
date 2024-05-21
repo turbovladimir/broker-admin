@@ -14,7 +14,7 @@ class Checker implements CheckerInterface
 
     public function check(string $phone, CheckerResult $result): void
     {
-        $requests = $this->loanRequestRepository->findBy(['phone' => '+7' . $phone], ['addedAt' => 'DESC']);
+        $requests = $this->loanRequestRepository->findBy(['phone' => $phone], ['addedAt' => 'DESC']);
 
         if (empty($requests)) {
             return;
