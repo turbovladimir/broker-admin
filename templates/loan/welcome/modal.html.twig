@@ -1,18 +1,18 @@
 {% embed 'components/modal.html.twig' with {'modal_id': modal_id } %}
     {% block body %}
-        <div id="modal_body_phone_verify_request" class="row row-cols-1">
+        <div id="modal_body_phone_verify_request" class="row row-cols-1 g-sm-4 g-lg-0 p-sm-4 p-lg-0">
             <div class="col p-2">
-                <h5>Введите номер телефона</h5>
+                <h5 class="modal-title">Введите номер телефона</h5>
             </div>
             <div class="col p-2">
                 <p>Укажите номер телефона, на который можно отправить SMS сообщение</p>
             </div>
             <div class="col p-2 row row-cols-2 g-0 justify-content-center">
-                <div class="col-auto">
+                <div class="col-auto align-content-center">
                     <p class="text-black">Авторизация через:</p>
                 </div>
                 <div class="col-auto">
-                    <a id="lnk-vk-bot" target="_blank" href="https://vk.me/topbotzaimov"><img style="height: 30px; width: 30px;" class="img-fluid" src="{{ asset('content/img/loan/vk.png') }}"></a>
+                    <a id="lnk-vk-bot" target="_blank" href="https://vk.me/topbotzaimov"><img class="img-fluid vk-icon" src="{{ asset('content/img/loan/vk.png') }}"></a>
                 </div>
             </div>
             <div class="col p-2">
@@ -51,6 +51,20 @@
     {% block style %}
         {{ parent() }}
         <style>
+            @media (max-width: 992px) {
+                .vk-icon {
+                    height: 100%;
+                    width: 100%;
+                }
+            }
+
+            @media (min-width: 992px) {
+                .vk-icon {
+                    height: 25px;
+                    width: 25px;
+                }
+            }
+
             .small-text {
                 font-family: Inter-600;
                 font-size: 2vw;

@@ -21,10 +21,11 @@ input::-webkit-inner-spin-button {
     --p-size: 20px !important;
     --p-family: Inter-300 !important;
     --label-size: 1vw !important;
+    --bs-border-radius-lg: 2rem;
     --bs-btn-hover-bg: var(--green) !important;
     --bs-btn-hover-border-color: var(--green) !important;
     --paddding: 2vw !important;
-    --line-height: inherit
+    --line-height: calc(var(--label-size) * 2)
 }
 
 /* Firefox */

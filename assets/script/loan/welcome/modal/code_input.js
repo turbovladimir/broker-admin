@@ -28,8 +28,10 @@ const CodeInputHandler = {
     },
     autocompleteFromSms: () => {
         $('#one-time-code').on('input', (e) => {
-
+            alert('autocompleteFromSms');
             const code = $(e.target).val();
+            alert('code: ' + code);
+
             if (code.length === 4) {
                 $('.code').each(function (index, element) {
                     $(element).val(code.charAt(index));
