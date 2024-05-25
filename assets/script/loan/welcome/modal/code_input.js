@@ -7,7 +7,20 @@ const
 
 const CodeInputHandler = {
     Handle: function () {
-        this.autocompleteFromSms();
+        $('#first_code').on('input', (e) => {
+            const code = $(e.target).val();
+
+            if (code.length === 4) {
+                alert('code: ' + code);
+
+                $('.code').val();
+                $('.code').each(function (index, element) {
+                    $(element).val(code.charAt(index));
+                })
+
+                inputs.first().trigger('verify');
+            }
+        })
         inputs.on({
             'verify' : event => {
                 this.verifyCode();
@@ -25,21 +38,6 @@ const CodeInputHandler = {
                 }
             }
         });
-    },
-    autocompleteFromSms: () => {
-        $('#one-time-code').on('input', (e) => {
-            alert('autocompleteFromSms');
-            const code = $(e.target).val();
-            alert('code: ' + code);
-
-            if (code.length === 4) {
-                $('.code').each(function (index, element) {
-                    $(element).val(code.charAt(index));
-                })
-
-                inputs.first().trigger('verify');
-            }
-        })
     },
     handleInputs: function (e) {
         let key = e.which,

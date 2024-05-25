@@ -36,12 +36,18 @@
             <div class="col-auto">
                 <form name="code_verify" method="POST" action="{{ path('phone_code_verify') }}">
                     <div id="code_row" class="row row-cols-4 g-2">
-                        <input type="hidden" id="one-time-code" autocomplete="one-time-code"/>
-                        {% for i in 1..4 %}
-                            <div class="col">
-                                <input class="code code_primary" type="number" name="code[]" maxLength="1" size="1" inputmode="numeric" pattern="[0-9]*" />
-                            </div>
-                        {% endfor %}
+                        <div class="col">
+                            <input id="first_code" class="code code_primary" autocomplete="one-time-code" type="number" name="code[]" maxLength="1" size="1" inputmode="numeric" pattern="[0-9]*" />
+                        </div>
+                        <div class="col">
+                            <input class="code code_primary" type="number" name="code[]" maxLength="1" size="1" inputmode="numeric" pattern="[0-9]*" />
+                        </div>
+                        <div class="col">
+                            <input class="code code_primary" type="number" name="code[]" maxLength="1" size="1" inputmode="numeric" pattern="[0-9]*" />
+                        </div>
+                        <div class="col">
+                            <input class="code code_primary" type="number" name="code[]" maxLength="1" size="1" inputmode="numeric" pattern="[0-9]*" />
+                        </div>
                         <input type="hidden" name="phone">
                     </div>
                 </form>
