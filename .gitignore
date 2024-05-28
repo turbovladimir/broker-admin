@@ -18,7 +18,7 @@ log/*
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
-/docker/docker/
+/docker/db/
 /docker/nginx/ssl/
 /docker/nginx/log/
 /assets/content/img/admin/logo/
