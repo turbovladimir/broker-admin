@@ -20,7 +20,7 @@ class OfferController extends AbstractController
     #[Route('/list', name: 'list')]
     public function list(OfferRepository $repository): Response
     {
-        $offers = $repository->findOffersForUser([], 12);
+        $offers = $repository->findOffersForUser([], null);
 
         return $this->render('admin/offer/list.html.twig', ['offers' => $offers]);
     }

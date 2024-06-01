@@ -11,7 +11,7 @@
                     'offer_card_class': 'first_offer'
                 } %}
             </div>
-            {% for offer in offers|slice(1, 2) %}
+            {% for offer in offers %}
                 <div class="col-auto {{ offer is not null and offer.isActive == false ? 'inactive' : '' }}">
                     {% include '@admin/offer/offer_card.html.twig' with {'offer': offer } %}
                 </div>
