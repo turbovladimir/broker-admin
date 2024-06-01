@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Checker\Double;
+namespace App\Service\Checker\Dupe;
 
 use App\Service\Auth\Exception\PhoneVerify\ClientErrorAwareInterface;
 

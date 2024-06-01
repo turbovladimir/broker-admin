@@ -9,13 +9,21 @@
                 <img class="img-fluid" src="{{ asset('content/img/loan/welcome.svg') }}">
             </div>
             <div class="col range block range-sm range-lg  shadow mt-2 text-start">
-                <label for="range_amount" class="form-label">Вам нужно</label>
-                <div style="display: flex; gap: 4px; align-items: center;">
-                    <span class="range_val">2000р</span>
-                    <input type="range" value="2000" min="2000" max="100000" step="2000" class="form-range"
-                           id="range_amount"
-                           oninput="document.getElementById('range_amount_value').innerHTML = this.value">
-                    <span class="range_val">100000р</span>
+                <div class="row">
+                    <div class="col-auto">
+                        <h5>Вам нужно</h5>
+                    </div>
+                </div>
+                <div class="row justify-content-between mb-4">
+                    <div class="col-auto"><span class="range_val">2000р</span></div>
+                    <div class="col-auto"><span class="range_val">100000р</span></div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input type="range" value="2000" min="2000" max="100000" step="2000" class="form-range"
+                               id="range_amount"
+                               oninput="document.getElementById('range_amount_value').innerHTML = this.value">
+                    </div>
                 </div>
                 <div class="pt-sm-4">
                     <h4 class="m-5"><span id="range_amount_value">2000</span>р</h4>

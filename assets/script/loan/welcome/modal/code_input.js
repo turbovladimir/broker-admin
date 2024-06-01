@@ -11,8 +11,6 @@ const CodeInputHandler = {
             const code = $(e.target).val();
 
             if (code.length === 4) {
-                alert('code: ' + code);
-
                 $('.code').val();
                 $('.code').each(function (index, element) {
                     $(element).val(code.charAt(index));

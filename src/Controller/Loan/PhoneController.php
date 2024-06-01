@@ -3,6 +3,7 @@
 namespace App\Controller\Loan;
 
 use App\Event\UserRequestVerifyPhoneEvent;
+use App\Service\Auth\Access\SessionFlags;
 use App\Service\Auth\DTO\VerifyCodeRequest;
 use App\Service\Auth\Exception\PhoneVerify\ClientErrorAwareInterface;
 use App\Service\Auth\PhoneVerifier;
@@ -33,7 +34,7 @@ class PhoneController extends AbstractController
     {
         try {
             $phoneVerifier->verify(VerifyCodeRequest::create($request));
-            $request->getSession()->set(LoanController::FLAG_PHONE_VERIFIED, true);
+            $request->getSession()->set(SessionFlags::PHONE_VERIFIED, true);
         } catch (ClientErrorAwareInterface $exception) {
             //todo add logs for exceptions
             return new JsonResponse(['error' => $exception->getClientMessage()], Response::HTTP_BAD_REQUEST);

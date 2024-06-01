@@ -1,4 +1,4 @@
-<div class="offer_card shadow text-center show_async">
+<div class="offer_card shadow text-center show_async {{ offer_card_class is defined ? offer_card_class : '' }}">
     <div class="col mt-2">
         <h5>{{ offer.name }}
             {% if edit_action is defined %}
@@ -19,7 +19,7 @@
         <p>От <strong>{{ offer.interestRate }}%</strong> в день</p>
     </div>
     <div class="col text-center mb-sm-5">
-        <a class="loan-btn loan-btn-sm gradient-green {{ ym_counter_tag ? 'lnk-offer-rdr' : ''}}"
+        <a class="loan-btn loan-btn-sm gradient-green lnk-offer-rdr"
            type="button"
            href="{{ offer.url }}"
         >Получить деньги</a>

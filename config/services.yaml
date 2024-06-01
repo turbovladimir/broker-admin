@@ -41,7 +41,21 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
+    App\Service\Checker\Dupe\Checker:
+        tags:
+            - {name: 'phone_checker', priority: 2}
 
+    App\Service\Checker\LeadCraft\Checker:
+        tags:
+            - {name: 'phone_checker', priority: 1}
+
+    App\Service\Checker\LeadSu\Checker:
+        tags:
+            - {name: 'phone_checker', priority: 0}
+
+    App\Service\Checker\LeadGid\Checker:
+        tags:
+            - {name: 'phone_checker', priority: 0}
 
     App\Service\Sms\Sender:
         arguments:

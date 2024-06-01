@@ -46,6 +46,9 @@ class Offer
     #[ORM\OneToMany(targetEntity: OfferCheckerRelation::class, mappedBy: 'offer')]
     private Collection $offerCheckerRelations;
 
+    #[ORM\Column]
+    private int $priority = 0;
+
     public function __construct()
     {
         $this->addedAt = new \DateTime();
@@ -191,6 +194,18 @@ class Offer
                 $offerCheckerRelation->setOffer(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPriority(): ?int
+    {
+        return $this->priority;
+    }
+
+    public function setPriority(int $priority): static
+    {
+        $this->priority = $priority;
 
         return $this;
     }

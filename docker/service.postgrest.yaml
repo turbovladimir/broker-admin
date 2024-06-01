@@ -3,6 +3,7 @@ version: '3.5'
 services:
   postgrest:
     container_name: c-postgres
+    restart: always
     image: postgres:${POSTGRES_VERSION:-16}-alpine
     environment:
       POSTGRES_DB: broker

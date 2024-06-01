@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 class OfferCheckerRelation
 {
     const CHECKER_LEAD_GID = 'lead_gid';
+    const CHECKER_LEAD_CRAFT = 'lead_craft';
     const CHECKER_LEAD_SU = 'lead_su';
 
     #[ORM\Id]

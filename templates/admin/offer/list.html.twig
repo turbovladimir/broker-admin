@@ -5,6 +5,6 @@
 {% endblock %}
 {% block card_body %}
     <div class="row row-cols-1 justify-content-center">
-        {% include '@loan/offers/list.html.twig' with { 'offers': offers, 'edit_action': true, 'ym_counter_tag': false} %}
+        {% include '@loan/offers/list.html.twig' with { 'offers': offers, 'edit_action': true} %}
     </div>
 {% endblock %}

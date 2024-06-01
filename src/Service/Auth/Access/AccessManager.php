@@ -2,19 +2,23 @@
 
 namespace App\Service\Auth\Access;
 
+use App\Controller\Loan\LoanController;
 use App\Entity\UserAccess;
-use App\Service\Auth\Access\Exception\UserAccessExceededException;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\RouterInterface;
 
 class AccessManager
 {
+    const REDIRECT_BACK_URL = 'https://zaim-top-online.ru';
     const LIMIT_PER_DAY = 3;
 
     public function __construct(
      private EntityManagerInterface $entityManager,
         private LoggerInterface $logger,
+        private RouterInterface $router,
         private string $env
     ){
     }
@@ -59,12 +63,12 @@ class AccessManager
         $this->entityManager->flush();
     }
 
-    public function checkAccess(Request $request) : void
+    public function checkAccess(Request $request) : ?RedirectResponse
     {
         $limit = $this->fetchLimit($request);
 
         if (!$limit) {
-            return;
+            return null;
         }
 
         $this->logger->info('Limit info', [
@@ -74,10 +78,11 @@ class AccessManager
         ]);
 
         if ($limit->getLimit() > self::LIMIT_PER_DAY) {
-            $message = 'User limit exceeded.';
-            $this->logger->notice($message);
+            $this->logger->notice('User limit exceeded.');
 
-            throw new UserAccessExceededException($message);
+            return new RedirectResponse(self::REDIRECT_BACK_URL);
         }
+
+        return null;
     }
 }

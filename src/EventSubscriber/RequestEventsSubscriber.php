@@ -3,7 +3,6 @@
 namespace App\EventSubscriber;
 
 use App\Service\Auth\Access\AccessManager;
-use App\Service\Auth\Access\Exception\UserAccessExceededException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -22,11 +21,11 @@ class RequestEventsSubscriber implements EventSubscriberInterface
             return;
         }
 
-        try {
-            $this->accessManager->checkAccess($event->getRequest());
-        } catch (UserAccessExceededException $exception) {
+        $redirect = $this->accessManager->checkAccess($event->getRequest());
+
+        if ($redirect) {
             $event->stopPropagation();
-            $event->setResponse(new RedirectResponse('https://zaim-top-online.ru'));
+            $event->setResponse($redirect);
         }
     }
 

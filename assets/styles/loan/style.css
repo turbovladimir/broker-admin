@@ -172,7 +172,7 @@ a {
 .footer div {
     color: var(--footer-text-color);
     font-family: Inter-300;
-    font-size: var(--p-size) !important;
+    font-size: 0.75rem !important;
 }
 
 .footer-b-1 {

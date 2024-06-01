@@ -3,21 +3,18 @@
 namespace App\Service\Checker;
 
 use App\Service\Auth\Exception\PhoneVerify\ClientErrorAwareInterface;
-use App\Service\Checker\Double\Checker as CheckerDupe;
 use App\Service\Checker\DTO\CheckerResult;
-use App\Service\Checker\LeadGid\Checker as LeadGidChecker;
-use App\Service\Checker\LeadSu\Checker as LeadSuChecker;
 use App\Service\Rest\Exception\InvalidResponseBodyException;
 use GuzzleHttp\Exception\BadResponseException;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;
 
 class Service
 {
     public function __construct(
-        private LeadGidChecker  $leadGidC,
-        private LeadSuChecker   $leadSuC,
+        #[TaggedIterator('phone_checker')]
+        private iterable $checkers,
         private LoggerInterface $checkerLogger,
-        private CheckerDupe     $dupeC,
     ){}
 
     public function checkPhone(string $phone) : CheckerResult
@@ -25,7 +22,7 @@ class Service
         $result = new CheckerResult();
 
         /** @var CheckerInterface $checker */
-        foreach ([$this->leadGidC, $this->leadSuC, $this->dupeC] as $checker) {
+        foreach ($this->checkers as $checker) {
             try {
                 $checker->check($phone, $result);
             } catch (InvalidResponseBodyException $exception) {

@@ -41,7 +41,7 @@ class PhoneVerifier
             ;
 
             if ($this->env === 'prod') {
-                $phones = array_map(fn($phone) => '+7' . $phone, [$job->getPhone()]) ;
+                $phones = array_map(fn($phone) => $phone, [$job->getPhone()]) ;
                 $message = sprintf('Ваш проверочный код: %d', $job->getCode());
                 $this->smsSender->send($phones, $message);
             }

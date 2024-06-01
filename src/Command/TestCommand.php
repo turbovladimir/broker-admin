@@ -4,6 +4,7 @@ namespace App\Command;
 
 use App\Repository\UserAccessRepository;
 use App\Service\Auth\Access\AccessManager;
+use App\Service\Checker\Service;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -20,6 +21,7 @@ class TestCommand extends Command
 {
     public function __construct(
         private AccessManager $accessManager,
+        private Service $checkerService,
         private UserAccessRepository $userAccessRepository,
     )
     {
@@ -47,11 +49,22 @@ class TestCommand extends Command
             // ...
         }
 
-        $limits = $this->userAccessRepository->findBy(['ip' => '192.168.65.1'], ['addedAt' => 'DESC']);
-
+        $this->testCheckers();
 
         $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
 
         return Command::SUCCESS;
+    }
+
+    private function testCheckers()
+    {
+        $result = $this->checkerService->checkPhone('79088715044');
+
+        return $result;
+    }
+
+    private function testIpLimit() : void
+    {
+        $limits = $this->userAccessRepository->findBy(['ip' => '192.168.65.1'], ['addedAt' => 'DESC']);
     }
 }

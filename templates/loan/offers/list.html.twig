@@ -4,9 +4,16 @@
             <h4>Вот что мы подобрали специально для вас</h4>
         </div>
         <div class="container-fluid row row-cols-sm-1 row-cols-lg-4 mb-3 g-5 g-lg-3 me-5 ms-5">
-            {% for offer in offers %}
+            {% set firstOffer = offers[0] %}
+            <div class="col-auto {{ firstOffer is not null and firstOffer.isActive == false ? 'inactive' : '' }}">
+                {% include '@admin/offer/offer_card.html.twig' with {
+                    'offer': firstOffer,
+                    'offer_card_class': 'first_offer'
+                } %}
+            </div>
+            {% for offer in offers|slice(1, 2) %}
                 <div class="col-auto {{ offer is not null and offer.isActive == false ? 'inactive' : '' }}">
-                    {% include '@admin/offer/offer_card.html.twig' with {'offer': offer, 'ym_counter_tag': ym_counter_tag } %}
+                    {% include '@admin/offer/offer_card.html.twig' with {'offer': offer } %}
                 </div>
             {% endfor %}
         </div>

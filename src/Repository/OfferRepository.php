@@ -21,7 +21,7 @@ class OfferRepository extends ServiceEntityRepository
         parent::__construct($registry, Offer::class);
     }
 
-    public function findOffersForUser(array $excludedIds)
+    public function findOffersForUser(array $excludedIds, int $limit)
     {
         $q = $this->createQueryBuilder('offer');
         $q->andWhere('offer.isActive = :is_active')
@@ -32,7 +32,10 @@ class OfferRepository extends ServiceEntityRepository
             $q->andWhere($q->expr()->notIn('offer.id', $excludedIds));
         }
 
-        return $q->getQuery()->getResult();
+        return $q
+            ->orderBy('offer.priority', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()->getResult();
     }
 
     //    /**

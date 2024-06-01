@@ -4,14 +4,14 @@ namespace App\Service\Checker\LeadSu;
 
 use App\Entity\OfferCheckerRelation;
 use App\Repository\OfferCheckerRelationRepository;
+use App\Service\BaseChecker;
 use App\Service\Checker\CheckerInterface;
 use App\Service\Checker\DTO\CheckerResult;
 use App\Service\Rest\Client;
 use GuzzleHttp\RequestOptions;
-use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
-class Checker implements CheckerInterface
+class Checker extends BaseChecker implements CheckerInterface
 {
     const TOKEN = '2bc7ec73206ee767b15bd69230c29b5c';
 
@@ -19,15 +19,16 @@ class Checker implements CheckerInterface
         private Client $client,
         private  OfferCheckerRelationRepository $checkerRelationRepository,
         private LoggerInterface $checkerLogger
-    ){}
+    )
+    {
+        parent::__construct($this->checkerRelationRepository, $this->checkerLogger);
+    }
 
     public function check(string $phone, CheckerResult $result) : void
     {
-        $relations = $this->checkerRelationRepository->findBy(['checker' => OfferCheckerRelation::CHECKER_LEAD_SU]);
+        $relations = $this->fetchCheckerRelation(OfferCheckerRelation::CHECKER_LEAD_SU);
 
-        if (empty($relations)) {
-            $this->checkerLogger->warning('Checker has not configured yet.');
-
+        if (!$relations) {
             return;
         }
 
@@ -37,19 +38,15 @@ class Checker implements CheckerInterface
             $relationsWithExternalIdsKey[$relation->getExternalOfferId()] = $relation;
         }
 
-        $ids = [];
-
         foreach ($this->getReport($phone, array_keys($relationsWithExternalIdsKey)) as $item) {
             if ($item['is_repeat'] === 1) {
                 foreach ($item['offers'] as $externalOfferId) {
                     if (!empty($relationsWithExternalIdsKey[$externalOfferId])) {
-                        $ids[] = $relationsWithExternalIdsKey[$externalOfferId]->getOffer()->getId();
+                        $result->excludeOffer($relationsWithExternalIdsKey[$externalOfferId]->getOffer());
                     }
                 }
             }
         }
-
-        $result->add($ids);
     }
 
     private function getReport(string $phone, array $externalOfferIds) : array
@@ -61,13 +58,6 @@ class Checker implements CheckerInterface
         $report = $this->parseResponse($res);
 
         return $report['data'];
-    }
-
-    private function parseResponse(ResponseInterface $response) : array
-    {
-        $report = json_decode((string)$response->getBody(), true);
-
-        return $report;
     }
 
     private function createRequest(string $phone, array $externalOfferIds) : int

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Checker\LeadGid;
+namespace App\Service\Checker\LeadCraft;
 
 use App\Entity\OfferCheckerRelation;
 use App\Repository\OfferCheckerRelationRepository;
@@ -15,11 +15,11 @@ use Psr\Log\LoggerInterface;
 
 class Checker extends BaseChecker implements CheckerInterface
 {
-    const TOKEN = 'e515e56f49e43c0ad99ce5d4290084b1';
+    const TOKEN = '1716559943.36722sRMDAeZ7tM4K91q';
 
     public function __construct(
         private Client $client,
-        private  OfferCheckerRelationRepository $checkerRelationRepository,
+        private OfferCheckerRelationRepository $checkerRelationRepository,
         private LoggerInterface $checkerLogger
     )
     {
@@ -28,7 +28,7 @@ class Checker extends BaseChecker implements CheckerInterface
 
     public function check(string $phone, CheckerResult $result): void
     {
-        $relations = $this->fetchCheckerRelation(OfferCheckerRelation::CHECKER_LEAD_GID);
+        $relations = $this->fetchCheckerRelation(OfferCheckerRelation::CHECKER_LEAD_CRAFT);
 
         if (!$relations) {
             return;
@@ -41,11 +41,10 @@ class Checker extends BaseChecker implements CheckerInterface
         $report = $this->getReport($phone);
 
         foreach ($report as $item) {
-            $externalOfferId = $item['Offers'][0];
+            if ($item['isDuplicate'] && key_exists($item['id'], $relations)) {
 
-            if (!$item['NotExists'] && key_exists($externalOfferId, $relations)) {
                 /** @var OfferCheckerRelation $relation */
-                $relation = $relations[$externalOfferId];
+                $relation = $relations[$item['id']];
                 $result->excludeOffer($relation->getOffer());
             }
         }
@@ -53,31 +52,18 @@ class Checker extends BaseChecker implements CheckerInterface
 
     private function getReport(string $phone) : array
     {
-        $res = $this->client->post('https://phone-checker.lead-core.ru/check', [
+        $res = $this->client->get('https://api.leadcraft.ru/v1/services/checked-feed', [
             RequestOptions::HEADERS => [
-                'Authorization' => self::TOKEN
+                'Authorization' => 'Bearer ' . self::TOKEN
             ],
-            RequestOptions::JSON => [
-                'async' => false,
-                'phone' => $phone
+            RequestOptions::QUERY => [
+                'phone' => ltrim($phone, '+')
             ]
         ]);
 
-        return $this->parseResponse($res);
-    }
 
-    private function validateResponseBody(array $bodyData) : void
-    {
-        if (empty($bodyData) || $bodyData['success'] !== true) {
-            throw new InvalidResponseBodyException(json_encode($bodyData));
-        }
-    }
+        $bodyData = $this->parseResponse($res);
 
-    protected function parseResponse(ResponseInterface $response): array
-    {
-        $bodyData = parent::parseResponse($response);
-        $this->validateResponseBody($bodyData);
-
-        return  $bodyData['data'];
+        return $bodyData['data'];
     }
 }

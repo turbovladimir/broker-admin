@@ -19,6 +19,7 @@ class OfferCheckerRelationType extends AbstractType
             ->add('checker', ChoiceType::class, [
                 'required' => true,
                 'choices' => [
+                    'ЛидКрафт' => OfferCheckerRelation::CHECKER_LEAD_CRAFT,
                     'ЛидГид' => OfferCheckerRelation::CHECKER_LEAD_GID,
                     'Лид.su' => OfferCheckerRelation::CHECKER_LEAD_SU,
                 ],

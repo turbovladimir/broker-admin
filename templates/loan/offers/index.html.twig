@@ -2,6 +2,6 @@
 {% set title = 'Подбор предложений' %}
 {% set js_modules = [] %}
 {% block container %}
-    {% include '@loan/offers/list.html.twig' with { 'offers' : offers, 'edit_action': false, 'ym_counter_tag': true } %}
+    {% include '@loan/offers/list.html.twig' with { 'offers' : offers, 'edit_action': false } %}
 {% endblock %}
 {% block importmap %}{{ importmap(['jquery_provider', 'app', 'loan_offers']) }}{% endblock %}

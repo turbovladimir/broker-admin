@@ -88,6 +88,12 @@ class OfferType extends AbstractType
                     'class' => 'from-group mb-1'
                 ],
             ])
+            ->add('priority', NumberType::class, [
+                'label' => 'Приоритет',
+                'row_attr' => [
+                    'class' => 'from-group mb-1'
+                ],
+            ])
         ;
     }
 

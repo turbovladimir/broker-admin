@@ -31,6 +31,6 @@ trait PhoneFetcherTrait
             throw new InvalidPhoneNumberException();
         }
 
-        $this->phone = $matches[1] . $matches[2] . $matches[3] . $matches[4];
+        $this->phone = '7' . $matches[1] . $matches[2] . $matches[3] . $matches[4];
     }
 }
