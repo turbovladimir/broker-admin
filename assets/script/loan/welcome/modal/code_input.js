@@ -84,6 +84,7 @@ const CodeInputHandler = {
                 $('.code')
                     .addClass('code_success')
                     .attr('disabled', true)
+                    .addClass('disabled')
                     .trigger('input_code_success')
                 ;
                 window.location.replace('/loan/form');

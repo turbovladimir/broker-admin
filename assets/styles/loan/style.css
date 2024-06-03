@@ -39,6 +39,10 @@ a {
     text-decoration: none !important;
 }
 
+.disabled {
+    opacity: 60%;
+}
+
 .bold {
     font-family: Inter-900 !important;
 }

@@ -14,7 +14,10 @@ const PhoneInputHandler = {
                             $(`<label for="phone" class="error-text m-2">Введите номер телефона</label>`).insertBefore(inputPhone);
                             event.preventDefault();
                         } else {
-                            event.target.setAttribute('disabled', true);
+                            event.target
+                                .addClass('disabled')
+                                .setAttribute('disabled', true)
+                            ;
                             $('#phone_number').text(phone);
                             CodeRequester.MakeRequest(phone, event.target);
                         }

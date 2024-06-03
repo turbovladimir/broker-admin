@@ -1,5 +1,7 @@
 const CodeRequester = {
     MakeRequest: function (phone, target) {
+        $('#modal-block-error').empty();
+
         $.ajax({
             url: '/phone/verify/request',
             method: 'POST',
@@ -12,7 +14,7 @@ const CodeRequester = {
                 console.log(data.responseJSON.error);
 
                 if ($('#modal-block-error').is(':empty')) {
-                    $(`<div class="row row-cols-1 g-3">
+                    $(`<div class="row row-cols-1 g-3 mb-4">
                         <div id="code-error-message" class="col"><p class="error-text">${data.responseJSON.error}</p></div>
                         </div>`).appendTo('#modal-block-error');
                     $('#modal-block-error').effect('shake');

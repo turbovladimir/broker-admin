@@ -15,7 +15,7 @@ const WrongCodeHandler = {
         elemShouldShake.effect('shake');
 
         if ($('#code_more_try').length === 0) {
-            $(`<div class="row row-cols-1 g-3">
+            $(`<div class="row row-cols-1 g-3 mb-4">
                         <div id="code-error-message" class="col"><p class="error-text"></p></div>
                         <div id="code_more_try" class="col"><p></p></div>
                         </div>`).appendTo('#modal-block-error');
@@ -24,7 +24,7 @@ const WrongCodeHandler = {
     },
     resetCode: function () {
         $('.code').val(undefined)
-            .removeClass('opacity-50')
+            .removeClass('disabled')
             .removeAttr('disabled')
     },
     sendCodeAgain: function () {
