@@ -32,6 +32,8 @@ class LoanController extends AbstractController
             return $this->redirectToRoute('user_offer_index');
         }
 
+        $request->getSession()->set(SessionFlags::USER_REGISTERED, false);
+
         return $this->render('@loan/welcome/index.html.twig');
     }
 
