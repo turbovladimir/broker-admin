@@ -5,6 +5,7 @@ namespace App\Command;
 use App\Repository\UserAccessRepository;
 use App\Service\Auth\Access\AccessManager;
 use App\Service\Checker\Service;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -12,6 +13,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 
 #[AsCommand(
     name: 'app:test',
@@ -20,6 +23,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class TestCommand extends Command
 {
     public function __construct(
+        private MailerInterface $mailer,
         private AccessManager $accessManager,
         private Service $checkerService,
         private UserAccessRepository $userAccessRepository,
@@ -49,8 +53,8 @@ class TestCommand extends Command
             // ...
         }
 
-        $this->testCheckers();
-
+//        $this->testCheckers();
+        $this->sendEmail();
         $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
 
         return Command::SUCCESS;
@@ -66,5 +70,19 @@ class TestCommand extends Command
     private function testIpLimit() : void
     {
         $limits = $this->userAccessRepository->findBy(['ip' => '192.168.65.1'], ['addedAt' => 'DESC']);
+    }
+
+    private function sendEmail() : void
+    {
+        $email = (new TemplatedEmail())
+            ->from(new Address(
+//                'no-reply@xn--80aafnhi4ae.hhos.ru',
+                'info@zaymirubli.ru',
+                'Zaymirubli mailer'))
+            ->to('sk8.killer@mail.ru')
+            ->subject("Регистрация на сайте")
+            ->htmlTemplate('components/confirmation_email.html.twig');
+
+        $this->mailer->send($email);
     }
 }
