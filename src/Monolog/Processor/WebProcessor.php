@@ -22,7 +22,7 @@ class WebProcessor implements ProcessorInterface
         if ($currentRequest) {
             $record['extra'] = [
                 'request' => [
-                    'ip' => $currentRequest->getClientIp(),
+                    'ip' => $currentRequest->headers->get('x-forwarded-for') ?? $currentRequest->getClientIp(),
                     'uri' => $currentRequest->getUri(),
                     'method' => $currentRequest->getMethod(),
                     'query' => $currentRequest->query->all(),

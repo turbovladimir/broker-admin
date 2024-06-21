@@ -18,6 +18,7 @@ services:
     volumes:
       - app_prod:/app
       - ../assets/content/img/admin/logo/prod:/app/assets/content/img/admin/logo
+      - ../var:/app/var
     networks:
       default:
         ipv4_address: 172.30.0.2
