@@ -13,10 +13,10 @@ use Psr\Log\LoggerInterface;
 class PhoneVerifier
 {
     public function __construct(
-        private Sender $smsSender,
+        private Sender                 $smsSender,
         private EntityManagerInterface $entityManager,
-        private LoggerInterface $phoneVerifyLogger,
-        private string $env
+        private LoggerInterface        $smsLogger,
+        private string                 $env
     )
     {
     }
@@ -49,7 +49,7 @@ class PhoneVerifier
             $this->entityManager->persist($job);
             $this->entityManager->flush();
         } catch (\Throwable $e) {
-            $this->phoneVerifyLogger->error('Error occurring during send phone', ['exception', $e->getMessage()]);
+            $this->smsLogger->error('Error occurring during send phone', ['exception', $e->getMessage()]);
 
             throw $e;
         }

@@ -9,6 +9,7 @@ monolog:
     channels:
         - rest
         - checker
+        - sms
         - deprecation # Deprecations are logged in the dedicated "deprecation" channel when it exists
 
 when@dev:
@@ -112,6 +113,11 @@ when@prod:
                 max_files: 4
                 path: "%kernel.logs_dir%/rest/rest.log"
                 channels: [ 'rest' ]
+            sms:
+                type: rotating_file
+                max_files: 4
+                path: "%kernel.logs_dir%/sms/sms.log"
+                channels: [ 'sms' ]
             checker:
                 type: rotating_file
                 max_files: 4
