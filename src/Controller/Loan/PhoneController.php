@@ -3,9 +3,9 @@
 namespace App\Controller\Loan;
 
 use App\Event\UserRequestVerifyPhoneEvent;
+use App\Form\Exception\ClientErrorAwareInterface;
 use App\Service\Auth\Access\SessionFlags;
 use App\Service\Auth\DTO\VerifyCodeRequest;
-use App\Service\Auth\Exception\PhoneVerify\ClientErrorAwareInterface;
 use App\Service\Auth\PhoneVerifier;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

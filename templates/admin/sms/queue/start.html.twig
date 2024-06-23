@@ -1,0 +1,47 @@
+{% extends '@admin/base.html.twig' %}
+
+{% set title = 'Отправка рассылки' %}
+{% set js_modules = ['start_queue'] %}
+{% block card_button_bar %}
+    <a href="{{ path('admin_sms_queues_list') }}" class="btn btn-primary">Назад</a>
+{% endblock %}
+{% block card_body %}
+    {{ form_start(form) }}
+    <div id="settings-stack" class="row row-cols-1 ms-3 w-50">
+        <div class="col message-setting mb-3">
+            <div class="row justify-content-between">
+                <div class="col-auto">
+                    <h3>Отправка #<span id="job_num">1</span></h3>
+                </div>
+                <div class="col-auto">
+                    <button type="button" class="btn-close" id="btn_close" aria-label="Close"></button>
+                </div>
+            </div>
+            <div class="form-group mb-1 mt-1">
+                <label class="form-label required" for="sending_time">Время отправки</label>
+                <input type="text" class="form-control datetime_mask" id="sending_time">
+            </div>
+            <div class="form-group mb-1">
+                <label for="message" class="form-label required">Сообщение</label>
+                <textarea class="form-control" aria-describedby="message-help" id="message"></textarea>
+                <small id="message-help" class="form-text text-muted">В тексте сообщения обязательно укажите плейсхолдер ##url##</small>
+            </div>
+        </div>
+    </div>
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+    <div class="col form-group mt-4 btn-group">
+        <button type="button" class="btn btn-secondary" id="btn_start_q">Отправить</button>
+        <button type="button" class="btn btn-secondary" id="btn_add_q">Добавить отправку</button>
+    </div>
+    <style>
+        .message-setting {
+            background-color: #e9e9e9;
+            padding: 2em;
+            border-radius: var(--border-radius);
+        }
+        .message-setting h3 {
+            color: gray;
+        }
+    </style>
+{% endblock %}

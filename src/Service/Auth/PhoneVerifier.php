@@ -17,9 +17,7 @@ class PhoneVerifier
         private EntityManagerInterface $entityManager,
         private LoggerInterface        $smsLogger,
         private string                 $env
-    )
-    {
-    }
+    ){}
 
     public function sendCode(string $sessionId, string $phone) : void
     {

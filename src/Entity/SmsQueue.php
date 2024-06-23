@@ -8,6 +8,12 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+enum QueueStatus: string {
+    case New = 'Новая';
+    case InProcess = 'В процессе отправки';
+    case Sent = 'Отправлено';
+}
+
 #[ORM\Entity(repositoryClass: SmsQueueRepository::class)]
 class SmsQueue
 {
@@ -20,22 +26,26 @@ class SmsQueue
     private ?\DateTimeInterface $addedAt = null;
 
     #[ORM\Column(length: 10)]
-    private ?string $status = null;
+    private ?QueueStatus $status = QueueStatus::New;
 
-    #[ORM\OneToMany(targetEntity: SendingSmsJob::class, mappedBy: 'smsQueue', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: SendingSmsJob::class, mappedBy: 'smsQueue', cascade: ['persist'], orphanRemoval: true)]
     private Collection $jobs;
 
     #[ORM\OneToMany(targetEntity: Contact::class, mappedBy: 'smsQueue')]
     private Collection $contacts;
 
-    #[ORM\OneToMany(targetEntity: Sms::class, mappedBy: 'smsQueue', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Sms::class, mappedBy: 'smsQueue', cascade: ['persist'], orphanRemoval: true)]
     private Collection $smses;
+
+    #[ORM\Column(length: 255)]
+    private ?string $filePath = null;
 
     public function __construct()
     {
         $this->jobs = new ArrayCollection();
         $this->contacts = new ArrayCollection();
         $this->smses = new ArrayCollection();
+        $this->addedAt = new \DateTime();
     }
 
     public function getId(): ?int
@@ -55,16 +65,21 @@ class SmsQueue
         return $this;
     }
 
-    public function getStatus(): ?string
+    public function getStatusValue(): string
     {
-        return $this->status;
+        return $this->status->value;
     }
 
-    public function setStatus(string $status): static
+    public function setStatus(QueueStatus $status): static
     {
         $this->status = $status;
 
         return $this;
+    }
+
+    public function isNew() : bool
+    {
+        return $this->status === QueueStatus::New;
     }
 
     /**
@@ -73,16 +88,6 @@ class SmsQueue
     public function getJobs(): Collection
     {
         return $this->jobs;
-    }
-
-    public function addJob(SendingSmsJob $job): static
-    {
-        if (!$this->jobs->contains($job)) {
-            $this->jobs->add($job);
-            $job->setSmsQueue($this);
-        }
-
-        return $this;
     }
 
     public function removeJob(SendingSmsJob $job): static
@@ -153,6 +158,18 @@ class SmsQueue
                 $smse->setSmsQueue(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getFilePath(): ?string
+    {
+        return $this->filePath;
+    }
+
+    public function setFilePath(string $filePath): static
+    {
+        $this->filePath = $filePath;
 
         return $this;
     }

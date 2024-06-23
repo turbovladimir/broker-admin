@@ -17,6 +17,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.min.css';
 import 'bootstrap';
 import '@popperjs/core';
+import {Mask} from "./loan/mask.js";
 
 
 $(document).on({
@@ -28,12 +29,17 @@ $(document).on({
     }
 });
 
+document.body.addEventListener('custom', () => {console.log('trigger2 custom event')})
+
+
 $(function () {
     App.init();
 })
 
 const App = {
     init: function () {
+        Mask($);
+
         if (window.env === 'prod') {
             (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
                 m[i].l=1*new Date();

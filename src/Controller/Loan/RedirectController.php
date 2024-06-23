@@ -9,8 +9,8 @@ use Symfony\Component\Routing\Attribute\Route;
 class RedirectController extends AbstractController
 {
     #[Route('r', name: 'redirect')]
-    public function redirect() : Response
+    public function redirectAction() : Response
     {
-
+        return $this->render('@loan/redirect.html.twig');
     }
 }

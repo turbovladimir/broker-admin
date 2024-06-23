@@ -31,7 +31,7 @@ class SendingSmsJob
     private ?\DateTimeInterface $sendingTime = null;
 
     #[ORM\Column(length: 10, enumType: SendingJobStatus::class)]
-    private ?SendingJobStatus $status = null;
+    private ?SendingJobStatus $status = SendingJobStatus::InQueue;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $errorText = null;
@@ -43,6 +43,12 @@ class SendingSmsJob
     #[ORM\JoinColumn(nullable: false)]
     private ?SmsQueue $smsQueue = null;
 
+    public function __construct(\DateTime $time)
+    {
+        $this->addedAt = new \DateTime();
+        $this->sendingTime = $time;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,13 +57,6 @@ class SendingSmsJob
     public function getAddedAt(): ?\DateTimeInterface
     {
         return $this->addedAt;
-    }
-
-    public function setAddedAt(\DateTimeInterface $addedAt): static
-    {
-        $this->addedAt = $addedAt;
-
-        return $this;
     }
 
     public function getContact(): ?Contact
@@ -75,13 +74,6 @@ class SendingSmsJob
     public function getSendingTime(): ?\DateTimeInterface
     {
         return $this->sendingTime;
-    }
-
-    public function setSendingTime(\DateTimeInterface $sendingTime): static
-    {
-        $this->sendingTime = $sendingTime;
-
-        return $this;
     }
 
     public function getStatus(): ?SendingJobStatus

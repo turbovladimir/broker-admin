@@ -28,6 +28,12 @@ class Sms
     #[ORM\JoinColumn(nullable: false)]
     private ?SmsQueue $smsQueue = null;
 
+    public function __construct(string $message)
+    {
+        $this->addedAt = new \DateTime();
+        $this->message = $message;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -38,23 +44,9 @@ class Sms
         return $this->addedAt;
     }
 
-    public function setAddedAt(\DateTimeInterface $addedAt): static
-    {
-        $this->addedAt = $addedAt;
-
-        return $this;
-    }
-
     public function getMessage(): ?string
     {
         return $this->message;
-    }
-
-    public function setMessage(string $message): static
-    {
-        $this->message = $message;
-
-        return $this;
     }
 
     public function getJob(): ?SendingSmsJob

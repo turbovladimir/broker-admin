@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Auth\Exception\PhoneVerify;
+namespace App\Form\Exception;
 
 interface ClientErrorAwareInterface
 {

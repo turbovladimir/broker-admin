@@ -1,0 +1,26 @@
+{% extends '@admin/base.html.twig' %}
+{% set title = 'Рассылки' %}
+{% block card_button_bar %}
+    <a href="{{ path('admin_sms_queue_create') }}" class="btn btn-primary">Создать</a>
+{% endblock %}
+{% block card_body %}
+    <div class="row row-cols-1 justify-content-center">
+        {% if queues is empty %}
+            <h5>Здесь скоро появятся рассылки, как только вы их создадите</h5>
+        {% else %}
+            {% for queue in queues %}
+                <div class="col mt-1 queue_row">
+                    <span>#{{ queue.id }} создана: {{ queue.addedAt|date('Y-m-d H:i:s') }} статус: {{ queue.getStatusValue() }}</span> {% if queue.isNew() %}<a class="position-absolute pl-1" href="{{ path('admin_sms_queue_start', {'queue': queue.id}) }}"><img style="width: 25px; padding-left: 10px" alt="" src="{{ asset('content/img/email.svg') }}"/>{% endif %}</a>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <style>
+        .queue_row{
+            padding: 1em;
+            background: #e1e1e1;
+            border-radius: var(--border-radius);
+            color: #5594cb;
+        }
+    </style>
+{% endblock %}

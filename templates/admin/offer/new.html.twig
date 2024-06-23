@@ -1,9 +1,0 @@
-{% extends '@admin/base.html.twig' %}
-
-{% set title = 'Создание оффера' %}
-{% block card_button_bar %}
-    <a href="{{ path('admin_offer_list') }}" class="btn btn-primary">Назад</a>
-{% endblock %}
-{% block card_body %}
-    {{ include('@admin/offer/_form.html.twig') }}
-{% endblock %}

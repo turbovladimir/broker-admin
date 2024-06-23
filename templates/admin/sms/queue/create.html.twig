@@ -1,0 +1,9 @@
+{% extends '@admin/base.html.twig' %}
+
+{% set title = 'Создание очереди на рассылку' %}
+{% block card_button_bar %}
+    <a href="{{ path('admin_sms_queues_list') }}" class="btn btn-primary">Назад</a>
+{% endblock %}
+{% block card_body %}
+    {{ include('@admin/sms/queue/_form.html.twig') }}
+{% endblock %}

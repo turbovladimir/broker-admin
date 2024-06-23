@@ -20,12 +20,8 @@ return [
         'path' => './assets/script/jquery.js',
         'entrypoint' => true,
     ],
-    'loan_form' => [
-        'path' => './assets/script/loan/form.js',
-        'entrypoint' => true,
-    ],
-    'loan_mask' => [
-        'path' => './assets/script/loan/mask.js',
+    'start_queue' => [
+        'path' => './assets/script/queue/start.js',
         'entrypoint' => true,
     ],
     'loan_validate' => [

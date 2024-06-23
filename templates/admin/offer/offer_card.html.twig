@@ -2,7 +2,7 @@
     <div class="col mt-2">
         <h5>{{ offer.name }}
             {% if edit_action is defined %}
-                <a class="position-absolute pl-1" href="{{ path('admin_offer_edit', {"offer": offer.id}) }}">{% include 'components/pencil.html.twig' %}</a>
+                <a class="position-absolute pl-1" href="{{ path('admin_offer_edit', {"offer": offer.id}) }}"><img alt="" src="{{ asset('content/img/pencil.svg') }}"/></a>
             {% endif %}
         </h5>
     </div>
