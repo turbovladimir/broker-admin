@@ -5,15 +5,7 @@
 {% endif %}
 <div class="form-group mt-4 btn-group">
     <button class="btn btn-primary">{{ button_label|default('Сохранить') }}</button>
-</div>{% extends '@admin/base.html.twig' %}
-
-{% set title = 'Создание оффера' %}
-{% block card_button_bar %}
-    <a href="{{ path('admin_offer_list') }}" class="btn btn-primary">Назад</a>
-{% endblock %}
-{% block card_body %}
-    {{ include('@admin/offer/_form.html.twig') }}
-{% endblock %}
+</div>
 {{ form_end(form) }}
 <script>
     {% if offer is defined and offer.id > 0 %}
