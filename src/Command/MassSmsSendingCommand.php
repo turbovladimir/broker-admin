@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\Repository\SendingSmsJobRepository;
+use App\Repository\SmsQueueRepository;
 use App\Service\Sms\Sender;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -17,6 +18,7 @@ class MassSmsSendingCommand extends Command
 {
     public function __construct(
         private SendingSmsJobRepository $sendingSmsJobRepository,
+        private SmsQueueRepository $smsQueueRepository,
         private Sender $sender
     )
     {
@@ -34,6 +36,7 @@ class MassSmsSendingCommand extends Command
         }
 
         $this->sender->massSending($jobs);
+        $this->smsQueueRepository->actualizeStatuses();
 
         return Command::SUCCESS;
     }

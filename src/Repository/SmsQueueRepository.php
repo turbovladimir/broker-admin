@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\SendingSmsJob;
 use App\Entity\SmsQueue;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -34,6 +35,21 @@ class SmsQueueRepository extends ServiceEntityRepository
             ;
         ";
         return $this->getEntityManager()->getConnection()->fetchAllAssociative($sql);
+    }
+
+    public function actualizeStatuses() : void
+    {
+        $sql ="
+            update sms_queue
+            set status = 'Отправлено'
+            where id in (
+            select q.id
+            from sms_queue q
+                join public.sending_sms_job ssj on q.id = ssj.sms_queue_id and ssj.status = 'sent'
+                group by q.id
+            );
+        ";
+        $this->getEntityManager()->getConnection()->executeQuery($sql);
     }
 
     //    /**

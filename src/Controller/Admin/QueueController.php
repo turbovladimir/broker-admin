@@ -3,7 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Contact;
-use App\Entity\QueueStatus;
+use App\Enums\QueueStatus;
 use App\Entity\SendingSmsJob;
 use App\Entity\Sms;
 use App\Entity\SmsQueue;
@@ -15,7 +15,6 @@ use App\Repository\SmsQueueRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
