@@ -11,6 +11,9 @@ build_prod:
 	docker exec -it c-broker-prod composer install
 
 build_beta:
+	cp -R assets/content/img/admin/logo/prod assets/content/img/admin/logo/beta
+	docker exec c-postgres pg_dump -U app broker > backup.sql
+	cat backup.sql | docker exec -i c-postgres psql -U app -d broker_beta
 	docker-compose \
 		-f docker/compose_beta.yaml \
 	down --rmi all -v

@@ -18,6 +18,8 @@ services:
       WEB_DOCUMENT_ROOT: /app/public
     volumes:
       - app_beta:/app
+      - ../assets/content/img/admin/logo/beta:/app/assets/content/img/admin/logo
+      - ../var:/app/var
     networks:
       default:
         ipv4_address: 172.30.0.3
