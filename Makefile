@@ -13,6 +13,8 @@ build_prod:
 build_beta:
 	cp -R assets/content/img/admin/logo/prod assets/content/img/admin/logo/beta
 	docker exec c-postgres pg_dump -U app broker > backup.sql
+	docker exec -it c-postgres psql -U app -d postgres -c "DROP DATABASE broker_beta;"
+	docker exec -it c-postgres psql -U app -d postgres -c "CREATE DATABASE broker_beta;"
 	cat backup.sql | docker exec -i c-postgres psql -U app -d broker_beta
 	docker-compose \
 		-f docker/compose_beta.yaml \
