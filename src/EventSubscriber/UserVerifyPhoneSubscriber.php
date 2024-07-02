@@ -3,6 +3,7 @@
 namespace App\EventSubscriber;
 
 use App\Controller\Loan\OfferController;
+use App\Controller\Session;
 use App\Event\UserRequestVerifyPhoneEvent;
 use App\Service\Auth\Access\AccessManager;
 use App\Service\Auth\PhoneVerifier;
@@ -26,7 +27,7 @@ class UserVerifyPhoneSubscriber implements EventSubscriberInterface
         $this->phoneVerifier->sendCode($session->getId(), $event->getPhone());
         $this->accessManager->incLimit($request);
         $result = $this->checker->checkPhone($event->getPhone());
-        $session->set(OfferController::SESSION_EXCLUDE_OFFER_IDS, $result->getExcludeOfferIds());
+        $session->set(Session::ExcludeOfferIds->value, $result->getExcludeOfferIds());
     }
 
     public static function getSubscribedEvents(): array

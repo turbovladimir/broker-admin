@@ -1,7 +1,6 @@
 {% extends '@loan/base.html.twig' %}
 {% set js_modules = [
     'loan_form',
-    'loan_mask',
     'loan_autocomplete',
     'loan_offers',
     'loan_push',
@@ -22,8 +21,8 @@
         {% endblock %}
         {% block body %}
             {% embed '@loan/form/step.html.twig' with {
-                'button': {'id': 'btn_continue', 'text': 'Продолжить'},
-                'step': {'id': 'form_step_personal_data'},
+                'button': {'id': 'btn_from_sbm', 'text': 'Получить займ'},
+                'step': {'id': 'form_step_1'},
             } %}
                 {% block content %}
                     <div class="{{ input_row_style }}">
@@ -48,37 +47,6 @@
                         </div>
                         <div class="{{ input_style }}">
                             {{ form_row(form.email) }}
-                        </div>
-                    </div>
-                {% endblock %}
-            {% endembed %}
-            {% embed '@loan/form/step.html.twig' with {
-                'button': {'id': 'btn_from_sbm', 'text': 'Получить займ'},
-                'step': {'id': 'form_step_passport', 'is_hidden': true},
-            } %}
-                {% block content %}
-                    <div class="{{ input_row_style }}">
-                        <div class="{{ input_style }}">
-                            {{ form_row(form.passportSeries) }}
-                        </div>
-                        <div class="{{ input_style }}">
-                            {{ form_row(form.passportNumber) }}
-                        </div>
-                    </div>
-                    <div class="{{ input_row_style }}">
-                        <div class="{{ input_style }}">
-                            {{ form_row(form.departmentCode) }}
-                        </div>
-                        <div class="{{ input_style }}">
-                            {{ form_row(form.issueDate) }}
-                        </div>
-                    </div>
-                    <div class="{{ input_row_style }}">
-                        <div class="{{ input_style }}">
-                            {{ form_row(form.department) }}
-                        </div>
-                        <div class="{{ input_style }}">
-                            {{ form_row(form.regPlace) }}
                         </div>
                     </div>
                 {% endblock %}

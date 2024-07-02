@@ -2,13 +2,12 @@
 
 namespace App\Controller\Loan;
 
+use App\Controller\Session;
 use App\Entity\LoanRequest;
-use App\Entity\Offer;
 use App\Entity\PhoneVerifyJob;
-use App\Entity\Push;
 use App\Form\LoanRequestType;
-use App\Service\Auth\Access\SessionFlags;
-use App\Service\Checker\Service;
+use App\Service\Auth\Access\RegistrationType;
+use App\Service\Auth\Access\UserActionsChecker;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,31 +19,30 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/loan', name: 'loan_')]
 class LoanController extends AbstractController
 {
-
     #[Route('/welcome', name: 'welcome')]
-    public function welcome(Request $request) : Response
+    public function welcome(Request $request, UserActionsChecker $actionChecker) : Response
     {
-        if ($request->getSession()->get(SessionFlags::PHONE_VERIFIED, false)) {
+        if ($actionChecker->isPhoneVerified($request)) {
             return $this->redirectToRoute('loan_form_show');
         }
 
-        if ($request->getSession()->get(SessionFlags::USER_REGISTERED, false)) {
+        if ($actionChecker->isUserRegistered($request)) {
             return $this->redirectToRoute('user_offer_index');
         }
 
-        $request->getSession()->set(SessionFlags::USER_REGISTERED, false);
+        $request->getSession()->set(Session::RegistrationType->value, RegistrationType::Long->value);
 
         return $this->render('@loan/welcome/index.html.twig');
     }
 
     #[Route('/form', name: 'form_show')]
-    public function formShow(Request $request) : Response
+    public function formShow(Request $request, UserActionsChecker $actionChecker) : Response
     {
-        if (!$request->getSession()->get(SessionFlags::PHONE_VERIFIED, false)) {
+        if (!$actionChecker->isPhoneVerified($request)) {
             return $this->redirectToRoute('loan_welcome');
         }
 
-        if ($request->getSession()->get(SessionFlags::USER_REGISTERED, false)) {
+        if ($actionChecker->isUserRegistered($request)) {
             return $this->redirectToRoute('user_offer_index');
         }
 
@@ -53,14 +51,14 @@ class LoanController extends AbstractController
 
         return $this->render('@loan/form/index.html.twig', [
             'form' => $this->createForm(LoanRequestType::class, $loanRequest)->createView(),
-            'verified' => $request->getSession()->get(SessionFlags::PHONE_VERIFIED, false)
+            'verified' => $request->getSession()->get(Session::PhoneVerified->value, false)
         ]);
     }
 
     #[Route('/form/submit', name: 'form_submit', methods: ['POST'])]
-    public function formSubmit(Request $request, EntityManagerInterface $entityManager, LoggerInterface $telegramLogger) : Response
+    public function formSubmit(UserActionsChecker $actionChecker, Request $request, EntityManagerInterface $entityManager, LoggerInterface $telegramLogger) : Response
     {
-        if (!$request->getSession()->get(SessionFlags::PHONE_VERIFIED, false)) {
+        if (!$actionChecker->isPhoneVerified($request)) {
             return $this->redirectToRoute('loan_welcome');
         }
 
@@ -90,7 +88,7 @@ class LoanController extends AbstractController
             $entityManager->persist($job->setIsActive(false));
             $entityManager->persist($loanRequest);
             $entityManager->flush();
-            $request->getSession()->set(SessionFlags::USER_REGISTERED, true);
+            $request->getSession()->set(Session::FormPass->value, true);
         } catch (\Throwable $exception) {
             $telegramLogger->notice('Error during save loan entity in db', [
                 'error' => $exception->getMessage(),

@@ -19,13 +19,14 @@ trait PhoneFetcherTrait
 
     protected function fetchPhone(Request $request) : void
     {
-        $phone = $request->request->get('phone');
+        $phone = $request->query->get('phone') ??
+            $request->request->get('phone');
 
         if (empty($phone)) {
             throw new InvalidPhoneNumberException();
         }
 
-        preg_match('#\+7\((\d{3})\)(\d{3})-(\d{2})-(\d{2})#', $phone, $matches);
+        preg_match('#\.?7\((\d{3})\)(\d{3})-(\d{2})-(\d{2})#', $phone, $matches);
 
         if (empty($matches)) {
             throw new InvalidPhoneNumberException();

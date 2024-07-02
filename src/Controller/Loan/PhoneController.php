@@ -2,10 +2,11 @@
 
 namespace App\Controller\Loan;
 
+use App\Controller\Session;
 use App\Event\UserRequestVerifyPhoneEvent;
-use App\Service\Auth\Access\SessionFlags;
+use App\Form\Exception\ClientErrorAwareInterface;
+use App\Service\Auth\Access\UserActionsChecker;
 use App\Service\Auth\DTO\VerifyCodeRequest;
-use App\Service\Auth\Exception\PhoneVerify\ClientErrorAwareInterface;
 use App\Service\Auth\PhoneVerifier;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,11 +31,10 @@ class PhoneController extends AbstractController
     }
 
     #[Route('/verify', name: 'code_verify', methods: 'POST')]
-    public function verifyCode(Request $request, PhoneVerifier $phoneVerifier) : JsonResponse
+    public function verifyCode(Request $request, PhoneVerifier $phoneVerifier, UserActionsChecker $actionChecker) : JsonResponse
     {
         try {
             $phoneVerifier->verify(VerifyCodeRequest::create($request));
-            $request->getSession()->set(SessionFlags::PHONE_VERIFIED, true);
         } catch (ClientErrorAwareInterface $exception) {
             //todo add logs for exceptions
             return new JsonResponse(['error' => $exception->getClientMessage()], Response::HTTP_BAD_REQUEST);

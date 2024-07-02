@@ -2,7 +2,7 @@
 
 namespace App\Service\Checker\Dupe;
 
-use App\Service\Auth\Exception\PhoneVerify\ClientErrorAwareInterface;
+use App\Form\Exception\ClientErrorAwareInterface;
 
 class DupePhoneException extends \Exception implements ClientErrorAwareInterface
 {

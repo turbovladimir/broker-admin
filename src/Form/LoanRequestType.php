@@ -3,20 +3,11 @@
 namespace App\Form;
 
 use App\Entity\LoanRequest;
-use App\Entity\Offer;
-use Doctrine\DBAL\Types\FloatType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\File;
-use Symfony\Component\Validator\Constraints\Image;
 
 class LoanRequestType extends AbstractType
 {
@@ -58,57 +49,12 @@ class LoanRequestType extends AbstractType
                 ],
                 'attr' => ['class' => 'form-control-lg loan_form_input email_mask', 'placeholder' => "Электронная почта"],
             ])
-            ->add('passportSeries', NumberType::class,  [
-                'label' => false,
-                'row_attr' => [
-                    'class' => 'form-group form-group-lg mb-3'
-                ],
-                'attr' => ['class' => 'form-control-lg loan_form_input', 'placeholder' => "Серия"],
-            ])
-            ->add('passportNumber', NumberType::class,  [
-                'label' => false,
-                'row_attr' => [
-                    'class' => 'form-group form-group-lg mb-3'
-                ],
-                'attr' => ['class' => 'form-control-lg loan_form_input', 'placeholder' => "Номер"],
-            ])
-            ->add('departmentCode', TextType::class,  [
-                'label' => false,
-                'row_attr' => [
-                    'class' => 'form-group form-group-lg mb-3'
-                ],
-                'attr' => ['class' => 'form-control-lg loan_form_input suggest_dep_code', 'placeholder' => "Код подразделения"],
-            ])
-            ->add('issueDate', TextType::class,  [
-                'label' => false,
-                'row_attr' => [
-                    'class' => 'form-group form-group-lg mb-3'
-                ],
-                'attr' => ['class' => 'form-control-lg loan_form_input date_mask', 'placeholder' => "дд.мм.гггг Дата выдачи"],
-            ])
-            ->add('department', TextType::class,  [
-                'label' => false,
-                'row_attr' => [
-                    'class' => 'form-group form-group-lg mb-3'
-                ],
-                'attr' => ['class' => 'form-control-lg loan_form_input', 'placeholder' => "Кем выдан"],
-            ])
             ->add('birthPlace', TextType::class,  [
                 'label' => false,
                 'row_attr' => [
                     'class' => 'form-group form-group-lg mb-3'
                 ],
                 'attr' => ['class' => 'form-control-lg loan_form_input suggest_city', 'placeholder' => "Место рождения"],
-            ])
-            ->add('regPlace', TextType::class,  [
-                'label' => false,
-                'row_attr' => [
-                    'class' => 'form-group form-group-lg mb-3'
-                ],
-                'attr' => [
-                    'class' => 'form-control-lg loan_form_input suggest_address',
-                    'placeholder' => "Адрес регистрации"
-                ],
             ])
         ;
     }

@@ -2,7 +2,7 @@
 
 namespace App\Service\Checker;
 
-use App\Service\Auth\Exception\PhoneVerify\ClientErrorAwareInterface;
+use App\Form\Exception\ClientErrorAwareInterface;
 use App\Service\Checker\DTO\CheckerResult;
 use App\Service\Rest\Exception\InvalidResponseBodyException;
 use GuzzleHttp\Exception\BadResponseException;

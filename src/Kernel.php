@@ -13,5 +13,6 @@ class Kernel extends BaseKernel
     {
         parent::__construct($environment, $debug);
         date_default_timezone_set('Europe/Moscow');
+        setlocale(LC_ALL, 'ru_RU.utf8');
     }
 }
