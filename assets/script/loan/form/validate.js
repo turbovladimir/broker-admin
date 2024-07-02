@@ -63,7 +63,6 @@ const Validator = {
         return subDate;
     },
     addError: function (input, message) {
-        console.log('addError');
         input.addClass(this.errorInputClass);
         const errorBlock = $('#block_error');
         let hasErrorMessage = false;

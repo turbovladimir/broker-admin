@@ -11,7 +11,6 @@ const CodeRequester = {
 
         }).fail(function (data) {
             if (data.responseJSON.error !== undefined) {
-                console.log(data.responseJSON.error);
 
                 if ($('#modal-block-error').is(':empty')) {
                     $(`<div class="row row-cols-1 g-3 mb-4">

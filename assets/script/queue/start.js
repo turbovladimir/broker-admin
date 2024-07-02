@@ -9,14 +9,11 @@ $(function (){
         const jobNum =  clone.find('#job_num');
         let n = jobNum.text();
         jobNum.text(++n);
-        console.log(jobNum.text());
         document.body.dispatchEvent(new Event('createHtml'));
     })
 
 
     $('#btn_close').on('click', function(event){
-        console.log('brn close trigger');
-
         if (document.getElementsByClassName('message-setting').length > 1) {
             event.target.parentElement.parentElement.parentElement.remove();
             cloneTimes--;

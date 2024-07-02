@@ -1,4 +1,3 @@
-console.log('redirect');
 console.time("register user");
 $.ajax({
     async: false,
