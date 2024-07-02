@@ -69,6 +69,21 @@ when@beta:
                 type: stream
                 path: "%kernel.logs_dir%/%kernel.environment%.log"
                 level: debug
+            rest:
+                type: rotating_file
+                max_files: 4
+                path: "%kernel.logs_dir%/rest/rest.log"
+                channels: [ 'rest' ]
+            sms:
+                type: rotating_file
+                max_files: 4
+                path: "%kernel.logs_dir%/sms/sms.log"
+                channels: [ 'sms' ]
+            checker:
+                type: rotating_file
+                max_files: 4
+                path: "%kernel.logs_dir%/checker/checker.log"
+                channels: [ 'checker' ]
 
 when@test:
     monolog:
