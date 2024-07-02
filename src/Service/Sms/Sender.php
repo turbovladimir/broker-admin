@@ -20,7 +20,7 @@ class Sender
         private LoggerInterface $smsLogger
     ){}
 
-    public function massSending(SendingSmsJob ...$jobs)
+    public function massSending(array $jobs) : void
     {
         foreach ($jobs as $job) {
             $phone = $job->getContact()->getPhone();

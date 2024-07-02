@@ -17,7 +17,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.min.css';
 import 'bootstrap';
 import '@popperjs/core';
-import {Mask} from "./loan/mask.js";
+import 'jquery-mask-plugin';
 
 
 $(document).on({
@@ -29,8 +29,6 @@ $(document).on({
     }
 });
 
-document.body.addEventListener('custom', () => {console.log('trigger2 custom event')})
-
 
 $(function () {
     App.init();
@@ -38,7 +36,11 @@ $(function () {
 
 const App = {
     init: function () {
-        Mask($);
+        document.body.addEventListener('createHtml', function () {
+            Mask($);
+        })
+
+        document.body.dispatchEvent(new Event('createHtml'));
 
         if (window.env === 'prod') {
             (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -69,15 +71,31 @@ const App = {
             $('.code').on('input_code_fail', function () {
                 ym(window.counter_id, 'reachGoal', 'input_code_fail');
             })
-            $('#btn_continue').on('frm_step_1_success', function () {
-                ym(window.counter_id, 'reachGoal', 'frm_step_1_success');
-            })
-            $('#btn_from_sbm').on('frm_step_2_success', function () {
-                ym(window.counter_id, 'reachGoal', 'frm_step_2_success');
+            $('#btn_from_sbm').on('frm_step_success', function () {
+                ym(window.counter_id, 'reachGoal', 'frm_step_success');
             })
             $('.lnk-offer-rdr').on('click', function () {
                 ym(window.counter_id, 'reachGoal', 'lnk-offer-rdr');
             })
         }
     }
+}
+
+const Mask = ($) => {
+    console.log('init masks');
+    $(".phone_mask").mask("+7(999)999-99-99").on('click', function () {
+        if ($(this).val() === '+7(___)___-__-__') {
+            $(this).get(0).setSelectionRange(0, 0);
+        }
+    });
+    $("#loan_request_passportSeries").mask('0000');
+    $("#loan_request_passportNumber").mask('000000');
+    $("#loan_request_departmentCode").mask('000-000');
+    $(".date_mask").mask('00.00.0000');
+    $(".datetime_mask").mask('00.00.0000 00:00').attr('placeholder', '01.01.2024 14:00');
+    $('.email_mask').mask("A", {
+        translation: {
+            "A": {pattern: /[\w@\-.+]/, recursive: true}
+        }
+    });
 }

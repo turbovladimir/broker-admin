@@ -43,10 +43,11 @@ class SendingSmsJob
     #[ORM\JoinColumn(nullable: false)]
     private ?SmsQueue $smsQueue = null;
 
-    public function __construct(\DateTime $time)
+    public function __construct(\DateTime $time, SmsQueue $queue)
     {
         $this->addedAt = new \DateTime();
         $this->sendingTime = $time;
+        $this->smsQueue = $queue;
     }
 
     public function getId(): ?int

@@ -1,0 +1,35 @@
+{% extends'@loan/base.html.twig' %}
+{% set title = 'Подбор предложений' %}
+{% set js_modules = ['redirect'] %}
+{% block container %}
+    <div class="dark_wrap p-5">
+        <div class="align-content-center justify-content-center message-div row row-cols-2">
+            <div class="col-auto">
+                <div class="spinner"></div>
+            </div>
+            <div class="align-content-center col-auto">
+                <span class="message">Подбираем выгодные предложения специально для вас.</span>
+            </div>
+
+        </div>
+    </div>
+    <style>
+        .dark_wrap {
+            background-color: black;
+            opacity: 70%;
+            position: absolute;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            top: 0;
+        }
+        .message {
+            color: white;
+            font-family: Inter-600;
+            font-size: var(--h3-size);
+        }
+        .message-div {
+            margin-top: 10%;
+        }
+    </style>
+{% endblock %}

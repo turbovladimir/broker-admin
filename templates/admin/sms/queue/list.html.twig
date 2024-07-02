@@ -4,13 +4,37 @@
     <a href="{{ path('admin_sms_queue_create') }}" class="btn btn-primary">Создать</a>
 {% endblock %}
 {% block card_body %}
-    <div class="row row-cols-1 justify-content-center">
+    <div class="row row-cols-1 justify-content-center w-50">
         {% if queues is empty %}
             <h5>Здесь скоро появятся рассылки, как только вы их создадите</h5>
         {% else %}
             {% for queue in queues %}
-                <div class="col mt-1 queue_row">
-                    <span>#{{ queue.id }} создана: {{ queue.addedAt|date('Y-m-d H:i:s') }} статус: {{ queue.getStatusValue() }}</span> {% if queue.isNew() %}<a class="position-absolute pl-1" href="{{ path('admin_sms_queue_start', {'queue': queue.id}) }}"><img style="width: 25px; padding-left: 10px" alt="" src="{{ asset('content/img/email.svg') }}"/>{% endif %}</a>
+                {% if queue.status == 'В процессе' or queue.status == 'Новая' %}
+                    {% set queue_status = 'btn-secondary' %}
+                {% elseif queue.status == 'Отправлено' %}
+                    {% set queue_status = 'btn-success' %}
+                    {% endif %}
+                <div class="col mt-1 queue_row row">
+                    <div class="col-auto">
+                        <button type="button" class="btn btn-outline-secondary">#{{ queue.id }}</button>
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" class="btn btn-outline-secondary">{{ queue.added_at|date('Y-m-d H:i:s') }}</button>
+                    </div>
+                    <div class="col">
+                        <button type="button" class="btn {{ queue_status }}">{{ queue.status }}</button>
+                    </div>
+                    {% if queue.status == 'Новая' %}
+                        <div class="col-auto">
+                            <a href="{{ path('admin_sms_queue_start', {'queue': queue.id}) }}">
+                                <button type="button" class="btn btn-dark">Настроить</button>
+                            </a>
+                        </div>
+                    {% else %}
+                        <div class="col-auto">
+                            <button type="button" class="btn btn-dark"><span class="queued_cnt">{{ queue.queued }}</span> <span class="sent_cnt">{{ queue.sent }}</span> <span class="error_cnt">{{ queue.error }}</span></button>
+                        </div>
+                    {% endif %}
                 </div>
             {% endfor %}
         {% endif %}
@@ -21,6 +45,15 @@
             background: #e1e1e1;
             border-radius: var(--border-radius);
             color: #5594cb;
+        }
+        .queued_cnt{
+            color: white;
+        }
+        .sent_cnt{
+            color: #00ee00;
+        }
+        .error_cnt{
+            color: red;
         }
     </style>
 {% endblock %}

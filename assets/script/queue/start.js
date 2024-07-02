@@ -1,34 +1,41 @@
-let cloneTimes = 1;
-console.log($);
+$(function (){
+    let cloneTimes = 1;
 // document.body.addEventListener('custom', () => {console.log('custom event')});
 
-function addSetting() {
-    const settings = document.getElementsByClassName('message-setting');
-    const clone = settings[0].cloneNode(true);
-    clone.id = `message-setting-${cloneTimes}`;
-    document.body.dispatchEvent(new Event('custom'));
-    document.getElementById('settings-stack').appendChild(clone);
-    const num = document.querySelector('#'+ clone.id).querySelector('#job_num');
-    num.innerHTML = ++cloneTimes;
-}
+    $('#btn_add_q').on('click', function () {
+        const clone = $('.message-setting').last().clone(true);
+        $('#settings-stack').append(clone);
+        $(".datetime_mask").mask('00.00.0000 00:00').attr('placeholder', '01.01.2024 14:00');
+        const jobNum =  clone.find('#job_num');
+        let n = jobNum.text();
+        jobNum.text(++n);
+        console.log(jobNum.text());
+        document.body.dispatchEvent(new Event('createHtml'));
+    })
 
-function closeSetting(elem) {
-    if (document.getElementsByClassName('message-setting').length > 1) {
-        elem.parentElement.parentElement.parentElement.remove();
-        cloneTimes--;
-    }
-}
 
-function start() {
-    let settings = [];
+    $('#btn_close').on('click', function(event){
+        console.log('brn close trigger');
 
-    document.querySelectorAll('.message-setting').forEach((settingHtml) => {
-        settings.push({
-            'sending_time': settingHtml.querySelector('#sending_time').value,
-            'message': settingHtml.querySelector('#message').value
-        })
+        if (document.getElementsByClassName('message-setting').length > 1) {
+            event.target.parentElement.parentElement.parentElement.remove();
+            cloneTimes--;
+        }
     });
 
-    document.querySelector('#start_sending_settings').value = JSON.stringify(settings)
-    document.querySelector('form[name="start_sending"]').submit();
-}
+    $('#btn_start_q').on('click',
+        function () {
+            let settings = [];
+
+            document.querySelectorAll('.message-setting').forEach((settingHtml) => {
+                settings.push({
+                    'sending_time': settingHtml.querySelector('#sending_time').value,
+                    'message': settingHtml.querySelector('#message').value
+                })
+            });
+
+            document.querySelector('#start_sending_settings').value = JSON.stringify(settings)
+            document.querySelector('form[name="start_sending"]').submit();
+        });
+});
+

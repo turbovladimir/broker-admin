@@ -21,6 +21,21 @@ class SmsQueueRepository extends ServiceEntityRepository
         parent::__construct($registry, SmsQueue::class);
     }
 
+    public function getList() : array
+    {
+        $sql = "
+            select q.id, q.status, q.added_at,
+       sum(case when ssj.status = 'in_queue' then 1 else 0 end ) queued,
+       sum(case when ssj.status = 'sent' then 1 else 0 end ) sent,
+       sum(case when ssj.status = 'error' then 1 else 0 end ) error
+            from sms_queue q
+            left join public.sending_sms_job ssj on q.id = ssj.sms_queue_id
+            group by q.id
+            ;
+        ";
+        return $this->getEntityManager()->getConnection()->fetchAllAssociative($sql);
+    }
+
     //    /**
     //     * @return SmsQueue[] Returns an array of SmsQueue objects
     //     */

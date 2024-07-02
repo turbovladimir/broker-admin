@@ -3,54 +3,45 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Contact;
+use App\Entity\QueueStatus;
 use App\Entity\SendingSmsJob;
 use App\Entity\Sms;
 use App\Entity\SmsQueue;
+use App\Event\AdminCreateDistributionEvent;
 use App\Form\DTO\StartSendingRequest;
 use App\Form\SmsQueueType;
 use App\Form\StartSendingType;
 use App\Repository\SmsQueueRepository;
-use App\Service\Rest\Client;
 use Doctrine\ORM\EntityManagerInterface;
-use Psr\Http\Client\ClientInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 #[Route('/admin/sms', name: 'admin_sms_')]
-class SmsSendingController extends AbstractController
+class QueueController extends AbstractController
 {
 
     #[Route('/qs', name: 'queues_list')]
     public function queuesList(SmsQueueRepository $smsQueueRepository) : Response
     {
         return $this->render('@admin/sms/queue/list.html.twig', [
-            'queues' => $smsQueueRepository->findAll()
+            'queues' => $smsQueueRepository->getList()
         ]);
     }
 
     #[Route('/q/create', name: 'queue_create')]
-    public function queueCreate(Request $request, EntityManagerInterface $entityManager, Filesystem $filesystem) : Response
+    public function queueCreate(Request $request, EventDispatcherInterface $dispatcher) : Response
     {
         $queue = new SmsQueue();
         $form = $this->createForm(SmsQueueType::class, $queue);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var UploadedFile $file */
-            $file = current($request->files->get('sms_queue'));
-            $dir = $this->getParameter('kernel.project_dir') . '/var/tmp/contacts/new';
-
-            if (!$filesystem->exists($dir)) {
-                $filesystem->mkdir($dir);
-            }
-
-            $file->move($dir, $file->getClientOriginalName());
-            $entityManager->persist($queue->setFilePath($dir . '/' . $file->getClientOriginalName()));
-            $entityManager->flush();
+            $dispatcher->dispatch(new AdminCreateDistributionEvent($request, $queue));
 
             return $this->redirectToRoute('admin_sms_queues_list');
         }
@@ -69,29 +60,35 @@ class SmsSendingController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $settings = $dto->getSettings();
-            $jobs = [];
 
             foreach ($settings as $setting) {
                 //todo add redirect type
-                $jobs[] = (new SendingSmsJob($setting['sending_time']))->setSms(new Sms($setting['message']));
+                foreach ($queue->getContacts()->toArray() as $contact) {
+                    $time = \DateTime::createFromFormat('d.m.Y H:i', $setting['sending_time']);
+                    $entityManager->persist($contact->addSendingSmsJob((new SendingSmsJob($time, $queue))
+                        ->setSms($this->createSms($setting['message'], $contact, $queue)))
+                    );
+                }
             }
 
-            $queue->getContacts()->map(function (Contact $contact) use ($jobs) {
-                foreach ($jobs as $job) {
-                    $contact->addSendingSmsJob($job);
-                }
-            });
-
-            $entityManager->persist($queue);
+            $entityManager->persist($queue->setStatus(QueueStatus::InProcess));
             $entityManager->flush();
 
-            return $this->render('@admin/sms/queue/list.html.twig');
+            return $this->redirectToRoute('admin_sms_queues_list');
         }
 
         return $this->render('@admin/sms/queue/start.html.twig', [
             'queue' => $queue,
             'form' => $form->createView()
         ]);
+    }
+
+    private function createSms(string $text, Contact $contact, SmsQueue $queue) : Sms
+    {
+        $url = $this->generateUrl('redirect', ['contact' => $contact->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
+        $text = str_replace('#url#', $url, $text);
+
+        return (new Sms($text))->setSmsQueue($queue);
     }
 
 }

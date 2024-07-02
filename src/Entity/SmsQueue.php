@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 enum QueueStatus: string {
     case New = 'Новая';
-    case InProcess = 'В процессе отправки';
+    case InProcess = 'В процессе';
     case Sent = 'Отправлено';
 }
 
@@ -31,21 +31,21 @@ class SmsQueue
     #[ORM\OneToMany(targetEntity: SendingSmsJob::class, mappedBy: 'smsQueue', cascade: ['persist'], orphanRemoval: true)]
     private Collection $jobs;
 
-    #[ORM\OneToMany(targetEntity: Contact::class, mappedBy: 'smsQueue')]
-    private Collection $contacts;
-
     #[ORM\OneToMany(targetEntity: Sms::class, mappedBy: 'smsQueue', cascade: ['persist'], orphanRemoval: true)]
     private Collection $smses;
 
     #[ORM\Column(length: 255)]
     private ?string $filePath = null;
 
+    #[ORM\OneToMany(targetEntity: Contact::class, mappedBy: 'queue')]
+    private Collection $contacts;
+
     public function __construct()
     {
         $this->jobs = new ArrayCollection();
-        $this->contacts = new ArrayCollection();
         $this->smses = new ArrayCollection();
         $this->addedAt = new \DateTime();
+        $this->contacts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -89,6 +89,15 @@ class SmsQueue
     {
         return $this->jobs;
     }
+    public function addJob(SendingSmsJob $job): static
+    {
+        if (!$this->jobs->contains($job)) {
+            $this->jobs->add($job);
+            $job->setSmsQueue($this);
+        }
+
+        return $this;
+    }
 
     public function removeJob(SendingSmsJob $job): static
     {
@@ -96,36 +105,6 @@ class SmsQueue
             // set the owning side to null (unless already changed)
             if ($job->getSmsQueue() === $this) {
                 $job->setSmsQueue(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Contact>
-     */
-    public function getContacts(): Collection
-    {
-        return $this->contacts;
-    }
-
-    public function addContact(Contact $contact): static
-    {
-        if (!$this->contacts->contains($contact)) {
-            $this->contacts->add($contact);
-            $contact->setSmsQueue($this);
-        }
-
-        return $this;
-    }
-
-    public function removeContact(Contact $contact): static
-    {
-        if ($this->contacts->removeElement($contact)) {
-            // set the owning side to null (unless already changed)
-            if ($contact->getSmsQueue() === $this) {
-                $contact->setSmsQueue(null);
             }
         }
 
@@ -170,6 +149,36 @@ class SmsQueue
     public function setFilePath(string $filePath): static
     {
         $this->filePath = $filePath;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Contact>
+     */
+    public function getContacts(): Collection
+    {
+        return $this->contacts;
+    }
+
+    public function addContact(Contact $contact): static
+    {
+        if (!$this->contacts->contains($contact)) {
+            $this->contacts->add($contact);
+            $contact->setQueue($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContact(Contact $contact): static
+    {
+        if ($this->contacts->removeElement($contact)) {
+            // set the owning side to null (unless already changed)
+            if ($contact->getQueue() === $this) {
+                $contact->setQueue(null);
+            }
+        }
 
         return $this;
     }

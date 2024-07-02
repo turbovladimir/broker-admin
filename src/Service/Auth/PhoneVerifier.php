@@ -2,6 +2,8 @@
 
 namespace App\Service\Auth;
 
+use App\Controller\Session;
+use App\Entity\Contact;
 use App\Entity\PhoneVerifyJob;
 use App\Service\Auth\DTO\VerifyCodeRequest;
 use App\Service\Auth\Exception\PhoneVerify\ExpiredCodeException;
@@ -55,9 +57,11 @@ class PhoneVerifier
 
     public function verify(VerifyCodeRequest $request) : bool
     {
+        $s = $request->getSession();
+
         /** @var PhoneVerifyJob $job */
         $job = $this->entityManager->getRepository(PhoneVerifyJob::class)->findActiveJob(
-            $request->getSessionId(),
+            $s->getId(),
             $request->getCode(),
             $request->getPhone()
         );
@@ -71,7 +75,12 @@ class PhoneVerifier
         }
 
         $this->entityManager->persist($job->setIsVerified(true));
+        $c = new Contact($job->getPhone());
+        $this->entityManager->persist($c);
         $this->entityManager->flush();
+
+        $s->set(Session::PhoneVerified->value, true);
+        $s->set(Session::Contact->value, $c->getContactId());
 
         return true;
     }

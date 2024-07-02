@@ -20,12 +20,16 @@ return [
         'path' => './assets/script/jquery.js',
         'entrypoint' => true,
     ],
-    'start_queue' => [
-        'path' => './assets/script/queue/start.js',
+    'redirect' => [
+        'path' => './assets/script/loan/redirect.js',
         'entrypoint' => true,
     ],
-    'loan_validate' => [
-        'path' => './assets/script/loan/validate.js',
+    'loan_form' => [
+        'path' => './assets/script/loan/form.js',
+        'entrypoint' => true,
+    ],
+    'start_queue' => [
+        'path' => './assets/script/queue/start.js',
         'entrypoint' => true,
     ],
     'loan_phone' => [
@@ -74,9 +78,9 @@ return [
         'type' => 'css',
     ],
     'jquery-ui' => [
-        'version' => '1.13.2',
+        'version' => '1.13.3',
     ],
     'jquery-ui/dist/jquery-ui.min.js' => [
-        'version' => '1.13.2',
+        'version' => '1.13.3',
     ],
 ];

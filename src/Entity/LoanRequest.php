@@ -35,24 +35,6 @@ class LoanRequest
     #[ORM\Column(length: 30)]
     private ?string $email = null;
 
-    #[ORM\Column]
-    private ?int $passportSeries = null;
-
-    #[ORM\Column]
-    private ?int $passportNumber = null;
-
-    #[ORM\Column]
-    private ?int $departmentCode = null;
-
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $issueDate = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $department = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $regPlace = null;
-
     #[ORM\Column(length: 100)]
     private ?string $birthPlace = null;
 
@@ -149,78 +131,6 @@ class LoanRequest
         return $this;
     }
 
-    public function getPassportSeries(): ?int
-    {
-        return $this->passportSeries;
-    }
-
-    public function setPassportSeries(int $passportSeries): static
-    {
-        $this->passportSeries = $passportSeries;
-
-        return $this;
-    }
-
-    public function getPassportNumber(): ?int
-    {
-        return $this->passportNumber;
-    }
-
-    public function setPassportNumber(int $passportNumber): static
-    {
-        $this->passportNumber = $passportNumber;
-
-        return $this;
-    }
-
-    public function getDepartmentCode(): ?int
-    {
-        return $this->departmentCode;
-    }
-
-    public function setDepartmentCode($departmentCode): static
-    {
-        $this->departmentCode = (int)str_replace('-', '', $departmentCode);
-
-        return $this;
-    }
-
-    public function getIssueDate(): ?\DateTimeInterface
-    {
-        return $this->issueDate;
-    }
-
-    public function setIssueDate(string $issueDate): static
-    {
-        $this->issueDate = new \DateTime($issueDate);
-
-        return $this;
-    }
-
-    public function getDepartment(): ?string
-    {
-        return $this->department;
-    }
-
-    public function setDepartment(string $department): static
-    {
-        $this->department = $department;
-
-        return $this;
-    }
-
-    public function getRegPlace(): ?string
-    {
-        return $this->regPlace;
-    }
-
-    public function setRegPlace(string $regPlace): static
-    {
-        $this->regPlace = $regPlace;
-
-        return $this;
-    }
-
     public function getBirthPlace(): ?string
     {
         return $this->birthPlace;
@@ -232,4 +142,5 @@ class LoanRequest
 
         return $this;
     }
+
 }

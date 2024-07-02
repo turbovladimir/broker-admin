@@ -1,17 +1,17 @@
 const Validator = {
-    stepId: null,
+    formId: null,
     inputs: [],
     errorInputClass: 'error_input',
     errorTextClass: 'error-text',
-    Init: function (stepId) {
-        this.stepId = stepId;
-        this.inputs = $(`#${this.stepId}`).find('input');
+    Init: function (formId) {
+        this.formId = formId;
+        this.inputs = $(`#${this.formId}`).find('input');
         this.inputs.on({
             focusout: e => this.validate($(e.target)),
             focusin: e => this.removeError($(e.target)),
         });
     },
-    IsValid: function () {
+    hasErrors: function () {
         this.inputs.each((i, input) => {
             this.validate($(input));
         });

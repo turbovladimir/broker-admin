@@ -4,6 +4,7 @@ namespace App\Service\Auth\DTO;
 
 use App\Service\Auth\Exception\PhoneVerify\InvalidFormatCodeException;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class VerifyCodeRequest
 {
@@ -12,7 +13,7 @@ class VerifyCodeRequest
     const CODE_LENGTH = 4;
 
     private int $code;
-    private string $sessionId;
+    private SessionInterface $session;
     private \DateTime $time;
 
     /**
@@ -26,9 +27,9 @@ class VerifyCodeRequest
     /**
      * @return string
      */
-    public function getSessionId(): string
+    public function getSession(): SessionInterface
     {
-        return $this->sessionId;
+        return $this->session;
     }
 
     /**
@@ -52,7 +53,7 @@ class VerifyCodeRequest
         $code = $request->request->all('code');
         $obj->setCode($code);
         $obj->fetchPhone($request);
-        $obj->sessionId = $request->getSession()->getId();
+        $obj->session = $request->getSession();
         $obj->time = new \DateTime();
 
         return $obj;

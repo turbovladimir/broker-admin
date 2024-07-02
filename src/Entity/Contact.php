@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enums\ContactSource;
 use App\Repository\ContactRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -19,25 +20,30 @@ class Contact
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $addedAt = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 100, nullable: true)]
     private ?string $name = null;
 
     #[ORM\Column(length: 20)]
     private ?string $phone = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 50, unique: true)]
     private ?string $contactId = null;
 
-    #[ORM\OneToMany(targetEntity: SendingSmsJob::class, mappedBy: 'contact')]
+    #[ORM\OneToMany(targetEntity: SendingSmsJob::class, mappedBy: 'contact', cascade: ['persist'])]
     private Collection $sendingSmsJobs;
 
     #[ORM\ManyToOne(inversedBy: 'contacts')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?SmsQueue $smsQueue = null;
+    private ?SmsQueue $queue = null;
 
-    public function __construct()
+    #[ORM\Column(length: 20)]
+    private string $source = ContactSource::Direct->value;
+
+    public function __construct(string $phone)
     {
+        $this->setPhone($phone);
+        $this->addedAt = new \DateTime();
         $this->sendingSmsJobs = new ArrayCollection();
+        $this->generateContactId();
     }
 
     public function getId(): ?int
@@ -74,7 +80,7 @@ class Contact
         return $this->phone;
     }
 
-    public function setPhone(string $phone): static
+    private function setPhone(string $phone): static
     {
         $this->phone = $phone;
 
@@ -86,11 +92,10 @@ class Contact
         return $this->contactId;
     }
 
-    public function setContactId(string $contactId): static
+    public function generateContactId(): void
     {
+        $contactId =    substr(md5($this->getPhone() . $this->addedAt->getTimestamp()), 0, 15);
         $this->contactId = $contactId;
-
-        return $this;
     }
 
     /**
@@ -123,14 +128,26 @@ class Contact
         return $this;
     }
 
-    public function getSmsQueue(): ?SmsQueue
+    public function getQueue(): ?SmsQueue
     {
-        return $this->smsQueue;
+        return $this->queue;
     }
 
-    public function setSmsQueue(?SmsQueue $smsQueue): static
+    public function setQueue(?SmsQueue $queue): static
     {
-        $this->smsQueue = $smsQueue;
+        $this->queue = $queue;
+
+        return $this;
+    }
+
+    public function getSource(): ?string
+    {
+        return $this->source;
+    }
+
+    public function setSource(ContactSource $source): static
+    {
+        $this->source = $source->value;
 
         return $this;
     }
