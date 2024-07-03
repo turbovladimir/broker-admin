@@ -20,7 +20,7 @@ class ApiController extends AbstractController
     {
         $s = $request->getSession();
 
-        $contact = $repository->findBy(['contactId' => $s->get(Session::Contact->value)]);
+        $contact = $repository->findOneBy(['contactId' => $s->get(Session::Contact->value)]);
 
         if (!$contact) {
             return new JsonResponse([
