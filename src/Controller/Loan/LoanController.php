@@ -6,7 +6,7 @@ use App\Controller\Session;
 use App\Entity\LoanRequest;
 use App\Entity\PhoneVerifyJob;
 use App\Form\LoanRequestType;
-use App\Service\Auth\Access\RegistrationType;
+use App\Enums\RegistrationType;
 use App\Service\Auth\Access\UserActionsChecker;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;

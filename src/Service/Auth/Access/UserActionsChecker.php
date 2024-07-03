@@ -3,14 +3,7 @@
 namespace App\Service\Auth\Access;
 
 use App\Controller\Session;
-use App\Entity\Contact;
 use Symfony\Component\HttpFoundation\Request;
-
-enum RegistrationType : string
-{
-    case Short = 'short';
-    case Long = 'long';
-}
 
 final class UserActionsChecker
 {

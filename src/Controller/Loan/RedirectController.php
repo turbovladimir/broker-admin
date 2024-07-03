@@ -4,7 +4,7 @@ namespace App\Controller\Loan;
 
 use App\Controller\Session;
 use App\Entity\Contact;
-use App\Service\Auth\Access\RegistrationType;
+use App\Enums\RegistrationType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
