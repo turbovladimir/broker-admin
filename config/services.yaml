@@ -10,6 +10,7 @@ services:
     _defaults:
         bind:
             $env: '%kernel.environment%'
+            $domain: '%env(DOMAIN)%'
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 

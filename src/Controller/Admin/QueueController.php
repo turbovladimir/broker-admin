@@ -12,6 +12,7 @@ use App\Form\DTO\StartSendingRequest;
 use App\Form\SmsQueueType;
 use App\Form\StartSendingType;
 use App\Repository\SmsQueueRepository;
+use App\Service\Sms\Scheduler;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -51,27 +52,18 @@ class QueueController extends AbstractController
     }
 
     #[Route('/q/start/{queue}', name: 'queue_start')]
-    public function queueStart(SmsQueue $queue, Request $request, EntityManagerInterface $entityManager) : Response
+    public function queueStart(
+        SmsQueue $queue,
+        Request $request,
+        Scheduler $scheduler
+    ) : Response
     {
-        $dto = new StartSendingRequest();
+        $dto = new StartSendingRequest($queue);
         $form = $this->createForm(StartSendingType::class, $dto);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $settings = $dto->getSettings();
-
-            foreach ($settings as $setting) {
-                //todo add redirect type
-                foreach ($queue->getContacts()->toArray() as $contact) {
-                    $time = \DateTime::createFromFormat('d.m.Y H:i', $setting['sending_time']);
-                    $entityManager->persist($contact->addSendingSmsJob((new SendingSmsJob($time, $queue))
-                        ->setSms($this->createSms($setting['message'], $contact, $queue)))
-                    );
-                }
-            }
-
-            $entityManager->persist($queue->setStatus(QueueStatus::InProcess));
-            $entityManager->flush();
+            $scheduler->makeDistribution($dto);
 
             return $this->redirectToRoute('admin_sms_queues_list');
         }
@@ -80,14 +72,6 @@ class QueueController extends AbstractController
             'queue' => $queue,
             'form' => $form->createView()
         ]);
-    }
-
-    private function createSms(string $text, Contact $contact, SmsQueue $queue) : Sms
-    {
-        $url = $this->generateUrl('redirect', ['contact' => $contact->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
-        $text = str_replace('#url#', $url, $text);
-
-        return (new Sms($text))->setSmsQueue($queue);
     }
 
 }

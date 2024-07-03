@@ -2,13 +2,17 @@
 
 namespace App\Form\DTO;
 
-use App\Form\Exception\InvalidSmsMessage;
+use App\Entity\SmsQueue;
 
 class StartSendingRequest
 {
     const PLACEHOLDER_URL = '{{url}}';
 
     private array $settings;
+
+    public function __construct(public readonly SmsQueue $queue)
+    {
+    }
 
     /**
      * @param array $settings
