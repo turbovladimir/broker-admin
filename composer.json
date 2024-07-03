@@ -88,6 +88,7 @@
         }
     },
     "require-dev": {
+        "phpstan/phpstan-symfony": "^1.4",
         "symfony/maker-bundle": "*",
         "symfony/stopwatch": "7.0.*",
         "symfony/web-profiler-bundle": "7.0.*"

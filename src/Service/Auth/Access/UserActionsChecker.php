@@ -3,6 +3,7 @@
 namespace App\Service\Auth\Access;
 
 use App\Controller\Session;
+use App\Enums\RegistrationType;
 use Symfony\Component\HttpFoundation\Request;
 
 final class UserActionsChecker

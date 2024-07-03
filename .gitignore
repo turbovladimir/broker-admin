@@ -31,3 +31,7 @@ docker/app
 *.override.yaml
 *.log
 *.sql
+
+###> phpstan/phpstan ###
+phpstan.neon
+###< phpstan/phpstan ###
