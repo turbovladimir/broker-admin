@@ -4,6 +4,7 @@ namespace App\Service\Checker;
 
 use App\Form\Exception\ClientErrorAwareInterface;
 use App\Service\Checker\DTO\CheckerResult;
+use App\Service\Checker\Dupe\DupePhoneException;
 use App\Service\Rest\Exception\InvalidResponseBodyException;
 use GuzzleHttp\Exception\BadResponseException;
 use Psr\Log\LoggerInterface;
@@ -17,7 +18,7 @@ class Service
         private LoggerInterface $checkerLogger,
     ){}
 
-    public function checkPhone(string $phone) : CheckerResult
+    public function checkPhone(string $phone, bool $ignoreDupe = false) : CheckerResult
     {
         $result = new CheckerResult();
 
@@ -32,6 +33,10 @@ class Service
                     'body' => $exception->getBodySubstr()
                 ]);
             } catch (ClientErrorAwareInterface $exception) {
+                if ($exception instanceof DupePhoneException && $ignoreDupe) {
+                    continue;
+                }
+
                 throw $exception;
             } catch (BadResponseException $exception) {
                 $this->checkerLogger->error('Bad response', [

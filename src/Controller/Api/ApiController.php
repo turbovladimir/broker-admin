@@ -19,18 +19,21 @@ class ApiController extends AbstractController
     public function registerUser(Request $request, Service $service, ContactRepository $repository) : JsonResponse
     {
         $s = $request->getSession();
+        $offerIds = $s->get(Session::ExcludeOfferIds->value);
 
-        $contact = $repository->findOneBy(['contactId' => $s->get(Session::Contact->value)]);
+        if (!$offerIds) {
+            $contact = $repository->findOneBy(['contactId' => $s->get(Session::Contact->value)]);
 
-        if (!$contact) {
-            return new JsonResponse([
-                'error' => 'Cannot find user'
-            ], Response::HTTP_BAD_REQUEST);
+            if (!$contact) {
+                return new JsonResponse([
+                    'error' => 'Cannot find user'
+                ], Response::HTTP_BAD_REQUEST);
+            }
+
+            $offerIds = $service->checkPhone($contact->getPhone(), true)->getExcludeOfferIds();
+
+            $s->set(Session::ExcludeOfferIds->value, $offerIds);
         }
-
-        $offerIds = $service->checkPhone($contact->getPhone())->getExcludeOfferIds();
-
-        $s->set(Session::ExcludeOfferIds->value, $offerIds);
 
         return new JsonResponse(['data' => [
             'filter' => $offerIds,
