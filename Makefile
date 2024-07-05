@@ -8,7 +8,7 @@ build_prod:
 	docker-compose \
 		-f docker/compose_prod.yaml \
 	up -d
-	docker exec -it c-broker-prod composer install
+	docker exec -it c-broker-prod composer install --no-dev
 
 build_beta:
 	cp assets/content/img/admin/logo/prod/* assets/content/img/admin/logo/beta

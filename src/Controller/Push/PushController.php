@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class PushController extends AbstractController
 {
     #[Route('/get', name: 'get', methods: 'POST')]
-    public function get(Request $request, PushRepository $repository)
+    public function get(Request $request, PushRepository $repository) : JsonResponse
     {
         $path = $request->request->get('path');
         $push = $repository->findOneBy(['uri' => $path, 'isActive' => true]);

@@ -13,6 +13,12 @@ use Psr\Log\LoggerInterface;
 class Sender
 {
 
+    /**
+     * @param Client $client
+     * @param array<string> $credentals
+     * @param EntityManagerInterface $entityManager
+     * @param LoggerInterface $smsLogger
+     */
     public function __construct(
         private Client $client,
         private array $credentals,

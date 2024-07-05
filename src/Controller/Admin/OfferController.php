@@ -26,7 +26,7 @@ class OfferController extends AbstractController
     }
 
     #[Route('/edit/{offer}', name: 'edit')]
-    public function edit(Offer $offer, Request $request, EntityManagerInterface $entityManager, FileUploader $uploader)
+    public function edit(Offer $offer, Request $request, EntityManagerInterface $entityManager, FileUploader $uploader) : Response
     {
         $form = $this->createForm(OfferType::class, $offer);
         $form->handleRequest($request);

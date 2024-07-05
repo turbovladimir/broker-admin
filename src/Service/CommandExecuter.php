@@ -14,7 +14,7 @@ class CommandExecuter
     {
     }
 
-    public function executeCommand(ArrayInput $input)
+    public function executeCommand(ArrayInput $input) :void
     {
         $application = new Application($this->kernel);
         $application->setAutoExit(false);

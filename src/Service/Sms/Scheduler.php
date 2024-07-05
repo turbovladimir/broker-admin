@@ -19,7 +19,7 @@ class Scheduler
         private string $domain
     ){}
 
-    public function makeDistribution(StartSendingRequest $request)
+    public function makeDistribution(StartSendingRequest $request) : void
     {
         $settings = $request->getSettings();
         $queue = $request->queue;

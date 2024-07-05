@@ -25,7 +25,7 @@ class VerifyCodeRequest
     }
 
     /**
-     * @return string
+     * @return SessionInterface
      */
     public function getSession(): SessionInterface
     {

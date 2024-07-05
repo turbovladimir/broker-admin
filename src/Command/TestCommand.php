@@ -3,7 +3,6 @@
 namespace App\Command;
 
 use App\Repository\UserAccessRepository;
-use App\Service\Auth\Access\AccessManager;
 use App\Service\Checker\Service;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -24,7 +23,6 @@ class TestCommand extends Command
 {
     public function __construct(
         private MailerInterface $mailer,
-        private AccessManager $accessManager,
         private Service $checkerService,
         private UserAccessRepository $userAccessRepository,
     )

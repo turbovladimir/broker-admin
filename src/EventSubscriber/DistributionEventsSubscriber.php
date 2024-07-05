@@ -22,7 +22,7 @@ final class DistributionEventsSubscriber implements EventSubscriberInterface
     )
     {}
 
-    public function onAdminCreateDistributionEvent(AdminCreateDistributionEvent $event)
+    public function onAdminCreateDistributionEvent(AdminCreateDistributionEvent $event) : void
     {
         /** @var UploadedFile $file */
         $file = current($event->request->files->get('sms_queue'));

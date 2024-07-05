@@ -21,7 +21,7 @@ class OfferRepository extends ServiceEntityRepository
         parent::__construct($registry, Offer::class);
     }
 
-    public function findOffersForUser(array $excludedIds, ?int $limit)
+    public function findOffersForUser(array $excludedIds, ?int $limit) : array
     {
         $q = $this->createQueryBuilder('offer');
         $q->andWhere('offer.isActive = :is_active')

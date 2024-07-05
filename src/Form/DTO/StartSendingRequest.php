@@ -15,7 +15,7 @@ class StartSendingRequest
     }
 
     /**
-     * @param array $settings
+     * @param string $settings
      */
     public function setSettings(string $settings): void
     {

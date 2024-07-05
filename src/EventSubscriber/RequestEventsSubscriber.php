@@ -15,7 +15,7 @@ class RequestEventsSubscriber implements EventSubscriberInterface
     ){
     }
 
-    public function onRequestEvent(RequestEvent $event)
+    public function onRequestEvent(RequestEvent $event) : void
     {
         if (!$event->isMainRequest()) {
             return;

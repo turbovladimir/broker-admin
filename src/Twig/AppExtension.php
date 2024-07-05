@@ -3,24 +3,15 @@
 namespace App\Twig;
 
 use Detection\MobileDetect;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 class AppExtension extends AbstractExtension
 {
-    private RequestStack $requestStack;
     private MobileDetect $mobileDetector;
-    private ParameterBagInterface $bag;
 
-    public function __construct(
-        ParameterBagInterface $bag,
-        RequestStack $requestStack
-    ) {
-        $this->requestStack = $requestStack;
+    public function __construct() {
         $this->mobileDetector = new MobileDetect();
-        $this->bag = $bag;
     }
 
     public function getFunctions()
