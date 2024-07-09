@@ -32,6 +32,7 @@ class SendingSmsJobRepository extends ServiceEntityRepository
             ->andWhere('sending_sms_job.sendingTime <= :now')
             ->setParameter('status', SendingJobStatus::InQueue)
             ->setParameter('now', new \DateTime())
+            ->orderBy('sending_sms_job.sendingTime', 'ASC')
             ->getQuery()
             ->getResult();
     }

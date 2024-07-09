@@ -4,7 +4,6 @@ namespace App\Command;
 
 use App\Repository\UserAccessRepository;
 use App\Service\Checker\Service;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -12,8 +11,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Address;
 
 #[AsCommand(
     name: 'app:test',
@@ -22,7 +19,6 @@ use Symfony\Component\Mime\Address;
 class TestCommand extends Command
 {
     public function __construct(
-        private MailerInterface $mailer,
         private Service $checkerService,
         private UserAccessRepository $userAccessRepository,
     )
@@ -51,16 +47,19 @@ class TestCommand extends Command
             // ...
         }
 
-//        $this->testCheckers();
-        $this->sendEmail();
+        $this->testCheckers($input, $output);
+        //$this->sendEmail();
         $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
 
         return Command::SUCCESS;
     }
 
-    private function testCheckers()
+    private function testCheckers(InputInterface $input, OutputInterface $output)
     {
-        $result = $this->checkerService->checkPhone('79088715044');
+        $phone = '+79647746693';
+        $result = $this->checkerService->checkPhone($phone);
+        $output->writeln('Check phone: ' . $phone);
+        $output->writeln($result);
 
         return $result;
     }
@@ -70,17 +69,17 @@ class TestCommand extends Command
         $limits = $this->userAccessRepository->findBy(['ip' => '192.168.65.1'], ['addedAt' => 'DESC']);
     }
 
-    private function sendEmail() : void
-    {
-        $email = (new TemplatedEmail())
-            ->from(new Address(
-//                'no-reply@xn--80aafnhi4ae.hhos.ru',
-                'info@zaymirubli.ru',
-                'Zaymirubli mailer'))
-            ->to('sk8.killer@mail.ru')
-            ->subject("Регистрация на сайте")
-            ->htmlTemplate('components/confirmation_email.html.twig');
-
-        $this->mailer->send($email);
-    }
+//    private function sendEmail() : void
+//    {
+//        $email = (new TemplatedEmail())
+//            ->from(new Address(
+////                'no-reply@xn--80aafnhi4ae.hhos.ru',
+//                'info@zaymirubli.ru',
+//                'Zaymirubli mailer'))
+//            ->to('sk8.killer@mail.ru')
+//            ->subject("Регистрация на сайте")
+//            ->htmlTemplate('components/confirmation_email.html.twig');
+//
+//        $this->mailer->send($email);
+//    }
 }

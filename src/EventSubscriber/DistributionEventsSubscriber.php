@@ -8,6 +8,7 @@ use App\Event\AdminCreateDistributionEvent;
 use App\Service\Integration\Client;
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\RequestOptions;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Filesystem\Filesystem;
@@ -18,7 +19,8 @@ final class DistributionEventsSubscriber implements EventSubscriberInterface
     public function __construct(
         private EntityManagerInterface $entityManager,
         private Filesystem $filesystem,
-        private ContainerBagInterface $containerBag
+        private ContainerBagInterface $containerBag,
+        private LoggerInterface $logger
     )
     {}
 
@@ -49,8 +51,19 @@ final class DistributionEventsSubscriber implements EventSubscriberInterface
                 continue;
             }
 
+            preg_match('#\d{10}$#', $row[1], $matches);
+
+            if (empty($matches)) {
+                $this->logger->error('Unexpected phone number in file', ['row' => $row]);
+
+                continue;
+            }
+
+            $phone = '+7' . $matches[0];
+
+
             $this->entityManager->persist(
-                (new Contact($row[1]))
+                (new Contact($phone))
                 ->setName($row[0])
                 ->setQueue($queue)
                 ->setSource(ContactSource::Distribution));

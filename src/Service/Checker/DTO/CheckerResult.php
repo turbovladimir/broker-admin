@@ -19,4 +19,10 @@ class CheckerResult
     {
         return array_map(fn(Offer $offer) => $offer->getId(), $this->excludedOffers);
     }
+
+    public function __toString(): string
+    {
+        return json_encode(array_map(fn(Offer $offer) => "{$offer->getName()} ({$offer->getId()})",
+            $this->excludedOffers), JSON_UNESCAPED_UNICODE);
+    }
 }
