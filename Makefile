@@ -23,4 +23,4 @@ build_beta:
 	docker-compose \
 		-f docker/compose_beta.yaml \
 	up -d
-	docker exec -it c-broker-beta composer install
+	docker exec -it c-broker-beta composer install --no-dev

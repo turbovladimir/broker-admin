@@ -30,30 +30,30 @@ class RedirectController extends AbstractController
         Service $service,
         ContactRepository $repository,
         OfferRepository $offerRepository,
-        LoggerInterface $logger
+        LoggerInterface $smsLogger
     ) : JsonResponse
     {
         $s = $request->getSession();
-        $logger->debug('begin redirect process...');
+        $smsLogger->info('begin redirect process...');
 
         if ($s->has(Session::ContactHash->value)) {
-            $logger->debug('get contact id from session');
+            $smsLogger->info('get contact id from session');
             $contactIdHashed = $s->get(Session::ContactHash->value);
         } else {
             $contactIdHashed = $request->query->get('c');
             $s->set(Session::ContactHash->value, $contactIdHashed);
-            $logger->debug('get contact id from request and store in session', ['contact_hash' => $contactIdHashed]);
+            $smsLogger->info('get contact id from request and store in session', ['contact_hash' => $contactIdHashed]);
         }
 
         $contact = $repository->findOneBy(['contactId' => $contactIdHashed]);
         $redirectUrl = $this->generateUrl('loan_welcome');
 
         if ($contact) {
-            $logger->debug('Contact exist. Register...', ['contact_id' => $contact->getId()]);
+            $smsLogger->info('Contact exist. Register...', ['contact_id' => $contact->getId()]);
 
             $s->set(Session::RegistrationType->value, RegistrationType::Short->value);
             $offer = $offerRepository->find($request->query->get('o'));
-            $logger->debug('Fetch offer', ['offer_id' => $offer?->getId()]);
+            $smsLogger->info('Fetch offer', ['offer_id' => $offer?->getId()]);
 
             $excludeOfferIds = $service
                 ->checkPhone($contact->getPhone(), true)->getExcludeOfferIds();
@@ -61,13 +61,13 @@ class RedirectController extends AbstractController
 
             if ($offer && $offer->isIsActive() && !in_array($offer->getId(), $excludeOfferIds)) {
                 $redirectUrl = str_replace(Macros::ContactId->value, $contactIdHashed, $offer->getUrl());
-                $logger->debug('Use offer for redirection');
+                $smsLogger->info('Use offer for redirection');
             }
 
             $s->set(Session::ExcludeOfferIds->value, $excludeOfferIds);
         }
 
-        $logger->debug('Redirect on', ['redirect_url' => $redirectUrl]);
+        $smsLogger->info('Redirect on', ['redirect_url' => $redirectUrl]);
 
 
         return new JsonResponse(['data' => [

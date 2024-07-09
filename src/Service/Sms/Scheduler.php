@@ -11,6 +11,7 @@ use App\Enums\RedirectType;
 use App\Form\DTO\StartSendingRequest;
 use App\Service\Integration\LinkShortener\LinkShortenerInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class Scheduler
@@ -19,6 +20,7 @@ class Scheduler
         private EntityManagerInterface $entityManager,
         private UrlGeneratorInterface $urlGenerator,
         private LinkShortenerInterface $linkShortener,
+        private LoggerInterface $smsLogger,
         private string $domain
     ){}
 
@@ -47,8 +49,15 @@ class Scheduler
     private function createSms(string $text, Contact $contact, SmsQueue $queue, ?int $offerId) : Sms
     {
         $path = $this->urlGenerator->generate('redirect_view');
-        $url = 'https://' . $this->domain . $path . sprintf('?c=%d&o=%d', $contact->getContactId(), $offerId);
-        $text = str_replace('#url#', $this->linkShortener->shorting($url), $text);
+        $url = 'https://' . $this->domain . $path . sprintf('?c=%s&o=%d', $contact->getContactId(), $offerId);
+        $short = $this->linkShortener->shorting($url);
+        $this->smsLogger->info('Shorting link', [
+            'contact_id' => $contact->getContactId(),
+            'origin' => $url,
+            'short' => $short
+        ]);
+
+        $text = str_replace('#url#', $short, $text);
 
         return (new Sms($text))->setSmsQueue($queue);
     }
