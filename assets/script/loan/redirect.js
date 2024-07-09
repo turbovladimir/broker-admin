@@ -1,4 +1,4 @@
-setTimeout($ => {
+setTimeout(function () {
     $.ajax({
         async: false,
         url: document.URL,
