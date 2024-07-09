@@ -18,7 +18,6 @@ class AccessManager
     public function __construct(
      private EntityManagerInterface $entityManager,
         private LoggerInterface $logger,
-        private RouterInterface $router,
         private string $env
     ){
     }

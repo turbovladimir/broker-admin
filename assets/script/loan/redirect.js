@@ -1,8 +1,7 @@
-console.time("register user");
 $.ajax({
     async: false,
-    url: '/api/user/reg',
-    method: 'GET',
+    url: document.URL,
+    method: 'POST',
 })
     .fail(() => {
         alert('Упс, что то пошло не так.')

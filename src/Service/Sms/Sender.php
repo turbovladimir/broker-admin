@@ -2,10 +2,9 @@
 
 namespace App\Service\Sms;
 
-use App\Entity\SendingJobStatus;
-use App\Entity\SendingSmsJob;
-use App\Service\Rest\Client;
-use App\Service\Rest\Exception\InvalidResponseBodyException;
+use App\Enums\SendingJobStatus;
+use App\Service\Integration\Client;
+use App\Service\Integration\Exception\InvalidResponseBodyException;
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\RequestOptions;
 use Psr\Log\LoggerInterface;

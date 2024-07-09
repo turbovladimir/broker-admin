@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Rest;
+namespace App\Service\Integration;
 
 use GuzzleHttp\Exception\BadResponseException;
 use Psr\Http\Message\ResponseInterface;

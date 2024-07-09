@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Controller\Response\SuggestResponse;
 use App\Entity\Offer;
 use App\Form\OfferType;
 use App\Repository\OfferRepository;
@@ -10,6 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -17,10 +19,24 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/admin/offer', name: 'admin_offer_')]
 class OfferController extends AbstractController
 {
+
+    #[Route('/suggest', name: 'suggest')]
+    public function select(Request $request, OfferRepository $repository): JsonResponse
+    {
+        $query = $request->query->get('query');
+        $offers = $repository->suggestOffers($query);
+
+        return SuggestResponse::create($query, array_map(function (Offer $offer) {
+            return [
+                'value' => sprintf('%s(%d)', $offer->getName(), $offer->getId())
+            ];
+        }, $offers));
+    }
+
     #[Route('/list', name: 'list')]
     public function list(OfferRepository $repository): Response
     {
-        $offers = $repository->findOffersForUser([], null);
+        $offers = $repository->findOffers([], null);
 
         return $this->render('admin/offer/list.html.twig', ['offers' => $offers]);
     }

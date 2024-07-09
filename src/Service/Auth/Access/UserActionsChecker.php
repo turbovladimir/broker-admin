@@ -19,9 +19,9 @@ final class UserActionsChecker
         $type = $s->get(Session::RegistrationType->value);
 
         return match ($type) {
-            RegistrationType::Short->value => $s->has(Session::Contact->value) && $s->has(Session::ExcludeOfferIds->value),
+            RegistrationType::Short->value => $s->has(Session::ContactHash->value) && $s->has(Session::ExcludeOfferIds->value),
             RegistrationType::Long->value =>
-                $s->has(Session::Contact->value) &&
+                $s->has(Session::ContactHash->value) &&
                 $s->has(Session::PhoneVerified->value) &&
                 $s->has(Session::FormPass->value) &&
                 $s->has(Session::ExcludeOfferIds->value),

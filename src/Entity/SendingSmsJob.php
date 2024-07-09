@@ -2,15 +2,11 @@
 
 namespace App\Entity;
 
+use App\Enums\RedirectType;
+use App\Enums\SendingJobStatus;
 use App\Repository\SendingSmsJobRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
-enum SendingJobStatus: string {
-    case InQueue = 'in_queue';
-    case Sent = 'sent';
-    case Error = 'error';
-}
 
 #[ORM\Entity(repositoryClass: SendingSmsJobRepository::class)]
 class SendingSmsJob
@@ -30,6 +26,9 @@ class SendingSmsJob
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $sendingTime = null;
 
+    #[ORM\Column(length: 20, enumType: RedirectType::class)]
+    private ?RedirectType $redirectType;
+
     #[ORM\Column(length: 10, enumType: SendingJobStatus::class)]
     private ?SendingJobStatus $status = SendingJobStatus::InQueue;
 
@@ -43,11 +42,12 @@ class SendingSmsJob
     #[ORM\JoinColumn(nullable: false)]
     private ?SmsQueue $smsQueue = null;
 
-    public function __construct(\DateTime $time, SmsQueue $queue)
+    public function __construct(\DateTime $time, SmsQueue $queue, RedirectType $redirectType)
     {
         $this->addedAt = new \DateTime();
         $this->sendingTime = $time;
         $this->smsQueue = $queue;
+        $this->redirectType = $redirectType;
     }
 
     public function getId(): ?int
@@ -126,6 +126,18 @@ class SendingSmsJob
     public function setSmsQueue(?SmsQueue $smsQueue): static
     {
         $this->smsQueue = $smsQueue;
+
+        return $this;
+    }
+
+    public function getRedirectType(): ?RedirectType
+    {
+        return $this->redirectType;
+    }
+
+    public function setRedirectType(?RedirectType $redirectType): static
+    {
+        $this->redirectType = $redirectType;
 
         return $this;
     }

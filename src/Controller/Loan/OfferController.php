@@ -50,7 +50,7 @@ class OfferController extends AbstractController
             []
         ;
 
-        $offers = $offerRepository->findOffersForUser($excludeOfferIds, self::OFFER_LIMIT_ON_PAGE);
+        $offers = $offerRepository->findOffers($excludeOfferIds, self::OFFER_LIMIT_ON_PAGE);
 
         if (empty($offers)) {
             $logger->warning('Офферы не найдены.');
@@ -58,7 +58,7 @@ class OfferController extends AbstractController
             return [];
         }
 
-        $contactId = $s->get(Session::Contact->value);
+        $contactId = $s->get(Session::ContactHash->value);
 
         if (!$contactId) {
             $logger->warning('Показ офферов без трекинга');

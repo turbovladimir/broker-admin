@@ -22,7 +22,7 @@ class PhoneVerifyJobRepository extends ServiceEntityRepository
         parent::__construct($registry, PhoneVerifyJob::class);
     }
 
-    public function findActiveJob(string $sessionId, string $code, string $phone) : ?PhoneVerifyJob
+    public function findActiveJob(string $sessionId, int $code, string $phone) : ?PhoneVerifyJob
     {
         $qb = $this->createQueryBuilder('phone_verify_job');
 

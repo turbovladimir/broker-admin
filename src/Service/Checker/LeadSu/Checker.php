@@ -7,7 +7,7 @@ use App\Repository\OfferCheckerRelationRepository;
 use App\Service\BaseChecker;
 use App\Service\Checker\CheckerInterface;
 use App\Service\Checker\DTO\CheckerResult;
-use App\Service\Rest\Client;
+use App\Service\Integration\Client;
 use GuzzleHttp\RequestOptions;
 use Psr\Log\LoggerInterface;
 

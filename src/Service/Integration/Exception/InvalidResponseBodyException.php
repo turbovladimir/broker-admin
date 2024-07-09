@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Rest\Exception;
+namespace App\Service\Integration\Exception;
 
 class InvalidResponseBodyException extends \Exception
 {

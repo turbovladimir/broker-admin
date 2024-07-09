@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Offer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -21,7 +22,19 @@ class OfferRepository extends ServiceEntityRepository
         parent::__construct($registry, Offer::class);
     }
 
-    public function findOffersForUser(array $excludedIds, ?int $limit) : array
+    public function suggestOffers(string $substr) : array
+    {
+        $qb =  $this->createQueryBuilder('offer');
+        $substr = strtolower($substr);
+
+        return $qb->where($qb->expr()->like('LOWER(offer.name)',
+            $qb
+        ->expr()->literal("%{$substr}%")))
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findOffers(array $excludedIds, ?int $limit) : array
     {
         $q = $this->createQueryBuilder('offer');
         $q->andWhere('offer.isActive = :is_active')

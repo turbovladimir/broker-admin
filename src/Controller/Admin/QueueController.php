@@ -2,24 +2,20 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Contact;
-use App\Enums\QueueStatus;
-use App\Entity\SendingSmsJob;
-use App\Entity\Sms;
+use App\Entity\Offer;
 use App\Entity\SmsQueue;
 use App\Event\AdminCreateDistributionEvent;
 use App\Form\DTO\StartSendingRequest;
 use App\Form\SmsQueueType;
 use App\Form\StartSendingType;
+use App\Repository\OfferRepository;
 use App\Repository\SmsQueueRepository;
 use App\Service\Sms\Scheduler;
-use Doctrine\ORM\EntityManagerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 #[Route('/admin/sms', name: 'admin_sms_')]
 class QueueController extends AbstractController
@@ -55,7 +51,8 @@ class QueueController extends AbstractController
     public function queueStart(
         SmsQueue $queue,
         Request $request,
-        Scheduler $scheduler
+        Scheduler $scheduler,
+        OfferRepository $offerRepository
     ) : Response
     {
         $dto = new StartSendingRequest($queue);
@@ -68,9 +65,12 @@ class QueueController extends AbstractController
             return $this->redirectToRoute('admin_sms_queues_list');
         }
 
+        $offers = $offerRepository->findOffers([], null);
+
         return $this->render('@admin/sms/queue/start.html.twig', [
             'queue' => $queue,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'offers' => $offers
         ]);
     }
 

@@ -5,7 +5,7 @@ namespace App\Service\Checker;
 use App\Form\Exception\ClientErrorAwareInterface;
 use App\Service\Checker\DTO\CheckerResult;
 use App\Service\Checker\Dupe\DupePhoneException;
-use App\Service\Rest\Exception\InvalidResponseBodyException;
+use App\Service\Integration\Exception\InvalidResponseBodyException;
 use GuzzleHttp\Exception\BadResponseException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\Attribute\TaggedIterator;

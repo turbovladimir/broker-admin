@@ -5,6 +5,7 @@ namespace App\Service\Auth;
 use App\Controller\Session;
 use App\Entity\Contact;
 use App\Entity\PhoneVerifyJob;
+use App\Repository\PhoneVerifyJobRepository;
 use App\Service\Auth\DTO\VerifyCodeRequest;
 use App\Service\Auth\Exception\PhoneVerify\ExpiredCodeException;
 use App\Service\Auth\Exception\PhoneVerify\NotFoundCodeException;
@@ -17,6 +18,7 @@ class PhoneVerifier
     public function __construct(
         private Sender                 $smsSender,
         private EntityManagerInterface $entityManager,
+        private PhoneVerifyJobRepository $phoneVerifyJobRepository,
         private LoggerInterface        $smsLogger,
         private string                 $env
     ){}
@@ -60,7 +62,7 @@ class PhoneVerifier
         $s = $request->getSession();
 
         /** @var PhoneVerifyJob $job */
-        $job = $this->entityManager->getRepository(PhoneVerifyJob::class)->findActiveJob(
+        $job = $this->phoneVerifyJobRepository->findActiveJob(
             $s->getId(),
             $request->getCode(),
             $request->getPhone()
@@ -80,7 +82,7 @@ class PhoneVerifier
         $this->entityManager->flush();
 
         $s->set(Session::PhoneVerified->value, true);
-        $s->set(Session::Contact->value, $c->getContactId());
+        $s->set(Session::ContactHash->value, $c->getContactId());
 
         return true;
     }

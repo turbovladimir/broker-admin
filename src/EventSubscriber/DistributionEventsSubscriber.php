@@ -5,7 +5,7 @@ namespace App\EventSubscriber;
 use App\Entity\Contact;
 use App\Enums\ContactSource;
 use App\Event\AdminCreateDistributionEvent;
-use App\Service\Rest\Client;
+use App\Service\Integration\Client;
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\RequestOptions;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;

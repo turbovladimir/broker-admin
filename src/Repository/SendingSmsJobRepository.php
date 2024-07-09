@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\SendingJobStatus;
+use App\Enums\SendingJobStatus;
 use App\Entity\SendingSmsJob;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
