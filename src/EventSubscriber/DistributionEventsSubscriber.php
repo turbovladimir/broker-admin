@@ -44,6 +44,8 @@ final class DistributionEventsSubscriber implements EventSubscriberInterface
             throw new \RuntimeException(sprintf('Не удается получить доступ к файлу `%s`', $filePath));
         }
 
+        $n = 1;
+
         while ($row = fgetcsv($handle)) {
             if (!isset($isFirstRow)) {
                 $isFirstRow = true;
@@ -51,12 +53,15 @@ final class DistributionEventsSubscriber implements EventSubscriberInterface
                 continue;
             }
 
+            if (empty($row)) {
+                throw new \RuntimeException(sprintf('Не удалось распарсить файл'));
+
+            }
+
             preg_match('#\d{10}$#', $row[1], $matches);
 
             if (empty($matches)) {
-                $this->logger->error('Unexpected phone number in file', ['row' => $row]);
-
-                continue;
+                throw new \RuntimeException(sprintf('Не удалось распарсить телефон! Строка `%s`(%d)', implode(',', $row), $n));
             }
 
             $phone = '+7' . $matches[0];
@@ -67,6 +72,8 @@ final class DistributionEventsSubscriber implements EventSubscriberInterface
                 ->setName($row[0])
                 ->setQueue($queue)
                 ->setSource(ContactSource::Distribution));
+
+            $n++;
         }
 
         fclose($handle);
