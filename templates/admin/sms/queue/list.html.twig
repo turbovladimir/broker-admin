@@ -6,13 +6,13 @@
 {% block card_body %}
     <div class="row row-cols-1 justify-content-center w-50">
         {% if queues is empty %}
-            <h5>Здесь скоро появятся рассылки, как только вы их создадите</h5>
+            <h5>Здесь скоро появятся рассылки, как только вы wих создадите</h5>
         {% else %}
             {% for queue in queues %}
-                {% if queue.status == 'В процессе' or queue.status == 'Новая' %}
-                    {% set queue_status = 'btn-secondary' %}
-                {% elseif queue.status == 'Отправлено' %}
+                {% if queue.status == 'Отправлено' %}
                     {% set queue_status = 'btn-success' %}
+                {% else  %}
+                    {% set queue_status = 'btn-secondary' %}
                     {% endif %}
                 <div class="col mt-1 queue_row row">
                     <div class="col-auto">

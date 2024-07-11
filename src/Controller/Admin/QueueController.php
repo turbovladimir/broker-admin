@@ -2,15 +2,16 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Offer;
+use App\Entity\DistributionJob;
 use App\Entity\SmsQueue;
+use App\Enums\QueueStatus;
 use App\Event\AdminCreateDistributionEvent;
 use App\Form\DTO\StartSendingRequest;
 use App\Form\SmsQueueType;
 use App\Form\StartSendingType;
 use App\Repository\OfferRepository;
 use App\Repository\SmsQueueRepository;
-use App\Service\Sms\Scheduler;
+use Doctrine\ORM\EntityManagerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -51,7 +52,7 @@ class QueueController extends AbstractController
     public function queueStart(
         SmsQueue $queue,
         Request $request,
-        Scheduler $scheduler,
+        EntityManagerInterface $entityManager,
         OfferRepository $offerRepository
     ) : Response
     {
@@ -60,7 +61,14 @@ class QueueController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $scheduler->makeDistribution($dto);
+            $dist = new DistributionJob();
+            $dist
+                ->setQueue($queue)
+                ->setSettings($dto->getSettings())
+                ->setAddedAt(new \DateTime());
+            $entityManager->persist($queue->setStatus(QueueStatus::Adjusted));
+            $entityManager->persist($dist);
+            $entityManager->flush();
 
             return $this->redirectToRoute('admin_sms_queues_list');
         }

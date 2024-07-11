@@ -42,12 +42,13 @@ class SendingSmsJob
     #[ORM\JoinColumn(nullable: false)]
     private ?SmsQueue $smsQueue = null;
 
-    public function __construct(\DateTime $time, SmsQueue $queue, RedirectType $redirectType)
+    public function __construct(\DateTime $time, SmsQueue $queue, Contact $contact, RedirectType $redirectType)
     {
         $this->addedAt = new \DateTime();
         $this->sendingTime = $time;
         $this->smsQueue = $queue;
         $this->redirectType = $redirectType;
+        $this->setContact($contact);
     }
 
     public function getId(): ?int

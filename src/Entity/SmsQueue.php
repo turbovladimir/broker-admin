@@ -37,6 +37,9 @@ class SmsQueue
     #[ORM\OneToMany(targetEntity: Contact::class, mappedBy: 'queue')]
     private Collection $contacts;
 
+    #[ORM\OneToOne(mappedBy: 'queue', cascade: ['persist', 'remove'])]
+    private ?DistributionJob $distributionJob = null;
+
     public function __construct()
     {
         $this->jobs = new ArrayCollection();
@@ -176,6 +179,28 @@ class SmsQueue
                 $contact->setQueue(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDistributionJob(): ?DistributionJob
+    {
+        return $this->distributionJob;
+    }
+
+    public function setDistributionJob(?DistributionJob $distributionJob): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($distributionJob === null && $this->distributionJob !== null) {
+            $this->distributionJob->setQueue(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($distributionJob !== null && $distributionJob->getQueue() !== $this) {
+            $distributionJob->setQueue($this);
+        }
+
+        $this->distributionJob = $distributionJob;
 
         return $this;
     }

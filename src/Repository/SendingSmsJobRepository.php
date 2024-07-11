@@ -25,7 +25,7 @@ class SendingSmsJobRepository extends ServiceEntityRepository
     /**
      * @return SendingSmsJob[]
      */
-    public function findEnqueuedJobs() : array
+    public function findEnqueuedJobs(int $limit) : array
     {
         return $this->createQueryBuilder('sending_sms_job')
             ->where('sending_sms_job.status = :status')
@@ -33,6 +33,7 @@ class SendingSmsJobRepository extends ServiceEntityRepository
             ->setParameter('status', SendingJobStatus::InQueue)
             ->setParameter('now', new \DateTime())
             ->orderBy('sending_sms_job.sendingTime', 'ASC')
+            ->setMaxResults($limit)
             ->getQuery()
             ->getResult();
     }

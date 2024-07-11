@@ -32,6 +32,7 @@ class SmsQueueRepository extends ServiceEntityRepository
             from sms_queue q
             left join public.sending_sms_job ssj on q.id = ssj.sms_queue_id
             group by q.id
+            order by q.id desc 
             ;
         ";
         return $this->getEntityManager()->getConnection()->fetchAllAssociative($sql);

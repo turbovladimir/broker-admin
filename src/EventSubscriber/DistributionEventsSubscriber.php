@@ -5,9 +5,7 @@ namespace App\EventSubscriber;
 use App\Entity\Contact;
 use App\Enums\ContactSource;
 use App\Event\AdminCreateDistributionEvent;
-use App\Service\Integration\Client;
 use Doctrine\ORM\EntityManagerInterface;
-use GuzzleHttp\RequestOptions;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -46,7 +44,7 @@ final class DistributionEventsSubscriber implements EventSubscriberInterface
 
         $n = 1;
 
-        while ($row = fgetcsv($handle)) {
+        while ($row = fgetcsv($handle, null , ';')) {
             if (!isset($isFirstRow)) {
                 $isFirstRow = true;
 
