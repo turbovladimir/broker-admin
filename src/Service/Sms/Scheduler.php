@@ -10,7 +10,6 @@ use App\Enums\RedirectType;
 use App\Enums\SendingJobStatus;
 use App\Service\Integration\LinkShortener\LinkShortenerInterface;
 use Doctrine\ORM\EntityManagerInterface;
-use GuzzleHttp\Exception\ClientException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -29,20 +28,30 @@ class Scheduler
         $settings = $distributionJob->getSettings();
         $queue = $distributionJob->getQueue();
 
+        $this->entityManager->persist($queue->setStatus(QueueStatus::InProcess));
+        $this->entityManager->flush();
+
         foreach ($settings as $setting) {
             $offerId =  !is_null($setting['offer_id']) ?  (int)$setting['offer_id'] : null;
             $redirectType = $offerId ? RedirectType::ON_OFFER : RedirectType::ON_SHOWCASE;
+            $time = \DateTime::createFromFormat('d.m.Y H:i', $setting['sending_time']);
 
-            foreach ($queue->getContacts()->toArray() as $contact) {
-                $time = \DateTime::createFromFormat('d.m.Y H:i', $setting['sending_time']);
-                $sendingJob = new SendingSmsJob($time, $queue, $contact, $redirectType);
-                $this->createSms($sendingJob, $setting['message'], $offerId);
-                $this->entityManager->persist($sendingJob);
+            $offset = 0;
+            $len = 200;
+
+            while (
+                !empty($contactsButch = $queue->getContacts()->slice($offset, $len))
+            ) {
+                foreach ($contactsButch as $contact) {
+                    $sendingJob = new SendingSmsJob($time, $queue, $contact, $redirectType);
+                    $this->createSms($sendingJob, $setting['message'], $offerId);
+                    $this->entityManager->persist($sendingJob);
+                }
+
+                $offset += $len;
+                $this->entityManager->flush();
             }
         }
-
-        $this->entityManager->persist($queue->setStatus(QueueStatus::InProcess));
-        $this->entityManager->flush();
     }
 
     private function createSms(SendingSmsJob $sendingSmsJob, string $text, ?int $offerId) : void
@@ -51,23 +60,18 @@ class Scheduler
         $queue = $sendingSmsJob->getSmsQueue();
         $path = $this->urlGenerator->generate('redirect_view');
         $url = 'https://' . $this->domain . $path . sprintf('?c=%s&o=%d', $contact->getContactId(), $offerId);
+        $time = microtime(true);
+        $short = $this->linkShortener->shorting($url);
 
-        try {
-            $time = microtime(true);
-            $short = $this->linkShortener->shorting($url);
-        } catch (ClientException $exception) {
+        $this->smsLogger->info('Shorting link', [
+            'contact_id' => $contact->getContactId(),
+            'origin' => $url,
+            'short' => $short ?? null,
+            'spent_milisecs' => round(microtime(true) - $time, 5)
+        ]);
 
-        } finally {
-            $this->smsLogger->info('Shorting link', [
-                'contact_id' => $contact->getContactId(),
-                'origin' => $url,
-                'short' => $short ?? null,
-                'spent_milisecs' => round(microtime(true) - $time, 5)
-            ]);
-
-            $text = str_replace('#url#', $short ?? $url, $text);
-            $sms = (new Sms($text))->setSmsQueue($queue);
-        }
+        $text = str_replace('#url#', $short ?? $url, $text);
+        $sms = (new Sms($text))->setSmsQueue($queue);
 
 
         $sendingSmsJob

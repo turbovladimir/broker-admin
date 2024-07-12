@@ -1,0 +1,2 @@
+services:
+  App\Service\Sms\SenderInterface: '@App\Service\Sms\SenderStub'

@@ -58,6 +58,9 @@ services:
         tags:
             - {name: 'phone_checker', priority: 0}
 
+    App\Service\Integration\LinkShortener\LinkShortenerInterface: '@App\Service\Integration\LinkShortener\LinkShortener'
+    App\Service\Sms\SenderInterface: '@App\Service\Sms\Sender'
+
     App\Service\Sms\Sender:
         arguments:
             $credentals: {user: '%env(SMS_BEELINE_USER)%', password: '%env(SMS_BEELINE_PASSWORD)%'}

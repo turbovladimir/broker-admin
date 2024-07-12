@@ -2,14 +2,13 @@
 
 namespace App\Service\Sms;
 
-use App\Enums\SendingJobStatus;
 use App\Service\Integration\Client;
 use App\Service\Integration\Exception\InvalidResponseBodyException;
 use Doctrine\ORM\EntityManagerInterface;
 use GuzzleHttp\RequestOptions;
 use Psr\Log\LoggerInterface;
 
-class Sender
+class Sender implements SenderInterface
 {
 
     /**
@@ -21,39 +20,7 @@ class Sender
     public function __construct(
         private Client $client,
         private array $credentals,
-        private EntityManagerInterface $entityManager,
-        private LoggerInterface $smsLogger
     ){}
-
-    public function massSending(array $jobs) : void
-    {
-        foreach ($jobs as $job) {
-            $phone = $job->getContact()->getPhone();
-            $message = $job->getSms()->getMessage();
-            $this->smsLogger->info('Lets do another great job...', ['job' => [
-                'id' => $job->getId(),
-                'phone' => $phone,
-                'message' => $message
-            ]]);
-
-            try {
-                $this->send([$phone], $message);
-            } catch (\Throwable $exception) {
-                $this->smsLogger->warning($exception->getMessage());
-                $this->entityManager->persist(
-                    $job->setStatus(SendingJobStatus::Error)
-                    ->setErrorText($exception->getMessage())
-                );
-
-                continue;
-            }
-
-            $this->smsLogger->info('Sir, job is done!');
-            $this->entityManager->persist($job->setStatus(SendingJobStatus::Sent));
-        }
-
-        $this->entityManager->flush();
-    }
 
     public function send(array $phones, string $message): void
     {

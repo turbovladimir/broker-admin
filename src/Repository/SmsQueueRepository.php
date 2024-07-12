@@ -2,7 +2,6 @@
 
 namespace App\Repository;
 
-use App\Entity\SendingSmsJob;
 use App\Entity\SmsQueue;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -46,8 +45,10 @@ class SmsQueueRepository extends ServiceEntityRepository
             where id in (
             select q.id
             from sms_queue q
-                join public.sending_sms_job ssj on q.id = ssj.sms_queue_id and ssj.status = 'sent'
-                group by q.id
+         join public.sending_sms_job ssj on q.id = ssj.sms_queue_id
+        group by q.id
+        HAVING count(case when ssj.status = 'sent' then 1 end) > 0
+        and count(case when ssj.status = 'in_queue' then 1 end) = 0
             );
         ";
         $this->getEntityManager()->getConnection()->executeQuery($sql);

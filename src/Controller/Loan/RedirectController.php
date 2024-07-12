@@ -8,6 +8,7 @@ use App\Enums\Macros;
 use App\Enums\RegistrationType;
 use App\Repository\ContactRepository;
 use App\Repository\OfferRepository;
+use App\Repository\ShortLinkRepository;
 use App\Service\Checker\Service;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,6 +19,19 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class RedirectController extends AbstractController
 {
+
+    #[Route('s/{hash}', name: 'short_link_redirect', methods: ['GET'])]
+    public function shortLinkRedirect(ShortLinkRepository $linkRepository, string $hash) : Response
+    {
+        $link = $linkRepository->findOneBy(['hashId' => $hash]);
+
+        if (!$link) {
+            return $this->redirectToRoute('loan_welcome');
+        }
+
+        return $this->redirect($link->getOrigin());
+    }
+
     #[Route('r', name: 'redirect_view', methods: ['GET'])]
     public function redirectView() : Response
     {
