@@ -21,6 +21,16 @@ class ShortLinkRepository extends ServiceEntityRepository
         parent::__construct($registry, ShortLink::class);
     }
 
+    public function getUsedHashes() : array
+    {
+        return array_column($this->getEntityManager()->getConnection()
+            ->fetchAllAssociative('
+            select hash_id
+                from short_link;
+            '), 'hash_id');
+
+    }
+
     //    /**
     //     * @return ShortLink[] Returns an array of ShortLink objects
     //     */

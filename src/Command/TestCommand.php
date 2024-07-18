@@ -4,6 +4,7 @@ namespace App\Command;
 
 use App\Repository\UserAccessRepository;
 use App\Service\Checker\Service;
+use App\Service\Integration\LinkShortener\LinkShortener;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -21,6 +22,7 @@ class TestCommand extends Command
     public function __construct(
         private Service $checkerService,
         private UserAccessRepository $userAccessRepository,
+        private LinkShortener $linkShortener
     )
     {
         parent::__construct();
@@ -47,7 +49,9 @@ class TestCommand extends Command
             // ...
         }
 
-        $this->testCheckers($input, $output);
+        $this->testShortiner();
+
+//        $this->testCheckers($input, $output);
         //$this->sendEmail();
         $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
 
@@ -62,6 +66,13 @@ class TestCommand extends Command
         $output->writeln($result);
 
         return $result;
+    }
+
+    private function testShortiner()
+    {
+        $s = $this->linkShortener->shorting('https://url.com');
+
+        return $s;
     }
 
     private function testIpLimit() : void

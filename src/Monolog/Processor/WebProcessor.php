@@ -26,7 +26,8 @@ class WebProcessor implements ProcessorInterface
                     'uri' => $currentRequest->getUri(),
                     'method' => $currentRequest->getMethod(),
                     'query' => $currentRequest->query->all(),
-                    'post_data' => $currentRequest->request->all()
+                    'post_data' => $currentRequest->request->all(),
+                    'user_agent' => $currentRequest->headers->get('User-Agent') ?? null
                 ]
             ];
         }

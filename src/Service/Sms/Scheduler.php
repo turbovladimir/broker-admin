@@ -42,14 +42,18 @@ class Scheduler
             while (
                 !empty($contactsButch = $queue->getContacts()->slice($offset, $len))
             ) {
-                foreach ($contactsButch as $contact) {
-                    $sendingJob = new SendingSmsJob($time, $queue, $contact, $redirectType);
-                    $this->createSms($sendingJob, $setting['message'], $offerId);
-                    $this->entityManager->persist($sendingJob);
-                }
+                try {
+                    foreach ($contactsButch as $contact) {
+                        $sendingJob = new SendingSmsJob($time, $queue, $contact, $redirectType);
+                        $this->createSms($sendingJob, $setting['message'], $offerId);
+                        $this->entityManager->persist($sendingJob);
+                    }
 
-                $offset += $len;
-                $this->entityManager->flush();
+                    $offset += $len;
+                    $this->entityManager->flush();
+                } catch (\Throwable $exception) {
+
+                }
             }
         }
     }

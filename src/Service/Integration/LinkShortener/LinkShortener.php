@@ -5,6 +5,7 @@ namespace App\Service\Integration\LinkShortener;
 use App\Entity\ShortLink;
 use App\Repository\ShortLinkRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class LinkShortener implements LinkShortenerInterface
@@ -17,26 +18,38 @@ class LinkShortener implements LinkShortenerInterface
     ];
 
     private array $usedHashes = [];
+    private int $recursionTimes = 0;
 
     public function __construct(
         private EntityManagerInterface $entityManager,
         private ShortLinkRepository    $linkRepository,
-        private UrlGeneratorInterface  $urlGenerator
+        private UrlGeneratorInterface  $urlGenerator,
+        private LoggerInterface $logger
     )
     {}
 
     public function shorting(string $url): string
     {
+        $this->recursionTimes = 0;
+        $this->syncUsedHashes();
         $hash = $this->generateHash();
         $link = new ShortLink($url, $hash);
 
-//        if ($this->linkRepository->count(['hashId' => $hash])) {
-//            return $this->shorting($url);
-//        }
-
         $this->entityManager->persist($link);
 
+        if ($this->recursionTimes > 5) {
+            $this->logger->warning('Большое число пересичений хеша', ['recursion_times' => $this->recursionTimes]);
+        }
+
+
         return 'https://zmrb.ru' . $this->urlGenerator->generate('short_link_redirect', ['hash' => $hash]);
+    }
+
+    private function syncUsedHashes() : void
+    {
+        if (empty($this->usedHashes)) {
+            $this->usedHashes = $this->linkRepository->getUsedHashes();
+        }
     }
 
     private function generateHash() : string
@@ -53,6 +66,8 @@ class LinkShortener implements LinkShortenerInterface
         }
 
         if (in_array($hash, $this->usedHashes)) {
+            $this->recursionTimes++;
+
             return $this->generateHash();
         }
 

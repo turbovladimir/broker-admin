@@ -96,7 +96,7 @@ a {
 }
 
 .gradient-green {
-    background-image: linear-gradient(to right, #008FD2 0%, #00A02B 51%, #00A02B 100%);
+    background-image: linear-gradient(to right, #00aeff 0%, #00bd33 51%, #00A02B 100%);
     /*background-image: linear-gradient(to right, #84fab0 0%, #8fd3f4 51%, #84fab0 100%);*/
 }
 

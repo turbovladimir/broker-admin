@@ -67,7 +67,7 @@ final class DistributionEventsSubscriber implements EventSubscriberInterface
 
             $this->entityManager->persist(
                 (new Contact($phone))
-                ->setName($row[0])
+                ->setName('Вася Пупкин')
                 ->setQueue($queue)
                 ->setSource(ContactSource::Distribution));
 

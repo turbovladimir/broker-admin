@@ -123,6 +123,7 @@ when@prod:
                 channel: "%env(MONOLOG_TELEGRAM_CHANNEL)%"
                 split_long_messages: true
                 delay_between_messages: true
+                level: error
             rest:
                 type: rotating_file
                 max_files: 4
