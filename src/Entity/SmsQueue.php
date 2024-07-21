@@ -141,6 +141,11 @@ class SmsQueue
         return $this;
     }
 
+    public function getFileName() : ?string
+    {
+        return  basename($this->filePath);
+    }
+
     public function getFilePath(): ?string
     {
         return $this->filePath;

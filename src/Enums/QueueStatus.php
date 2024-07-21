@@ -7,4 +7,5 @@ enum QueueStatus: string {
     case Adjusted = 'Настроена';
     case InProcess = 'В процессе';
     case Sent = 'Отправлено';
+    case Stop = 'Остановлена';
 }

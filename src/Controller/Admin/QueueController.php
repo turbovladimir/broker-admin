@@ -3,8 +3,10 @@
 namespace App\Controller\Admin;
 
 use App\Entity\DistributionJob;
+use App\Entity\SendingSmsJob;
 use App\Entity\SmsQueue;
 use App\Enums\QueueStatus;
+use App\Enums\SendingJobStatus;
 use App\Event\AdminCreateDistributionEvent;
 use App\Form\DTO\StartSendingRequest;
 use App\Form\SmsQueueType;
@@ -46,6 +48,18 @@ class QueueController extends AbstractController
         return $this->render('@admin/sms/queue/create.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    #[Route('/q/stop/{queue}', name: 'queue_stop')]
+    public function queueStop(SmsQueue $queue, EntityManagerInterface $entityManager) : Response
+    {
+        $queue
+            ->setStatus(QueueStatus::Stop)
+            ->getJobs()->map(fn(SendingSmsJob $job) => $job->setStatus(SendingJobStatus::Stopped));
+        $entityManager->persist($queue);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('admin_sms_queues_list');
     }
 
     #[Route('/q/start/{queue}', name: 'queue_start')]

@@ -33,7 +33,7 @@ final class Version20240629155849 extends AbstractMigration
         $this->addSql('CREATE TABLE sms (id INT NOT NULL, job_id INT NOT NULL, sms_queue_id INT NOT NULL, added_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, message VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_B0A93A77BE04EA9 ON sms (job_id)');
         $this->addSql('CREATE INDEX IDX_B0A93A77218D7AAF ON sms (sms_queue_id)');
-        $this->addSql('CREATE TABLE sms_queue (id INT NOT NULL, added_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, status VARCHAR(10) NOT NULL, file_path VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE sms_queue (id INT NOT NULL, added_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, status VARCHAR(20) NOT NULL, file_path VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('ALTER TABLE contact ADD CONSTRAINT FK_4C62E638477B5BAE FOREIGN KEY (queue_id) REFERENCES sms_queue (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE sending_sms_job ADD CONSTRAINT FK_71128A5E7A1254A FOREIGN KEY (contact_id) REFERENCES contact (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE sending_sms_job ADD CONSTRAINT FK_71128A5218D7AAF FOREIGN KEY (sms_queue_id) REFERENCES sms_queue (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
