@@ -43,6 +43,7 @@ final class DistributionEventsSubscriber implements EventSubscriberInterface
         }
 
         $n = 1;
+        $phones = [];
 
         while ($row = fgetcsv($handle, null , ';')) {
             if (!isset($isFirstRow)) {
@@ -64,6 +65,10 @@ final class DistributionEventsSubscriber implements EventSubscriberInterface
 
             $phone = '+7' . $matches[0];
 
+            //skip dupes
+            if (in_array($phone, $phones)) {
+                continue;
+            }
 
             $this->entityManager->persist(
                 (new Contact($phone))
@@ -71,6 +76,7 @@ final class DistributionEventsSubscriber implements EventSubscriberInterface
                 ->setQueue($queue)
                 ->setSource(ContactSource::Distribution));
 
+            $phones[] = $phone;
             $n++;
         }
 
