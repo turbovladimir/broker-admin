@@ -94,7 +94,7 @@ class Contact
 
     public function generateContactId(): void
     {
-        $contactId =    substr(md5($this->getPhone() . $this->addedAt->getTimestamp()), 0, 15);
+        $contactId =    substr(md5($this->getPhone() . $this->addedAt->getTimestamp()), 0, 45);
         $this->contactId = $contactId;
     }
 
